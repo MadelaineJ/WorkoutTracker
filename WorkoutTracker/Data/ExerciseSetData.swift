@@ -11,20 +11,35 @@ import CoreData
 class ExerciseSetData {
     
     static let controller = ExerciseSetData()
+    var dataManager = DataManager.shared  // Changed from 'let' to 'var' for dependency injection.
     
+    // Default initializer which uses the shared DataManager instance
+    init() {
+
+    }
     
-    let viewContext =  DataManager.shared.viewContext
+
+    func createExerciseSet(_ exerciseSetInfo: ExerciseSetInfo) {
+        let exerciseSet = ExerciseSet(context: dataManager.viewContext)
+        exerciseSet.creationTime = exerciseSetInfo.creationTime
+        exerciseSet.weight = exerciseSetInfo.weight
+        exerciseSet.reps = exerciseSetInfo.reps
+
+        dataManager.save()
+    }
     
-    
-    private init() {
-        
+    func updateExerciseSet(existingExerciseSet: ExerciseSet, with newInfo: ExerciseSetInfo) {
+        existingExerciseSet.creationTime = newInfo.creationTime
+        existingExerciseSet.weight = newInfo.weight
+        existingExerciseSet.reps = newInfo.reps
+        dataManager.save()
     }
     
     func getAllSets() -> [ExerciseSet] {
         let request: NSFetchRequest<ExerciseSet> = ExerciseSet.fetchRequest()
         
         do {
-            return try viewContext.fetch(request)
+            return try dataManager.viewContext.fetch(request)
         } catch {
             return []
         }
@@ -34,17 +49,18 @@ class ExerciseSetData {
     func getSetById(id: NSManagedObjectID) -> ExerciseSet? {
         
         do {
-            return try viewContext.existingObject(with: id) as? ExerciseSet
+            let exerciseSet = try dataManager.viewContext.existingObject(with: id) as? ExerciseSet
+            return exerciseSet
         } catch {
             return nil
         }
        
     }
     
-    func deleteSet(set: ExerciseSet) {
-        viewContext.delete(set)
+    func deleteSet(exerciseSet: ExerciseSet) {
+        dataManager.viewContext.delete(exerciseSet)
         do {
-            try viewContext.save()
+            try dataManager.viewContext.save()
         } catch {
             print(error.localizedDescription)
         }
@@ -52,17 +68,3 @@ class ExerciseSetData {
     }
     
 }
-    // view
-
-    // get all sets (should really return based on exercise but good enough for now
-
-
-
-
-    // create
-
-
-    // update
-
-
-    // delete

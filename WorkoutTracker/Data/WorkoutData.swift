@@ -8,20 +8,33 @@
 import CoreData
 
 class WorkoutData {
+
     static let controller = WorkoutData()
+    var dataManager = DataManager.shared
     
-    let viewContext =  DataManager.shared.viewContext
+    // Enforces singleton implementation
+    private init() {}
     
+    func createWorkout(_ workoutInfo: WorkoutInfo) {
+        let workout = Workout(context: dataManager.viewContext)
+        workout.creationTime = workoutInfo.creationTime
+        workout.type = workoutInfo.type
+
+        dataManager.save()
+    }
     
-    private init() {
-        
+    func updateWorkout(existingWorkout: Workout, with newInfo: WorkoutInfo) {
+        existingWorkout.creationTime = newInfo.creationTime
+        existingWorkout.type = newInfo.type
+
+        dataManager.save()
     }
     
     func getAllWorkouts() -> [Workout] {
         let request: NSFetchRequest<Workout> = Workout.fetchRequest()
         
         do {
-            return try viewContext.fetch(request)
+            return try dataManager.viewContext.fetch(request)
         } catch {
             return []
         }
@@ -30,16 +43,16 @@ class WorkoutData {
     func getWorkoutById(id: NSManagedObjectID) -> Workout? {
         
         do {
-            return try viewContext.existingObject(with: id) as? Workout
+            return try dataManager.viewContext.existingObject(with: id) as? Workout
         } catch {
             return nil
         }
     }
     
     func deleteWorkout(workout: Workout) {
-        viewContext.delete(workout)
+        dataManager.viewContext.delete(workout)
         do {
-            try viewContext.save()
+            try dataManager.viewContext.save()
         } catch {
             print(error.localizedDescription)
         }

@@ -15,12 +15,19 @@ class ExerciseViewModel: ObservableObject {
     var name = ""
     @Published var exercises: [ExerciseModel] = []
     
-    func save() {
+    func createExercise() {
         let exercise = Exercise(context: DataManager.shared.persistentContainer.viewContext)
         exercise.creationTime = Date()
         exercise.name = name
         
         DataManager.shared.save()
+    }
+    
+    func update(exercise: ExerciseModel, withNewInfo newInfo: ExerciseInfo) {
+        let existingExercise = controller.getExerciseById(id: exercise.id)
+        if let existingExercise = existingExercise {
+            controller.updateExercise(existingExercise: existingExercise, with: newInfo)
+        }
     }
     
     func getAllExercises() {
@@ -36,11 +43,20 @@ class ExerciseViewModel: ObservableObject {
     }
 }
 
+struct ExerciseInfo {
+    let creationTime: Date
+    let name: String
+}
+
 struct ExerciseModel {
     let exercise: Exercise
     
     var id: NSManagedObjectID {
         return exercise.objectID
+    }
+    
+    var creationTime: Date {
+        return exercise.creationTime ?? Date()
     }
     
     var name: String {
