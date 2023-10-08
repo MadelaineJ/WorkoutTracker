@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2702F25D2AD23C990080E099 /* Set+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2702F2572AD23C990080E099 /* Set+CoreDataClass.swift */; };
+		2702F25F2AD23C990080E099 /* Exercise+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2702F2592AD23C990080E099 /* Exercise+CoreDataClass.swift */; };
+		2702F2612AD23C990080E099 /* Workout+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2702F25B2AD23C990080E099 /* Workout+CoreDataClass.swift */; };
+		2702F2852AD23F5C0080E099 /* Set+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2702F2832AD23F5C0080E099 /* Set+CoreDataClass.swift */; };
 		27077BA52AAE49D90024F035 /* WorkoutTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27077BA42AAE49D90024F035 /* WorkoutTrackerApp.swift */; };
 		27077BA72AAE49D90024F035 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27077BA62AAE49D90024F035 /* ContentView.swift */; };
 		27077BA92AAE49DA0024F035 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27077BA82AAE49DA0024F035 /* Assets.xcassets */; };
 		27077BAC2AAE49DA0024F035 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27077BAB2AAE49DA0024F035 /* Preview Assets.xcassets */; };
-		27077BAE2AAE49DA0024F035 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27077BAD2AAE49DA0024F035 /* Persistence.swift */; };
 		27077BB12AAE49DA0024F035 /* WorkoutTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27077BAF2AAE49DA0024F035 /* WorkoutTracker.xcdatamodeld */; };
 		27077BBC2AAE49DA0024F035 /* WorkoutTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27077BBB2AAE49DA0024F035 /* WorkoutTrackerTests.swift */; };
 		27077BC62AAE49DA0024F035 /* WorkoutTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27077BC52AAE49DA0024F035 /* WorkoutTrackerUITests.swift */; };
@@ -36,12 +39,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2702F2572AD23C990080E099 /* Set+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Set+CoreDataClass.swift"; path = "../../Set+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2702F2592AD23C990080E099 /* Exercise+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Exercise+CoreDataClass.swift"; path = "../../Exercise+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2702F25B2AD23C990080E099 /* Workout+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Workout+CoreDataClass.swift"; path = "../../Workout+CoreDataClass.swift"; sourceTree = "<group>"; };
+		2702F2832AD23F5C0080E099 /* Set+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Set+CoreDataClass.swift"; path = "../../Set+CoreDataClass.swift"; sourceTree = "<group>"; };
 		27077BA12AAE49D90024F035 /* WorkoutTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27077BA42AAE49D90024F035 /* WorkoutTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTrackerApp.swift; sourceTree = "<group>"; };
 		27077BA62AAE49D90024F035 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		27077BA82AAE49DA0024F035 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27077BAB2AAE49DA0024F035 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		27077BAD2AAE49DA0024F035 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		27077BB02AAE49DA0024F035 /* WorkoutTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WorkoutTracker.xcdatamodel; sourceTree = "<group>"; };
 		27077BB22AAE49DA0024F035 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27077BB72AAE49DA0024F035 /* WorkoutTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WorkoutTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +82,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2702F2562AD23C390080E099 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2702F2572AD23C990080E099 /* Set+CoreDataClass.swift */,
+				2702F2832AD23F5C0080E099 /* Set+CoreDataClass.swift */,
+				2702F2592AD23C990080E099 /* Exercise+CoreDataClass.swift */,
+				2702F25B2AD23C990080E099 /* Workout+CoreDataClass.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		27077B982AAE49D90024F035 = {
 			isa = PBXGroup;
 			children = (
@@ -99,10 +116,10 @@
 		27077BA32AAE49D90024F035 /* WorkoutTracker */ = {
 			isa = PBXGroup;
 			children = (
+				2702F2562AD23C390080E099 /* Models */,
 				27077BA42AAE49D90024F035 /* WorkoutTrackerApp.swift */,
 				27077BA62AAE49D90024F035 /* ContentView.swift */,
 				27077BA82AAE49DA0024F035 /* Assets.xcassets */,
-				27077BAD2AAE49DA0024F035 /* Persistence.swift */,
 				27077BB22AAE49DA0024F035 /* Info.plist */,
 				27077BAF2AAE49DA0024F035 /* WorkoutTracker.xcdatamodeld */,
 				27077BAA2AAE49DA0024F035 /* Preview Content */,
@@ -265,8 +282,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27077BAE2AAE49DA0024F035 /* Persistence.swift in Sources */,
+				2702F2612AD23C990080E099 /* Workout+CoreDataClass.swift in Sources */,
+				2702F25D2AD23C990080E099 /* Set+CoreDataClass.swift in Sources */,
 				27077BA72AAE49D90024F035 /* ContentView.swift in Sources */,
+				2702F25F2AD23C990080E099 /* Exercise+CoreDataClass.swift in Sources */,
+				2702F2852AD23F5C0080E099 /* Set+CoreDataClass.swift in Sources */,
 				27077BB12AAE49DA0024F035 /* WorkoutTracker.xcdatamodeld in Sources */,
 				27077BA52AAE49D90024F035 /* WorkoutTrackerApp.swift in Sources */,
 			);
