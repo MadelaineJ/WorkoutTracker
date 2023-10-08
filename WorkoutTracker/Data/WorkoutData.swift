@@ -25,7 +25,6 @@ class WorkoutData {
         } catch {
             return []
         }
-        
     }
     
     func getWorkoutById(id: NSManagedObjectID) -> Workout? {
@@ -35,7 +34,6 @@ class WorkoutData {
         } catch {
             return nil
         }
-       
     }
     
     func deleteWorkout(workout: Workout) {
