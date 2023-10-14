@@ -11,13 +11,11 @@ import CoreData
 class ExerciseSetData {
     
     static let controller = ExerciseSetData()
-    var dataManager = DataManager.shared  // Changed from 'let' to 'var' for dependency injection.
-    
-    // Default initializer which uses the shared DataManager instance
+    var dataManager = DataManager.shared
+
     init() {
 
     }
-    
 
     func createExerciseSet(_ exerciseSetInfo: ExerciseSetInfo) {
         let exerciseSet = ExerciseSet(context: dataManager.viewContext)

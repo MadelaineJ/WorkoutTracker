@@ -12,8 +12,8 @@ class WorkoutData {
     static let controller = WorkoutData()
     var dataManager = DataManager.shared
     
-    // Enforces singleton implementation
-    private init() {}
+
+    init() {}
     
     func createWorkout(_ workoutInfo: WorkoutInfo) {
         let workout = Workout(context: dataManager.viewContext)
