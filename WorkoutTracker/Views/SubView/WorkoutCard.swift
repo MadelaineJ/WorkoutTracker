@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct WorkoutCard: View {
     var type: String
@@ -19,6 +20,7 @@ struct WorkoutCard: View {
                     .font(.headline)
                 Text(creationTime, style: .date)
                     .font(.subheadline)
+                
 
             }
             .foregroundColor(Color(.label))

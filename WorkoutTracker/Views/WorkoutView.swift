@@ -30,6 +30,9 @@ struct WorkoutView: View {
                 }
                 .background(Color.clear)
                 .cornerRadius(30)
+                if viewModel.workouts.count == 0 {
+                    Text("No Workouts To Display")
+                }
                     List {
                         ForEach(viewModel.workouts, id: \.id) { workout in
                             ZStack {
@@ -57,9 +60,9 @@ struct WorkoutView: View {
     
     func deleteWorkout(at offsets: IndexSet) {
         offsets.forEach { index in
-            let set = viewModel.workouts[index] // get the set to be deleted
-            viewModel.delete(set)
-            
+            let workout = viewModel.workouts[index] // get the set to be deleted
+            viewModel.delete(workout)
+            viewModel.getAllWorkouts()
         }
     }
 }

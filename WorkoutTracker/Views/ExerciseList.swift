@@ -55,6 +55,7 @@ struct ExerciseList: View {
         offsets.forEach { index in
             let set = viewModel.exercises[index] // get the set to be deleted
             viewModel.delete(set)
+            viewModel.getExercises(workout: workout)
             
         }
     }
