@@ -21,15 +21,14 @@ struct WorkoutListView: View {
                 }) {
                     AddButton()
                 }
+                .background(Color.clear)
+                .cornerRadius(30)
                 .sheet(isPresented: $isShowingInputModal) {
                     InputModalView(inputText: $inputText) {
                         viewModel.createWorkout(type: inputText)
                         viewModel.getAllWorkouts()
                     }
                 }
-
-                .background(Color.clear)
-                .cornerRadius(30)
                 if viewModel.workouts.count == 0 {
                     Text("No Workouts To Display")
                 }

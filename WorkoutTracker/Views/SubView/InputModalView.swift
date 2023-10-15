@@ -22,7 +22,7 @@ struct InputModalView: View {
             
             Button(action: {
                 onSubmit()
-           //     self.inputText = ""
+                self.inputText = ""
                 self.presentationMode.wrappedValue.dismiss()
             }) {
                 Text("Submit")

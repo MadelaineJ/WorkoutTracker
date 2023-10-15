@@ -21,13 +21,18 @@ struct ExerciseListView: View {
             VStack {
                 Button(action: {
                     self.isShowingInputModal.toggle()
-                    viewModel.addExercise(workout: workout)
-                    viewModel.getExercises(workout: workout)
+
                 }) {
                     AddButton()
                 }
                 .background(Color.clear)
                 .cornerRadius(30)
+                .sheet(isPresented: $isShowingInputModal) {
+                    InputModalView(inputText: $inputText) {
+                        viewModel.addExercise(workout: workout, name: inputText)
+                        viewModel.getExercises(workout: workout)
+                    }
+                }
                 if viewModel.exercises.count == 0 {
                     Text("No Exercise To Display")
                 }

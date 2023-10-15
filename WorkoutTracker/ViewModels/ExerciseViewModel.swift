@@ -16,10 +16,9 @@ class ExerciseViewModel: ObservableObject {
         self.controller = controller
     }
     
-    var name = "pushup"
     @Published var exercises: [ExerciseModel] = []
     
-    func createExercise() -> Exercise {
+    func createExercise(name: String) -> Exercise {
         let exercise = controller.createExercise(ExerciseInfo(creationTime: Date(), name: name))
         return exercise
     }
@@ -39,8 +38,8 @@ class ExerciseViewModel: ObservableObject {
         exercises = controller.getExercises(workoutId: workout.id).map(ExerciseModel.init)
     }
     
-    func addExercise(workout: WorkoutModel) {
-        let exercise = createExercise()
+    func addExercise(workout: WorkoutModel, name: String) {
+        let exercise = createExercise(name: name)
         controller.addExercise(workoutId: workout.id, exercise: exercise)
         
     }
