@@ -8,34 +8,35 @@
 import SwiftUI
 import CoreData
 
-struct ExerciseList: View {
+struct ExerciseListView: View {
     
-    var workout: WorkoutModel
     @EnvironmentObject private var viewModel: ExerciseViewModel
     
+    var workout: WorkoutModel
+    
+    @State private var isShowingInputModal = false
+    @State private var inputText = ""
+
     var body: some View {
             VStack {
                 Button(action: {
+                    self.isShowingInputModal.toggle()
                     viewModel.addExercise(workout: workout)
                     viewModel.getExercises(workout: workout)
                 }) {
-                    ZStack {
-                        Circle()
-                            .frame(width: 50, height: 50)
-                            .foregroundColor(Color(.systemIndigo))
-                            .padding()
-                        
-                        Image(systemName: "plus")
-                            .foregroundColor(.white)
-                            .font(.system(size: 30))
-                    }
+                    AddButton()
                 }
                 .background(Color.clear)
                 .cornerRadius(30)
-                   
+                if viewModel.exercises.count == 0 {
+                    Text("No Exercise To Display")
+                }
                 List {
                     ForEach(viewModel.exercises, id: \.id) { exercise in
                         ZStack {
+                            NavigationLink(destination: SetListView(exercise: exercise)) {
+                                EmptyView()
+                            }
                             WorkoutCard(type: exercise.name, creationTime: exercise.creationTime)
                         }
                         
@@ -61,7 +62,7 @@ struct ExerciseList: View {
     }
 }
 
-struct ExerciseList_Previews: PreviewProvider {
+struct ExerciseListView_Previews: PreviewProvider {
     static var previews: some View {
         
         let mockDataManager = DataManager(storeType: .inMemory)
@@ -73,7 +74,7 @@ struct ExerciseList_Previews: PreviewProvider {
 
         
         let mockViewModel = ExerciseViewModel(controller: mockDataController)
-        return ExerciseList(workout: WorkoutModel(workout: workout))
+        return ExerciseListView(workout: WorkoutModel(workout: workout))
             .environmentObject(mockViewModel)
     }
 }

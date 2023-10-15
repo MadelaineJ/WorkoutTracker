@@ -48,8 +48,8 @@ class ExerciseData {
     
     func getExercises(workoutId: NSManagedObjectID) -> [Exercise] {
         if let workout = workoutController.getWorkoutById(id: workoutId) {
-            if let exercisesSet = workout.exercises as? Set<Exercise> {
-                let exercisesArray = Array(exercisesSet)
+            if let exercises = workout.exercises as? Set<Exercise> {
+                let exercisesArray = Array(exercises)
                 return exercisesArray
             }
         }

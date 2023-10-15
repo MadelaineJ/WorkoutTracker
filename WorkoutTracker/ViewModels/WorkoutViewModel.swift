@@ -19,8 +19,8 @@ class WorkoutViewModel: ObservableObject {
     var type = ""
     @Published var workouts: [WorkoutModel] = []
 
-    func createWorkout() {
-        let workout = WorkoutInfo(creationTime: Date(), type: "push")
+    func createWorkout(type: String) {
+        let workout = WorkoutInfo(creationTime: Date(), type: type)
         controller.createWorkout(workout)
     }
     

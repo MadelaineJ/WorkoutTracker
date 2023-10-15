@@ -10,20 +10,23 @@ import CoreData
 
 class ExerciseSetData {
     
-    static let controller = ExerciseSetData(dataManager: DataManager.shared) // default controller
+    let exerciseController: ExerciseData
     var dataManager: DataManager
 
     init(dataManager: DataManager = DataManager.shared) {
         self.dataManager = dataManager
+        self.exerciseController = ExerciseData(dataManager: dataManager)
     }
 
-    func createExerciseSet(_ exerciseSetInfo: ExerciseSetInfo) {
+    func createExerciseSet(_ exerciseSetInfo: ExerciseSetInfo) -> ExerciseSet {
         let exerciseSet = ExerciseSet(context: dataManager.viewContext)
         exerciseSet.creationTime = exerciseSetInfo.creationTime
         exerciseSet.weight = exerciseSetInfo.weight
         exerciseSet.reps = exerciseSetInfo.reps
 
         dataManager.save()
+        
+        return exerciseSet
     }
     
     func updateExerciseSet(existingExerciseSet: ExerciseSet, with newInfo: ExerciseSetInfo) {
@@ -44,6 +47,16 @@ class ExerciseSetData {
         
     }
     
+    func getExerciseSets(exerciseId: NSManagedObjectID) -> [ExerciseSet] {
+        if let exercise = exerciseController.getExerciseById(id: exerciseId) {
+            if let exercisesSets = exercise.sets as? Set<ExerciseSet> {
+                let exercisesSetsArray = Array(exercisesSets)
+                return exercisesSetsArray
+            }
+        }
+        return []
+    }
+    
     func getSetById(id: NSManagedObjectID) -> ExerciseSet? {
         
         do {
@@ -53,6 +66,21 @@ class ExerciseSetData {
             return nil
         }
        
+    }
+    
+    func addExerciseSet(exerciseId: NSManagedObjectID, exerciseSet: ExerciseSet) {
+
+        guard let exercise = exerciseController.getExerciseById(id: exerciseId) else {
+            return
+        }
+        
+        exercise.addToSets(exerciseSet)
+        
+        do {
+            try dataManager.viewContext.save()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
     func deleteSet(exerciseSet: ExerciseSet) {

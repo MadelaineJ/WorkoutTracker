@@ -41,7 +41,6 @@ class ExerciseViewModel: ObservableObject {
     
     func addExercise(workout: WorkoutModel) {
         let exercise = createExercise()
-        
         controller.addExercise(workoutId: workout.id, exercise: exercise)
         
     }

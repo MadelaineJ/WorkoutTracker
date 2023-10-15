@@ -9,15 +9,17 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    
+    @EnvironmentObject private var workoutViewModel: WorkoutViewModel
+    @EnvironmentObject private var exerciseViewModel: ExerciseViewModel
+    @EnvironmentObject private var exerciseSetViewModel: ExerciseSetViewModel
     
 
     var body: some View {
     
-            WorkoutView()
-                .environmentObject(WorkoutViewModel())
-                .environmentObject(ExerciseViewModel())
-                .environmentObject(ExerciseSetViewModel())
+            WorkoutListView()
+            .environmentObject(workoutViewModel)
+            .environmentObject(exerciseViewModel)
+            .environmentObject(exerciseSetViewModel)
 
     }
 }
@@ -33,9 +35,13 @@ struct ContentView_Previews: PreviewProvider {
         let mockDataExerciseController = ExerciseData(dataManager: mockDataManager)
         let mockViewExerciseModel = ExerciseViewModel(controller: mockDataExerciseController)
         
+        let mockDataExerciseSetController = ExerciseSetData(dataManager: mockDataManager)
+        let mockViewExerciseSetModel = ExerciseSetViewModel(controller: mockDataExerciseSetController)
+        
         return ContentView()
             .environmentObject(mockViewWorkoutModel)
             .environmentObject(mockViewExerciseModel)
+            .environmentObject(mockViewExerciseSetModel)
     }
 }
 

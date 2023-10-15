@@ -7,27 +7,27 @@
 
 import SwiftUI
 
-struct WorkoutView: View {
+struct WorkoutListView: View {
     @EnvironmentObject private var viewModel: WorkoutViewModel
+    
+    @State private var isShowingInputModal = false
+    @State private var inputText = ""
     
     var body: some View {
         NavigationView {
             VStack {
                 Button(action: {
-                    viewModel.createWorkout()
-                    viewModel.getAllWorkouts()
+                    self.isShowingInputModal.toggle()
                 }) {
-                    ZStack {
-                        Circle()
-                            .frame(width: 50, height: 50)
-                            .foregroundColor(Color(.systemIndigo))
-                            .padding()
-                        
-                        Image(systemName: "plus")
-                            .foregroundColor(.white)
-                            .font(.system(size: 30))
+                    AddButton()
+                }
+                .sheet(isPresented: $isShowingInputModal) {
+                    InputModalView(inputText: $inputText) {
+                        viewModel.createWorkout(type: inputText)
+                        viewModel.getAllWorkouts()
                     }
                 }
+
                 .background(Color.clear)
                 .cornerRadius(30)
                 if viewModel.workouts.count == 0 {
@@ -36,8 +36,9 @@ struct WorkoutView: View {
                     List {
                         ForEach(viewModel.workouts, id: \.id) { workout in
                             ZStack {
-                                NavigationLink(destination: ExerciseList(workout: workout)) {
-                                    EmptyView()                                }
+                                NavigationLink(destination: ExerciseListView(workout: workout)) {
+                                    EmptyView()
+                                }
                                 .opacity(0) // Make it invisible
                                 
                                 WorkoutCard(type: workout.type, creationTime: workout.creationTime)
@@ -67,8 +68,7 @@ struct WorkoutView: View {
     }
 }
 
-
-struct WorkoutView_Previews: PreviewProvider {
+struct WorkoutListView_Previews: PreviewProvider {
     static var previews: some View {
         let mockDataManager = DataManager(storeType: .inMemory)
         
@@ -78,7 +78,7 @@ struct WorkoutView_Previews: PreviewProvider {
         let mockDataExerciseController = ExerciseData(dataManager: mockDataManager)
         let mockViewExerciseModel = ExerciseViewModel(controller: mockDataExerciseController)
         
-        return WorkoutView()
+        return WorkoutListView()
             .environmentObject(mockViewWorkoutModel)
             .environmentObject(mockViewExerciseModel)
     }

@@ -12,21 +12,19 @@ class ExerciseSetViewModel: ObservableObject {
     
     var controller: ExerciseSetData
 
-    init(controller: ExerciseSetData = ExerciseSetData.controller) {
+    init(controller: ExerciseSetData = ExerciseSetData()) {
         self.controller = controller
     }
     
-    var weight = ""
-    var reps = ""
+    var weight = "100"
+    var reps = "10"
     @Published var exerciseSets: [SetModel] = []
     
-    func createExerciseSet() {
-        let exerciseSet = ExerciseSet(context: DataManager.shared.persistentContainer.viewContext)
-        exerciseSet.creationTime = Date()
-        exerciseSet.weight = Int64(weight) ?? 0
-        exerciseSet.reps = Int64(reps) ?? 0
-        
-        DataManager.shared.save()
+    func createExerciseSet() -> ExerciseSet {
+        let exerciseSet = controller.createExerciseSet(
+            ExerciseSetInfo(creationTime: Date(), weight: Int64(weight) ?? 0, reps: Int64(reps) ?? 0))
+
+        return exerciseSet
     }
     
     func update(exerciseSet: SetModel, withNewInfo newInfo: ExerciseSetInfo) {
@@ -39,8 +37,13 @@ class ExerciseSetViewModel: ObservableObject {
         exerciseSets = controller.getAllSets().map(SetModel.init)
     }
     
-    func getExerciseSets() {
-        exerciseSets = controller.getAllSets().map(SetModel.init)
+    func getExerciseSets(exercise: ExerciseModel) {
+        exerciseSets = controller.getExerciseSets(exerciseId: exercise.id).map(SetModel.init)
+    }
+    
+    func addExerciseSet(exercise: ExerciseModel) {
+        let exerciseSet = createExerciseSet()
+        controller.addExerciseSet(exerciseId: exercise.id, exerciseSet: exerciseSet)
     }
     
     func delete(_ exerciseSet: SetModel) {
