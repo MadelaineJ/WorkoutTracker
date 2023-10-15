@@ -9,11 +9,11 @@ import CoreData
 
 class WorkoutData {
 
-    static let controller = WorkoutData()
-    var dataManager = DataManager.shared
-    
+    var dataManager: DataManager
 
-    init() {}
+    init(dataManager: DataManager = DataManager.shared) {
+        self.dataManager = dataManager
+    }
     
     func createWorkout(_ workoutInfo: WorkoutInfo) {
         let workout = Workout(context: dataManager.viewContext)

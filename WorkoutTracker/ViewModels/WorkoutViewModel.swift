@@ -10,13 +10,17 @@ import CoreData
 
 class WorkoutViewModel: ObservableObject {
 
-    let controller = WorkoutData.controller
+    var controller: WorkoutData
+
+    init(controller: WorkoutData = WorkoutData()) {
+        self.controller = controller
+    }
 
     var type = ""
     @Published var workouts: [WorkoutModel] = []
 
     func createWorkout() {
-        let workout = WorkoutInfo(creationTime: Date(), type: type)
+        let workout = WorkoutInfo(creationTime: Date(), type: "push")
         controller.createWorkout(workout)
     }
     
@@ -26,7 +30,7 @@ class WorkoutViewModel: ObservableObject {
             controller.updateWorkout(existingWorkout: existingWorkout, with: newInfo)
         }
     }
-
+    
     func getAllWorkouts() {
         workouts = controller.getAllWorkouts().map(WorkoutModel.init)
     }
@@ -36,29 +40,5 @@ class WorkoutViewModel: ObservableObject {
         if let existingWorkout = existingWorkout {
             controller.deleteWorkout(workout: existingWorkout)
         }
-    }
-}
-
-
-struct WorkoutInfo {
-    let creationTime: Date
-    let type: String
-}
-
-
-// used for displaying in the view
-struct WorkoutModel {
-    let workout: Workout
-    
-    var id: NSManagedObjectID {
-        return workout.objectID
-    }
-    
-    var creationTime: Date {
-        return workout.creationTime ?? Date()
-    }
-    
-    var type: String {
-        return workout.type ?? ""
     }
 }

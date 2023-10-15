@@ -10,17 +10,18 @@ import CoreData
 
 class ExerciseViewModel: ObservableObject {
     
-    let controller = ExerciseData.controller
+    var controller: ExerciseData
+
+    init(controller: ExerciseData = ExerciseData()) {
+        self.controller = controller
+    }
     
-    var name = ""
+    var name = "pushup"
     @Published var exercises: [ExerciseModel] = []
     
-    func createExercise() {
-        let exercise = Exercise(context: DataManager.shared.persistentContainer.viewContext)
-        exercise.creationTime = Date()
-        exercise.name = name
-        
-        DataManager.shared.save()
+    func createExercise() -> Exercise {
+        let exercise = controller.createExercise(ExerciseInfo(creationTime: Date(), name: name))
+        return exercise
     }
     
     func update(exercise: ExerciseModel, withNewInfo newInfo: ExerciseInfo) {
@@ -34,6 +35,16 @@ class ExerciseViewModel: ObservableObject {
         exercises = controller.getAllExercises().map(ExerciseModel.init)
     }
     
+    func getExercises(workout: WorkoutModel) {
+        exercises = controller.getExercises(workoutId: workout.id).map(ExerciseModel.init)
+    }
+    
+    func addExercise(workout: WorkoutModel) {
+        let exercise = createExercise()
+        
+        controller.addExercise(workoutId: workout.id, exercise: exercise)
+        
+    }
     
     func delete(_ exercise: ExerciseModel) {
         let existingExercise = controller.getExerciseById(id: exercise.id)
@@ -43,23 +54,3 @@ class ExerciseViewModel: ObservableObject {
     }
 }
 
-struct ExerciseInfo {
-    let creationTime: Date
-    let name: String
-}
-
-struct ExerciseModel {
-    let exercise: Exercise
-    
-    var id: NSManagedObjectID {
-        return exercise.objectID
-    }
-    
-    var creationTime: Date {
-        return exercise.creationTime ?? Date()
-    }
-    
-    var name: String {
-        return exercise.name ?? ""
-    }
-}

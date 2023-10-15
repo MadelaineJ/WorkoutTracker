@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WorkoutView: View {
-    @StateObject private var viewModel = WorkoutViewModel()
+    @EnvironmentObject private var viewModel: WorkoutViewModel
     
     var body: some View {
         NavigationView {
@@ -16,7 +16,6 @@ struct WorkoutView: View {
                 Button(action: {
                     viewModel.createWorkout()
                     viewModel.getAllWorkouts()
-                    print("creatingworkout")
                 }) {
                     ZStack {
                         Circle()
@@ -32,11 +31,10 @@ struct WorkoutView: View {
                 .background(Color.clear)
                 .cornerRadius(30)
                     List {
-                        ForEach(viewModel.workouts, id: \.id)  {workout in
+                        ForEach(viewModel.workouts, id: \.id) { workout in
                             ZStack {
-                                NavigationLink(destination: ExerciseList()) {
-                                    EmptyView() // Empty view so it doesn't affect your design
-                                }
+                                NavigationLink(destination: ExerciseList(workout: workout)) {
+                                    EmptyView()                                }
                                 .opacity(0) // Make it invisible
                                 
                                 WorkoutCard(type: workout.type, creationTime: workout.creationTime)
@@ -47,7 +45,6 @@ struct WorkoutView: View {
                         .listRowSeparator(.hidden)
                 }
                 .listStyle(PlainListStyle())
-                
                 
             }
             .onAppear(perform: {
@@ -69,9 +66,17 @@ struct WorkoutView: View {
 
 
 struct WorkoutView_Previews: PreviewProvider {
-    
-    
     static var previews: some View {
-        WorkoutView()
+        let mockDataManager = DataManager(storeType: .inMemory)
+        
+        let mockDataWorkoutController = WorkoutData(dataManager: mockDataManager)
+        let mockViewWorkoutModel = WorkoutViewModel(controller: mockDataWorkoutController)
+        
+        let mockDataExerciseController = ExerciseData(dataManager: mockDataManager)
+        let mockViewExerciseModel = ExerciseViewModel(controller: mockDataExerciseController)
+        
+        return WorkoutView()
+            .environmentObject(mockViewWorkoutModel)
+            .environmentObject(mockViewExerciseModel)
     }
 }

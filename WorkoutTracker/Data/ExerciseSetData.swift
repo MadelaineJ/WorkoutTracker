@@ -10,11 +10,11 @@ import CoreData
 
 class ExerciseSetData {
     
-    static let controller = ExerciseSetData()
-    var dataManager = DataManager.shared
+    static let controller = ExerciseSetData(dataManager: DataManager.shared) // default controller
+    var dataManager: DataManager
 
-    init() {
-
+    init(dataManager: DataManager = DataManager.shared) {
+        self.dataManager = dataManager
     }
 
     func createExerciseSet(_ exerciseSetInfo: ExerciseSetInfo) {

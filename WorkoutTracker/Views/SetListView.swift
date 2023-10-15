@@ -1,23 +1,22 @@
 //
-//  WorkoutDetails.swift
+//  ExerciseView.swift
 //  WorkoutTracker
 //
-//  Created by Madelaine Jones on 2023-10-14.
+//  Created by Madelaine Jones on 2023-10-07.
 //
 
 import SwiftUI
 import CoreData
 
-struct ExerciseList: View {
-    
-    var workout: WorkoutModel
-    @EnvironmentObject private var viewModel: ExerciseViewModel
+struct SetListView: View {
+    var exercise: ExerciseModel
+    @EnvironmentObject private var viewModel: ExerciseSetViewModel
     
     var body: some View {
             VStack {
                 Button(action: {
-                    viewModel.addExercise(workout: workout)
-                    viewModel.getExercises(workout: workout)
+                    viewModel.createExerciseSet()
+                    viewModel.getExerciseSets()
                 }) {
                     ZStack {
                         Circle()
@@ -34,9 +33,10 @@ struct ExerciseList: View {
                 .cornerRadius(30)
                    
                 List {
-                    ForEach(viewModel.exercises, id: \.id) { exercise in
-                        ZStack {
-                            WorkoutCard(type: exercise.name, creationTime: exercise.creationTime)
+                    ForEach(viewModel.exerciseSets, id: \.id) { exerciseSet in
+                        HStack {
+                            Text(String(exerciseSet.reps))
+                            Text(String(exerciseSet.weight))
                         }
                         
                     }
@@ -47,32 +47,29 @@ struct ExerciseList: View {
                 
             }
             .onAppear(perform: {
-                viewModel.getExercises(workout: workout)
+                viewModel.getExerciseSets()
             })
 
     }
     func deleteExercise(at offsets: IndexSet) {
         offsets.forEach { index in
-            let set = viewModel.exercises[index] // get the set to be deleted
+            let set = viewModel.exerciseSets[index] // get the set to be deleted
             viewModel.delete(set)
             
         }
     }
 }
 
-struct ExerciseList_Previews: PreviewProvider {
+struct SetListView_Previews: PreviewProvider {
     static var previews: some View {
-        
         let mockDataManager = DataManager(storeType: .inMemory)
-        let mockDataController = ExerciseData(dataManager: mockDataManager)
-        
+        let mockDataController = ExerciseSetData(dataManager: mockDataManager)
 
-        let entity = NSEntityDescription.entity(forEntityName: "Workout", in: mockDataManager.viewContext)!
-        let workout = Workout(entity: entity, insertInto: mockDataManager.viewContext)
+        let entity = NSEntityDescription.entity(forEntityName: "Exercise", in: mockDataManager.viewContext)!
+        let exercise = Exercise(entity: entity, insertInto: mockDataManager.viewContext)
 
-        
-        let mockViewModel = ExerciseViewModel(controller: mockDataController)
-        return ExerciseList(workout: WorkoutModel(workout: workout))
+        let mockViewModel = ExerciseSetViewModel(controller: mockDataController)
+        return SetListView(exercise: ExerciseModel(exercise: exercise))
             .environmentObject(mockViewModel)
     }
 }

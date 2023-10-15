@@ -10,7 +10,11 @@ import CoreData
 
 class ExerciseSetViewModel: ObservableObject {
     
-    let controller = ExerciseSetData.controller
+    var controller: ExerciseSetData
+
+    init(controller: ExerciseSetData = ExerciseSetData.controller) {
+        self.controller = controller
+    }
     
     var weight = ""
     var reps = ""
@@ -35,6 +39,9 @@ class ExerciseSetViewModel: ObservableObject {
         exerciseSets = controller.getAllSets().map(SetModel.init)
     }
     
+    func getExerciseSets() {
+        exerciseSets = controller.getAllSets().map(SetModel.init)
+    }
     
     func delete(_ exerciseSet: SetModel) {
         let existingSet = controller.getSetById(id: exerciseSet.id)
@@ -43,27 +50,3 @@ class ExerciseSetViewModel: ObservableObject {
         }
     }
 }
-
-struct ExerciseSetInfo {
-    let creationTime: Date
-    let weight: Int64
-    let reps: Int64
-}
-
-struct SetModel {
-    let exerciseSet: ExerciseSet
-    
-    var id: NSManagedObjectID {
-        return exerciseSet.objectID
-    }
-    
-    var weight: Int64 {
-        return exerciseSet.weight
-    }
-    
-    var reps: Int64 {
-        return exerciseSet.reps
-    }
-}
-
-
