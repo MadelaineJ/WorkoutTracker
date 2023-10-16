@@ -19,25 +19,25 @@ struct SetCard: View {
     var body: some View {
         HStack {
             // Weight TextField
-            TextField("Enter Weight (lbs)", text: $enteredWeight)
+            TextField("Enter Weight", text: $enteredWeight)
                 .keyboardType(.numberPad)
                 .frame(width: 100)
                 .padding(10)
                 .background(Color(.systemGray5))
                 .cornerRadius(8)
                 .padding(.horizontal, 10)
-
+            Text("lbs")
             Spacer()
-
+            Text("Reps")
             // Reps Picker
             Picker(selection: $selectedReps, label: Text("Reps")) {
                 ForEach(0..<21) { i in
                     Text("\(i)").tag(i)
                 }
             }
-            .frame(width: 100)
             .clipped()
-            .padding(.horizontal, 10)
+            .pickerStyle(.menu)
+            .padding(.trailing, 10)
         }
         .foregroundColor(Color(.label))
         .padding()
@@ -45,7 +45,6 @@ struct SetCard: View {
         .background(Color(.systemGray6))
         .cornerRadius(8)
         .shadow(radius: 3)
-        
     }
 }
 
