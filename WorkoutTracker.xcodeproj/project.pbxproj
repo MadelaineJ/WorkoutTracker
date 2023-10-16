@@ -37,6 +37,7 @@
 		27EDCD912ADC6B8100A5B315 /* SetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDCD902ADC6B8100A5B315 /* SetCard.swift */; };
 		27EDCD932ADCA09A00A5B315 /* InputModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDCD922ADCA09A00A5B315 /* InputModalView.swift */; };
 		27EDCD952ADCA37000A5B315 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDCD942ADCA37000A5B315 /* AddButton.swift */; };
+		27EDCD992ADCAD3300A5B315 /* FirstResponderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDCD982ADCAD3300A5B315 /* FirstResponderTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		27EDCD902ADC6B8100A5B315 /* SetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCard.swift; sourceTree = "<group>"; };
 		27EDCD922ADCA09A00A5B315 /* InputModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputModalView.swift; sourceTree = "<group>"; };
 		27EDCD942ADCA37000A5B315 /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
+		27EDCD982ADCAD3300A5B315 /* FirstResponderTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResponderTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 		2702F2562AD23C390080E099 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				27EDCD9B2ADCAEB000A5B315 /* Services */,
 				27EDCD682ADB315400A5B315 /* WorkoutModel.swift */,
 				27EDCD6A2ADB315A00A5B315 /* ExerciseModel.swift */,
 				27EDCD6C2ADB316000A5B315 /* ExerciseSetModel.swift */,
@@ -240,10 +243,9 @@
 		2787C35F2AD24884007CD4F2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				27EDCD9C2ADCAEC000A5B315 /* Helpers */,
+				27EDCD9A2ADCAE9000A5B315 /* MainListViews */,
 				27EDCD6E2ADB325900A5B315 /* SubView */,
-				2787C3602AD248E9007CD4F2 /* WorkoutListView.swift */,
-				270924782ADB2515009B665F /* ExerciseListView.swift */,
-				2787C3622AD248FE007CD4F2 /* SetListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -264,10 +266,35 @@
 				270924752ADB0C73009B665F /* WorkoutCard.swift */,
 				27077BA62AAE49D90024F035 /* ContentView.swift */,
 				27EDCD902ADC6B8100A5B315 /* SetCard.swift */,
+			);
+			path = SubView;
+			sourceTree = "<group>";
+		};
+		27EDCD9A2ADCAE9000A5B315 /* MainListViews */ = {
+			isa = PBXGroup;
+			children = (
+				270924782ADB2515009B665F /* ExerciseListView.swift */,
+				2787C3622AD248FE007CD4F2 /* SetListView.swift */,
+				2787C3602AD248E9007CD4F2 /* WorkoutListView.swift */,
+			);
+			path = MainListViews;
+			sourceTree = "<group>";
+		};
+		27EDCD9B2ADCAEB000A5B315 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				27EDCD982ADCAD3300A5B315 /* FirstResponderTextField.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		27EDCD9C2ADCAEC000A5B315 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
 				27EDCD922ADCA09A00A5B315 /* InputModalView.swift */,
 				27EDCD942ADCA37000A5B315 /* AddButton.swift */,
 			);
-			path = SubView;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -401,6 +428,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				274194C82AD334DA00D010D0 /* WorkoutData.swift in Sources */,
+				27EDCD992ADCAD3300A5B315 /* FirstResponderTextField.swift in Sources */,
 				2787C3632AD248FE007CD4F2 /* SetListView.swift in Sources */,
 				2787C3612AD248E9007CD4F2 /* WorkoutListView.swift in Sources */,
 				27EDCD952ADCA37000A5B315 /* AddButton.swift in Sources */,
@@ -580,6 +608,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WorkoutTracker/Preview Content\"";
@@ -609,6 +638,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"WorkoutTracker/Preview Content\"";

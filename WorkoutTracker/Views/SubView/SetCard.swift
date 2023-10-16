@@ -8,22 +8,36 @@
 import SwiftUI
 
 struct SetCard: View {
-    var weight: Int64
-    var reps: Int64
+    @State private var enteredWeight: String
+    @State private var selectedReps: Int
+    
+    init(weight: Int64, reps: Int64) {
+        _enteredWeight = State(initialValue: "\(weight)")
+        _selectedReps = State(initialValue: Int(reps))
+    }
     
     var body: some View {
         HStack {
-                Text(String(weight) + " lbs")
-                .font(.title2)
-                    .padding(.horizontal, 25)
-                Spacer()
-                Text(String(reps) + " reps")
-                    .font(.title2)
-                    .padding(.horizontal, 25)
-                
+            // Weight TextField
+            TextField("Enter Weight (lbs)", text: $enteredWeight)
+                .keyboardType(.numberPad)
+                .frame(width: 100)
+                .padding(10)
+                .background(Color(.systemGray5))
+                .cornerRadius(8)
+                .padding(.horizontal, 10)
 
+            Spacer()
 
-            
+            // Reps Picker
+            Picker(selection: $selectedReps, label: Text("Reps")) {
+                ForEach(0..<21) { i in
+                    Text("\(i)").tag(i)
+                }
+            }
+            .frame(width: 100)
+            .clipped()
+            .padding(.horizontal, 10)
         }
         .foregroundColor(Color(.label))
         .padding()

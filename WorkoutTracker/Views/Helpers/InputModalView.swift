@@ -14,7 +14,10 @@ struct InputModalView: View {
 
     var body: some View {
         VStack {
-            TextField("Enter text here", text: $inputText)
+            FirstResponderTextField(text: $inputText, placeholder: "Enter Workout Type", onCommit: {
+                self.onSubmit()
+                self.presentationMode.wrappedValue.dismiss() // Dismiss the modal
+            })
                 .padding()
                 .background(Color(.systemGray6))
                 .cornerRadius(8)
@@ -22,19 +25,22 @@ struct InputModalView: View {
             
             Button(action: {
                 onSubmit()
-                self.inputText = ""
+                
                 self.presentationMode.wrappedValue.dismiss()
             }) {
                 Text("Submit")
             }
             .padding()
         }
+        .onAppear() {
+            self.inputText = ""
+        }
     }
 }
 
 
 struct InputModalView_Previews: PreviewProvider {
-    @State static private var previewText: String = "Sample Text"
+    @State static private var previewText: String = ""
     
     static var previews: some View {
         InputModalView(inputText: $previewText, onSubmit: {

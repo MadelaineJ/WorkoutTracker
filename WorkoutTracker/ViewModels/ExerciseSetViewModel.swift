@@ -16,8 +16,8 @@ class ExerciseSetViewModel: ObservableObject {
         self.controller = controller
     }
     
-    var weight = "100"
-    var reps = "10"
+    var weight = "0"
+    var reps = "0"
     @Published var exerciseSets: [SetModel] = []
     
     func createExerciseSet() -> ExerciseSet {
