@@ -21,6 +21,10 @@ struct SetModel {
         return exerciseSet.objectID
     }
     
+    var creationTime: Date {
+        return exerciseSet.creationTime ?? Date()
+    }
+    
     var weight: Int64 {
         return exerciseSet.weight
     }

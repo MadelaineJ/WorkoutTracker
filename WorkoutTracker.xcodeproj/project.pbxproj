@@ -17,6 +17,9 @@
 		27077BC82AAE49DA0024F035 /* WorkoutTrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27077BC72AAE49DA0024F035 /* WorkoutTrackerUITestsLaunchTests.swift */; };
 		270924762ADB0C73009B665F /* WorkoutCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270924752ADB0C73009B665F /* WorkoutCard.swift */; };
 		270924792ADB2515009B665F /* ExerciseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270924782ADB2515009B665F /* ExerciseListView.swift */; };
+		272EBF932AE2F5DA00126645 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EBF922AE2F5DA00126645 /* ViewExtension.swift */; };
+		272EBF952AE2F6D200126645 /* CustomUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EBF942AE2F6D200126645 /* CustomUITextField.swift */; };
+		272EBF972AE2F6F400126645 /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EBF962AE2F6F400126645 /* NumberField.swift */; };
 		274194C42AD32A8500D010D0 /* ExerciseSetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274194C32AD32A8500D010D0 /* ExerciseSetData.swift */; };
 		274194C62AD334D500D010D0 /* ExerciseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274194C52AD334D500D010D0 /* ExerciseData.swift */; };
 		274194C82AD334DA00D010D0 /* WorkoutData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274194C72AD334DA00D010D0 /* WorkoutData.swift */; };
@@ -72,6 +75,9 @@
 		27077BC72AAE49DA0024F035 /* WorkoutTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		270924752ADB0C73009B665F /* WorkoutCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCard.swift; sourceTree = "<group>"; };
 		270924782ADB2515009B665F /* ExerciseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListView.swift; sourceTree = "<group>"; };
+		272EBF922AE2F5DA00126645 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		272EBF942AE2F6D200126645 /* CustomUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUITextField.swift; sourceTree = "<group>"; };
+		272EBF962AE2F6F400126645 /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
 		274194C32AD32A8500D010D0 /* ExerciseSetData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseSetData.swift; sourceTree = "<group>"; };
 		274194C52AD334D500D010D0 /* ExerciseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseData.swift; sourceTree = "<group>"; };
 		274194C72AD334DA00D010D0 /* WorkoutData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutData.swift; sourceTree = "<group>"; };
@@ -123,7 +129,6 @@
 		2702F2562AD23C390080E099 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				27EDCD9B2ADCAEB000A5B315 /* Services */,
 				27EDCD682ADB315400A5B315 /* WorkoutModel.swift */,
 				27EDCD6A2ADB315A00A5B315 /* ExerciseModel.swift */,
 				27EDCD6C2ADB316000A5B315 /* ExerciseSetModel.swift */,
@@ -154,6 +159,7 @@
 		27077BA32AAE49D90024F035 /* WorkoutTracker */ = {
 			isa = PBXGroup;
 			children = (
+				27EDCD9B2ADCAEB000A5B315 /* Services */,
 				274194C22AD32A7200D010D0 /* Data */,
 				2787C3662AD24907007CD4F2 /* ViewModels */,
 				2787C35F2AD24884007CD4F2 /* Views */,
@@ -293,6 +299,9 @@
 			children = (
 				27EDCD922ADCA09A00A5B315 /* InputModalView.swift */,
 				27EDCD942ADCA37000A5B315 /* AddButton.swift */,
+				272EBF922AE2F5DA00126645 /* ViewExtension.swift */,
+				272EBF942AE2F6D200126645 /* CustomUITextField.swift */,
+				272EBF962AE2F6F400126645 /* NumberField.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -430,9 +439,11 @@
 				274194C82AD334DA00D010D0 /* WorkoutData.swift in Sources */,
 				27EDCD992ADCAD3300A5B315 /* FirstResponderTextField.swift in Sources */,
 				2787C3632AD248FE007CD4F2 /* SetListView.swift in Sources */,
+				272EBF952AE2F6D200126645 /* CustomUITextField.swift in Sources */,
 				2787C3612AD248E9007CD4F2 /* WorkoutListView.swift in Sources */,
 				27EDCD952ADCA37000A5B315 /* AddButton.swift in Sources */,
 				2787C3752AD24972007CD4F2 /* ExerciseSetViewModel.swift in Sources */,
+				272EBF932AE2F5DA00126645 /* ViewExtension.swift in Sources */,
 				27EDCD932ADCA09A00A5B315 /* InputModalView.swift in Sources */,
 				27EDCD912ADC6B8100A5B315 /* SetCard.swift in Sources */,
 				270924762ADB0C73009B665F /* WorkoutCard.swift in Sources */,
@@ -442,6 +453,7 @@
 				27EDCD6B2ADB315A00A5B315 /* ExerciseModel.swift in Sources */,
 				2787C3732AD2496D007CD4F2 /* ExerciseViewModel.swift in Sources */,
 				27EDCD692ADB315400A5B315 /* WorkoutModel.swift in Sources */,
+				272EBF972AE2F6F400126645 /* NumberField.swift in Sources */,
 				2787C3712AD24966007CD4F2 /* WorkoutViewModel.swift in Sources */,
 				27077BB12AAE49DA0024F035 /* WorkoutTracker.xcdatamodeld in Sources */,
 				274194C42AD32A8500D010D0 /* ExerciseSetData.swift in Sources */,

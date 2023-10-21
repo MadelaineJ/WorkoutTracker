@@ -1,5 +1,5 @@
 //
-//  ExerciseView.swift
+//  SetListView.swift
 //  WorkoutTracker
 //
 //  Created by Madelaine Jones on 2023-10-07.
@@ -11,6 +11,7 @@ import CoreData
 struct SetListView: View {
     var exercise: ExerciseModel
     @EnvironmentObject private var viewModel: ExerciseSetViewModel
+    
     
     var body: some View {
             VStack {
@@ -26,19 +27,37 @@ struct SetListView: View {
                     Text("No Sets To Display")
                 }
                 List {
-                    ForEach(viewModel.exerciseSets, id: \.id) { exerciseSet in
-                        SetCard(weight: exerciseSet.weight, reps: exerciseSet.reps)
+                    ForEach(Array(viewModel.exerciseSets.enumerated()), id: \.element.id) { index, exerciseSet in
+                        SetCard(
+                            enteredWeight: Binding<String>(
+                                get: { String(exerciseSet.weight) },
+                                set: { newValue in
+                                    if let intValue = Int64(newValue) {
+                                        let newInfo = ExerciseSetInfo(creationTime: exerciseSet.creationTime, weight: intValue, reps: exerciseSet.reps)
+                                        viewModel.update(exerciseSet: exerciseSet, withNewInfo: newInfo)
+                                        viewModel.getExerciseSets(exercise: exercise)
+                                    }
+                                }),
+                            selectedReps: Binding<Int>(
+                                get: { Int(exerciseSet.reps) },
+                                set: { newValue in
+                                    let newInfo = ExerciseSetInfo(creationTime: exerciseSet.creationTime, weight: exerciseSet.weight, reps: Int64(newValue))
+                                    viewModel.update(exerciseSet: exerciseSet, withNewInfo: newInfo)
+                                    viewModel.getExerciseSets(exercise: exercise)
+                                })
+                        )
                     }
                     .onDelete(perform: deleteExercise)
                     .listRowSeparator(.hidden)
-            }
-            .listStyle(PlainListStyle())
+
+                }
                 
+                .listStyle(PlainListStyle())
             }
             .onAppear(perform: {
                 viewModel.getExerciseSets(exercise: exercise)
             })
-
+            .navigationBarTitle("Sets for \(exercise.name)", displayMode: .large)
     }
     func deleteExercise(at offsets: IndexSet) {
         offsets.forEach { index in
@@ -55,7 +74,7 @@ struct SetListView_Previews: PreviewProvider {
         let mockDataManager = DataManager(storeType: .inMemory)
         let mockDataController = ExerciseSetData(dataManager: mockDataManager)
         
-
+        
         let entity = NSEntityDescription.entity(forEntityName: "Exercise", in: mockDataManager.viewContext)!
         let exercise = Exercise(entity: entity, insertInto: mockDataManager.viewContext)
         exercise.name = "push"

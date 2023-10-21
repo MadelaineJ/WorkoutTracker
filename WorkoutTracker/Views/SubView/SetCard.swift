@@ -8,24 +8,19 @@
 import SwiftUI
 
 struct SetCard: View {
-    @State private var enteredWeight: String
-    @State private var selectedReps: Int
-    
-    init(weight: Int64, reps: Int64) {
-        _enteredWeight = State(initialValue: "\(weight)")
-        _selectedReps = State(initialValue: Int(reps))
-    }
+    @Binding var enteredWeight: String
+    @Binding var selectedReps: Int
     
     var body: some View {
         HStack {
             // Weight TextField
-            TextField("Enter Weight", text: $enteredWeight)
-                .keyboardType(.numberPad)
-                .frame(width: 100)
-                .padding(10)
-                .background(Color(.systemGray5))
-                .cornerRadius(8)
-                .padding(.horizontal, 10)
+            NumberField(text: $enteredWeight, placeholder: "Enter Weight")
+            .keyboardType(.numberPad)
+            .frame(width: 100)
+            .padding(10)
+            .background(Color(.systemGray5))
+            .cornerRadius(8)
+            .padding(.horizontal, 10)
             Text("lbs")
             Spacer()
             Text("Reps")
@@ -37,7 +32,12 @@ struct SetCard: View {
             }
             .clipped()
             .pickerStyle(.menu)
+            .labelsHidden()
             .padding(.trailing, 10)
+
+        }
+        .onTapGesture {
+            self.endEditing()
         }
         .foregroundColor(Color(.label))
         .padding()
@@ -49,7 +49,11 @@ struct SetCard: View {
 }
 
 struct SetCard_Previews: PreviewProvider {
+    @State static var weightPreview: String = "100"
+    @State static var repsPreview: Int = 10
+    
     static var previews: some View {
-        SetCard(weight: 100, reps: 10)
+        SetCard(enteredWeight: $weightPreview, selectedReps: $repsPreview)
     }
 }
+

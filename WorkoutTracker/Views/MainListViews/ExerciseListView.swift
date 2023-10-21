@@ -18,44 +18,45 @@ struct ExerciseListView: View {
     @State private var inputText = ""
 
     var body: some View {
-            VStack {
-                Button(action: {
-                    self.isShowingInputModal.toggle()
-
-                }) {
-                    AddButton()
+        VStack {
+            Button(action: {
+                self.isShowingInputModal.toggle()
+                
+            }) {
+                AddButton()
+            }
+            .background(Color.clear)
+            .cornerRadius(30)
+            .sheet(isPresented: $isShowingInputModal) {
+                InputModalView(inputText: $inputText) {
+                    viewModel.addExercise(workout: workout, name: inputText)
+                    viewModel.getExercises(workout: workout)
                 }
-                .background(Color.clear)
-                .cornerRadius(30)
-                .sheet(isPresented: $isShowingInputModal) {
-                    InputModalView(inputText: $inputText) {
-                        viewModel.addExercise(workout: workout, name: inputText)
-                        viewModel.getExercises(workout: workout)
-                    }
-                }
-                if viewModel.exercises.count == 0 {
-                    Text("No Exercise To Display")
-                }
-                List {
-                    ForEach(viewModel.exercises, id: \.id) { exercise in
-                        ZStack {
-                            NavigationLink(destination: SetListView(exercise: exercise)) {
-                                EmptyView()
-                            }
-                            WorkoutCard(type: exercise.name, creationTime: exercise.creationTime)
+            }
+            if viewModel.exercises.count == 0 {
+                Text("No Exercise To Display")
+            }
+            List {
+                ForEach(viewModel.exercises, id: \.id) { exercise in
+                    ZStack {
+                        NavigationLink(destination: SetListView(exercise: exercise)) {
+                            EmptyView()
                         }
-                        
+                        WorkoutCard(type: exercise.name, creationTime: exercise.creationTime)
                     }
-                    .onDelete(perform: deleteExercise)
-                    .listRowSeparator(.hidden)
+                    
+                }
+                .onDelete(perform: deleteExercise)
+                .listRowSeparator(.hidden)
             }
             .listStyle(PlainListStyle())
-                
-            }
-            .onAppear(perform: {
-                viewModel.getExercises(workout: workout)
-            })
-
+            
+        }
+        .onAppear(perform: {
+            viewModel.getExercises(workout: workout)
+        })
+        .navigationBarTitle("\(workout.type) Exercises", displayMode: .large)
+        
     }
     func deleteExercise(at offsets: IndexSet) {
         offsets.forEach { index in

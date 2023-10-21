@@ -53,6 +53,7 @@ struct WorkoutListView: View {
             .onAppear(perform: {
                 viewModel.getAllWorkouts()
             })
+            .navigationBarTitle("Workouts", displayMode: .large)
         }
         .background(Color(.systemGray2))
 
