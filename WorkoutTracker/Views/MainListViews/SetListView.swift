@@ -11,6 +11,9 @@ import CoreData
 struct SetListView: View {
     var exercise: ExerciseModel
     @EnvironmentObject private var viewModel: ExerciseSetViewModel
+    @EnvironmentObject private var exerciseViewModel: ExerciseViewModel
+    
+    @State private var editableExerciseName: String = ""
     
     
     var body: some View {
@@ -26,6 +29,29 @@ struct SetListView: View {
                 if viewModel.exerciseSets.count == 0 {
                     Text("No Sets To Display")
                 }
+                HStack {
+                    if viewModel.exerciseSets.count != 0 {
+                        HStack(spacing: 0){
+                            Text("Sets for ")
+                                .font(.title)
+                            InlineTextEditView(text: $editableExerciseName)
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding(0)
+                        }
+
+                        
+                    }
+                    Spacer()
+                }
+                .onAppear(perform: {
+                    editableExerciseName = exercise.name
+                })
+                .onChange(of: editableExerciseName) { newValue in
+                    let newInfo = ExerciseInfo(creationTime: exercise.creationTime, name: newValue)
+                    exerciseViewModel.update(exercise: exercise, withNewInfo: newInfo)
+                }
+                .padding(.horizontal, 30)
                 List {
                     ForEach(Array(viewModel.exerciseSets.enumerated()), id: \.element.id) { index, exerciseSet in
                         SetCard(
@@ -80,8 +106,15 @@ struct SetListView_Previews: PreviewProvider {
         exercise.name = "push"
         
         let mockViewModel = ExerciseSetViewModel(controller: mockDataController)
+        
+        let mockExerciseDataManager = DataManager(storeType: .inMemory)
+        let mockExerciseDataController = ExerciseData(dataManager: mockExerciseDataManager)
+        let mockExericseViewModel = ExerciseViewModel(controller: mockExerciseDataController)
+        
+        
         return SetListView(exercise: ExerciseModel(exercise: exercise))
             .environmentObject(mockViewModel)
+            .environmentObject(mockExericseViewModel)
     }
     
 }

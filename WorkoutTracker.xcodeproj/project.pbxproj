@@ -20,6 +20,7 @@
 		272EBF932AE2F5DA00126645 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EBF922AE2F5DA00126645 /* ViewExtension.swift */; };
 		272EBF952AE2F6D200126645 /* CustomUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EBF942AE2F6D200126645 /* CustomUITextField.swift */; };
 		272EBF972AE2F6F400126645 /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EBF962AE2F6F400126645 /* NumberField.swift */; };
+		272EBF9A2AE4657E00126645 /* InlineTextEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EBF992AE4657E00126645 /* InlineTextEditView.swift */; };
 		274194C42AD32A8500D010D0 /* ExerciseSetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274194C32AD32A8500D010D0 /* ExerciseSetData.swift */; };
 		274194C62AD334D500D010D0 /* ExerciseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274194C52AD334D500D010D0 /* ExerciseData.swift */; };
 		274194C82AD334DA00D010D0 /* WorkoutData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274194C72AD334DA00D010D0 /* WorkoutData.swift */; };
@@ -78,6 +79,7 @@
 		272EBF922AE2F5DA00126645 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		272EBF942AE2F6D200126645 /* CustomUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUITextField.swift; sourceTree = "<group>"; };
 		272EBF962AE2F6F400126645 /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
+		272EBF992AE4657E00126645 /* InlineTextEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineTextEditView.swift; sourceTree = "<group>"; };
 		274194C32AD32A8500D010D0 /* ExerciseSetData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseSetData.swift; sourceTree = "<group>"; };
 		274194C52AD334D500D010D0 /* ExerciseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseData.swift; sourceTree = "<group>"; };
 		274194C72AD334DA00D010D0 /* WorkoutData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutData.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				272EBF922AE2F5DA00126645 /* ViewExtension.swift */,
 				272EBF942AE2F6D200126645 /* CustomUITextField.swift */,
 				272EBF962AE2F6F400126645 /* NumberField.swift */,
+				272EBF992AE4657E00126645 /* InlineTextEditView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				27EDCD912ADC6B8100A5B315 /* SetCard.swift in Sources */,
 				270924762ADB0C73009B665F /* WorkoutCard.swift in Sources */,
 				270924792ADB2515009B665F /* ExerciseListView.swift in Sources */,
+				272EBF9A2AE4657E00126645 /* InlineTextEditView.swift in Sources */,
 				27077BA72AAE49D90024F035 /* ContentView.swift in Sources */,
 				27EDCD6D2ADB316000A5B315 /* ExerciseSetModel.swift in Sources */,
 				27EDCD6B2ADB315A00A5B315 /* ExerciseModel.swift in Sources */,

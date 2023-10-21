@@ -36,6 +36,15 @@ struct ExerciseListView: View {
             if viewModel.exercises.count == 0 {
                 Text("No Exercise To Display")
             }
+            HStack {
+                if viewModel.exercises.count != 0 {
+                    Text("Exercises")
+                        .font(.title)
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 30)
+            
             List {
                 ForEach(viewModel.exercises, id: \.id) { exercise in
                     ZStack {
@@ -55,7 +64,6 @@ struct ExerciseListView: View {
         .onAppear(perform: {
             viewModel.getExercises(workout: workout)
         })
-        .navigationBarTitle("\(workout.type) Exercises", displayMode: .large)
         
     }
     func deleteExercise(at offsets: IndexSet) {
