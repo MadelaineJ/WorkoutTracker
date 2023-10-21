@@ -56,14 +56,11 @@ struct ExerciseListView: View {
                     viewModel.getExercises(workout: workout)
                 }
             }
-
-
             
             if viewModel.exercises.count == 0 {
                 Text("No Exercises To Display")
                     .padding(.vertical, 20)
             }
-
 
             List {
                 ForEach(viewModel.exercises, id: \.id) { exercise in

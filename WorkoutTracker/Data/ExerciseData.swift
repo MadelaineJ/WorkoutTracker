@@ -50,11 +50,12 @@ class ExerciseData {
         if let workout = workoutController.getWorkoutById(id: workoutId) {
             if let exercises = workout.exercises as? Set<Exercise> {
                 let exercisesArray = Array(exercises)
-                return exercisesArray
+                return exercisesArray.sorted(by: { $0.creationTime! > $1.creationTime! })  // Sorting in descending order
             }
         }
         return []
     }
+
     
     func getExerciseById(id: NSManagedObjectID) -> Exercise? {
         

@@ -42,8 +42,6 @@ struct WorkoutListView: View {
                 if viewModel.workouts.count == 0 {
                     Text("No Workouts To Display")
                 }
-
-
                     List {
                         ForEach(viewModel.workouts, id: \.id) { workout in
                             ZStack {
@@ -65,7 +63,6 @@ struct WorkoutListView: View {
             .onAppear(perform: {
                 viewModel.getAllWorkouts()
             })
-          //  .navigationBarTitle("Workouts", displayMode: .large)
         }
         .background(Color(.systemGray2))
 

@@ -51,11 +51,12 @@ class ExerciseSetData {
         if let exercise = exerciseController.getExerciseById(id: exerciseId) {
             if let exercisesSets = exercise.sets as? Set<ExerciseSet> {
                 let exercisesSetsArray = Array(exercisesSets)
-                return exercisesSetsArray
+                return exercisesSetsArray.sorted(by: { $0.creationTime! > $1.creationTime! })  // Sorting in descending order
             }
         }
         return []
     }
+
     
     func getSetById(id: NSManagedObjectID) -> ExerciseSet? {
         
