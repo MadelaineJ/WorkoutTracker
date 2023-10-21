@@ -31,7 +31,7 @@ struct SetListView: View {
                 }
                 HStack {
                     if viewModel.exerciseSets.count != 0 {
-                        HStack(spacing: 0){
+                        HStack(spacing: 0) {
                             Text("Sets for ")
                                 .font(.title)
                             InlineTextEditView(text: $editableExerciseName)
@@ -39,8 +39,6 @@ struct SetListView: View {
                                 .fontWeight(.bold)
                                 .padding(0)
                         }
-
-                        
                     }
                     Spacer()
                 }
@@ -103,7 +101,7 @@ struct SetListView_Previews: PreviewProvider {
         
         let entity = NSEntityDescription.entity(forEntityName: "Exercise", in: mockDataManager.viewContext)!
         let exercise = Exercise(entity: entity, insertInto: mockDataManager.viewContext)
-        exercise.name = "push"
+        exercise.name = "Push"
         
         let mockViewModel = ExerciseSetViewModel(controller: mockDataController)
         

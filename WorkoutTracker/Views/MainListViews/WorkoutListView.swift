@@ -16,6 +16,15 @@ struct WorkoutListView: View {
     var body: some View {
         NavigationView {
             VStack {
+                
+                HStack {
+                        Text("Workouts")
+                            .font(.title)
+                    Spacer()
+                }
+                .padding(.horizontal, 30)
+                
+                
                 Button(action: {
                     self.isShowingInputModal.toggle()
                 }) {
@@ -33,14 +42,7 @@ struct WorkoutListView: View {
                 if viewModel.workouts.count == 0 {
                     Text("No Workouts To Display")
                 }
-                HStack {
-                    if viewModel.workouts.count != 0 {
-                        Text("Workouts")
-                            .font(.title)
-                    }
-                    Spacer()
-                }
-                .padding(.horizontal, 30)
+
 
                     List {
                         ForEach(viewModel.workouts, id: \.id) { workout in

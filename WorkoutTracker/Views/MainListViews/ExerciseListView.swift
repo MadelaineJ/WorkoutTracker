@@ -11,14 +11,37 @@ import CoreData
 struct ExerciseListView: View {
     
     @EnvironmentObject private var viewModel: ExerciseViewModel
+    @EnvironmentObject private var workoutViewModel: WorkoutViewModel
     
     var workout: WorkoutModel
     
     @State private var isShowingInputModal = false
     @State private var inputText = ""
+    @State private var editableWorkoutName: String = ""
 
     var body: some View {
         VStack {
+            HStack {
+                    HStack(spacing: 0) {
+                        Text("Exercises for ")
+                            .font(.title)
+                        InlineTextEditView(text: $editableWorkoutName)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .padding(0)
+                    }
+                Spacer()
+            }
+            .onAppear(perform: {
+                editableWorkoutName = workout.type
+            })
+            .onChange(of: editableWorkoutName) { newValue in
+                let newInfo = WorkoutInfo(creationTime: workout.creationTime, type: newValue)
+                workoutViewModel.update(workout: workout, withNewInfo: newInfo)
+            }
+            .padding(30)
+            
+            
             Button(action: {
                 self.isShowingInputModal.toggle()
                 
@@ -33,18 +56,15 @@ struct ExerciseListView: View {
                     viewModel.getExercises(workout: workout)
                 }
             }
-            if viewModel.exercises.count == 0 {
-                Text("No Exercise To Display")
-            }
-            HStack {
-                if viewModel.exercises.count != 0 {
-                    Text("Exercises")
-                        .font(.title)
-                }
-                Spacer()
-            }
-            .padding(.horizontal, 30)
+
+
             
+            if viewModel.exercises.count == 0 {
+                Text("No Exercises To Display")
+                    .padding(.vertical, 20)
+            }
+
+
             List {
                 ForEach(viewModel.exercises, id: \.id) { exercise in
                     ZStack {
@@ -53,13 +73,11 @@ struct ExerciseListView: View {
                         }
                         WorkoutCard(type: exercise.name, creationTime: exercise.creationTime)
                     }
-                    
                 }
                 .onDelete(perform: deleteExercise)
                 .listRowSeparator(.hidden)
             }
             .listStyle(PlainListStyle())
-            
         }
         .onAppear(perform: {
             viewModel.getExercises(workout: workout)
@@ -85,10 +103,15 @@ struct ExerciseListView_Previews: PreviewProvider {
 
         let entity = NSEntityDescription.entity(forEntityName: "Workout", in: mockDataManager.viewContext)!
         let workout = Workout(entity: entity, insertInto: mockDataManager.viewContext)
+        workout.type = "Push"
+        
+        let mockDataWorkoutController = WorkoutData(dataManager: mockDataManager)
+        let mockViewWorkoutModel = WorkoutViewModel(controller: mockDataWorkoutController)
 
         
         let mockViewModel = ExerciseViewModel(controller: mockDataController)
         return ExerciseListView(workout: WorkoutModel(workout: workout))
             .environmentObject(mockViewModel)
+            .environmentObject(mockViewWorkoutModel)
     }
 }
