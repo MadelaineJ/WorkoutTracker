@@ -9,112 +9,112 @@ import XCTest
 import CoreData
 @testable import WorkoutTracker
 
-
 class ExerciseDataTests: XCTestCase {
 
-    var dataManager: DataManager!
     var inTest: ExerciseData!
+    var workoutData: WorkoutData!
     
     override func setUpWithError() throws {
         // Set up an in-memory Core Data stack
-        let container = NSPersistentContainer.inMemoryContainer
-        let testDataManager = DataManager(container: container)
+        let testDataManager = DataManager(container: NSPersistentContainer.inMemoryContainer)
         inTest = ExerciseData(dataManager: testDataManager)
+        workoutData = WorkoutData(dataManager: testDataManager)
     }
 
     override func tearDownWithError() throws {
         inTest = nil
-        dataManager = nil
+        workoutData = nil
     }
+
     
     func testCreateExercise() {
-        // Given
-        let exerciseInfo = ExerciseInfo(creationTime: Date(), name: "Squat")
+        let exerciseInfo = ExerciseInfo(creationTime: Date(), name: "Squats")
+        let exercise = inTest.createExercise(exerciseInfo)
         
-        // When
-        inTest.createExercise(exerciseInfo)
-        
-        // Then
-        let allExercises = inTest.getAllExercises()
-        XCTAssertEqual(allExercises.count, 1, "Should have one exercise after creation")
-        XCTAssertEqual(allExercises.first?.name, exerciseInfo.name, "The created exercise's name should match the provided name")
+        XCTAssertNotNil(exercise)
+        XCTAssertEqual(exercise.name, exerciseInfo.name)
+        XCTAssertEqual(exercise.creationTime, exerciseInfo.creationTime)
     }
+
     
     func testUpdateExercise() {
-        // Given
-        let exerciseInfo = ExerciseInfo(creationTime: Date(), name: "Squat")
-        inTest.createExercise(exerciseInfo)
+        let initialInfo = ExerciseInfo(creationTime: Date(), name: "Squats")
+        let exercise = inTest.createExercise(initialInfo)
         
-        guard let existingExercise = inTest.getAllExercises().first else {
-            XCTFail("There should be an existing exercise")
-            return
-        }
+        let updatedInfo = ExerciseInfo(creationTime: Date(), name: "Deadlifts")
+        inTest.updateExercise(existingExercise: exercise, with: updatedInfo)
         
-        let updatedInfo = ExerciseInfo(creationTime: Date(), name: "Deadlift")
-        
-        // When
-        inTest.updateExercise(existingExercise: existingExercise, with: updatedInfo)
-        
-        // Then
-        let updatedExercise = inTest.getExerciseById(id: existingExercise.objectID)
-        XCTAssertEqual(updatedExercise?.name, updatedInfo.name, "The updated exercise's name should match the new name")
+        XCTAssertEqual(exercise.name, updatedInfo.name)
     }
-    
-    func testDeleteExercise() {
-        // Given
-        let exerciseInfo = ExerciseInfo(creationTime: Date(), name: "Squat")
-        inTest.createExercise(exerciseInfo)
-        
-        guard let existingExercise = inTest.getAllExercises().first else {
-            XCTFail("There should be an existing exercise")
-            return
-        }
-        
-        // When
-        inTest.deleteExercise(exercise: existingExercise)
-        
-        // Then
-        let allExercises = inTest.getAllExercises()
-        XCTAssertEqual(allExercises.count, 0, "Should have no exercises after deletion")
-    }
-    
+
     func testGetAllExercises() {
-        // Given
-        let exerciseInfo1 = ExerciseInfo(creationTime: Date(), name: "Squat")
-        let exerciseInfo2 = ExerciseInfo(creationTime: Date(), name: "Deadlift")
+        _ = inTest.createExercise(ExerciseInfo(creationTime: Date(), name: "Squats"))
+        _ = inTest.createExercise(ExerciseInfo(creationTime: Date(), name: "Deadlifts"))
         
-        inTest.createExercise(exerciseInfo1)
-        inTest.createExercise(exerciseInfo2)
-        
-        // When
         let allExercises = inTest.getAllExercises()
         
-        // Then
-        XCTAssertEqual(allExercises.count, 2, "Should retrieve two exercises")
+        XCTAssertEqual(allExercises.count, 2)
     }
+    
+    func testGetExercisesByWorkoutId() {
+        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength")
+        workoutData.createWorkout(workoutInfo) // This method doesn't return a workout, so we fetch it afterwards
+        
+        guard let workout = workoutData.getAllWorkouts().first else {
+            XCTFail("Failed to create workout")
+            return
+        }
+
+        let exercise1 = inTest.createExercise(ExerciseInfo(creationTime: Date(), name: "Squats"))
+        let exercise2 = inTest.createExercise(ExerciseInfo(creationTime: Date(), name: "Deadlifts"))
+        
+        inTest.addExercise(workoutId: workout.objectID, exercise: exercise1)
+        inTest.addExercise(workoutId: workout.objectID, exercise: exercise2)
+        
+        let fetchedExercises = inTest.getExercises(workoutId: workout.objectID)
+        
+        XCTAssertEqual(fetchedExercises.count, 2)
+    }
+
+
     
     func testGetExerciseById() {
-        // Given
-        let exerciseInfo = ExerciseInfo(creationTime: Date(), name: "Squat")
-        inTest.createExercise(exerciseInfo)
+        let exerciseInfo = ExerciseInfo(creationTime: Date(), name: "Squats")
+        let createdExercise = inTest.createExercise(exerciseInfo)
         
-        guard let existingExercise = inTest.getAllExercises().first else {
-            XCTFail("There should be an existing exercise")
+        let fetchedExercise = inTest.getExerciseById(id: createdExercise.objectID)
+        
+        XCTAssertNotNil(fetchedExercise)
+        XCTAssertEqual(fetchedExercise?.name, exerciseInfo.name)
+    }
+
+    func testAddExerciseToWorkout() {
+        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength")
+        workoutData.createWorkout(workoutInfo) // This method doesn't return a workout, so we fetch it afterwards
+        
+        guard let workout = workoutData.getAllWorkouts().first else {
+            XCTFail("Failed to create workout")
             return
         }
-        
-        // When
-        let retrievedExercise = inTest.getExerciseById(id: existingExercise.objectID)
-        
-        // Then
-        XCTAssertNotNil(retrievedExercise, "Should retrieve an exercise by its ID")
-        XCTAssertEqual(retrievedExercise?.name, exerciseInfo.name, "The retrieved exercise's name should match the original name")
-    }
-}
 
-extension ExerciseData {
-    convenience init(dataManager: DataManager) {
-        self.init()
-        self.dataManager = dataManager
+        let exercise = inTest.createExercise(ExerciseInfo(creationTime: Date(), name: "Squats"))
+        inTest.addExercise(workoutId: workout.objectID, exercise: exercise)
+        
+        let fetchedExercises = inTest.getExercises(workoutId: workout.objectID)
+        
+        XCTAssertEqual(fetchedExercises.count, 1)
     }
+
+
+    func testDeleteExercise() {
+        let exercise = inTest.createExercise(ExerciseInfo(creationTime: Date(), name: "Squats"))
+        
+        XCTAssertEqual(inTest.getAllExercises().count, 1)
+        
+        inTest.deleteExercise(exercise: exercise)
+        
+        XCTAssertEqual(inTest.getAllExercises().count, 0)
+    }
+
+
 }

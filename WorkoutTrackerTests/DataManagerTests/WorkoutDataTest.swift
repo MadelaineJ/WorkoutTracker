@@ -11,7 +11,6 @@ import CoreData
 
 class WorkoutDataTests: XCTestCase {
 
-    var dataManager: DataManager!
     var inTest: WorkoutData!
     
     override func setUpWithError() throws {
@@ -23,7 +22,6 @@ class WorkoutDataTests: XCTestCase {
 
     override func tearDownWithError() throws {
         inTest = nil
-        dataManager = nil
     }
     
     func testCreateWorkout() {
@@ -70,7 +68,11 @@ class WorkoutDataTests: XCTestCase {
         }
         
         // When
-        inTest.deleteWorkout(workout: existingWorkout)
+        do {
+            try inTest.deleteWorkout(workout: existingWorkout)
+        } catch {
+            XCTFail("Failed to delete the workout: \(error)")
+        }
         
         // Then
         let allWorkouts = inTest.getAllWorkouts()
@@ -108,12 +110,5 @@ class WorkoutDataTests: XCTestCase {
         // Then
         XCTAssertNotNil(retrievedWorkout, "Should retrieve a workout by its ID")
         XCTAssertEqual(retrievedWorkout?.type, workoutInfo.type, "The retrieved workout's type should match the original type")
-    }
-}
-
-extension WorkoutData {
-    convenience init(dataManager: DataManager) {
-        self.init()
-        self.dataManager = dataManager
     }
 }

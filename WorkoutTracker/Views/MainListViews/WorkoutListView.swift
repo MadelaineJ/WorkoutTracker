@@ -58,7 +58,6 @@ struct WorkoutListView: View {
                         .listRowSeparator(.hidden)
                 }
                 .listStyle(PlainListStyle())
-                
             }
             .onAppear(perform: {
                 viewModel.getAllWorkouts()
@@ -70,8 +69,17 @@ struct WorkoutListView: View {
     
     func deleteWorkout(at offsets: IndexSet) {
         offsets.forEach { index in
+            guard viewModel.workouts.indices.contains(index) else { return } // Safely check if the index is valid
+            
             let workout = viewModel.workouts[index] // get the set to be deleted
-            viewModel.delete(workout)
+            
+            do {
+                try viewModel.delete(workout)
+            } catch {
+                // Handle or log the error if needed
+                print("Error occurred while deleting workout: \(error.localizedDescription)")
+            }
+            
             viewModel.getAllWorkouts()
         }
     }

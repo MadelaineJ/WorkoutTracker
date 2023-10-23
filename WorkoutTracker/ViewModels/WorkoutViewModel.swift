@@ -35,10 +35,10 @@ class WorkoutViewModel: ObservableObject {
         workouts = controller.getAllWorkouts().map(WorkoutModel.init)
     }
 
-    func delete(_ workout: WorkoutModel) {
+    func delete(_ workout: WorkoutModel) throws {
         let existingWorkout = controller.getWorkoutById(id: workout.id)
         if let existingWorkout = existingWorkout {
-            controller.deleteWorkout(workout: existingWorkout)
+            try controller.deleteWorkout(workout: existingWorkout)
         }
     }
 }

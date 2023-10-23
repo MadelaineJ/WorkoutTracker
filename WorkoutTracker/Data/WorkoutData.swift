@@ -54,14 +54,10 @@ class WorkoutData {
         }
     }
     
-    func deleteWorkout(workout: Workout) {
+    func deleteWorkout(workout: Workout) throws {
         dataManager.viewContext.delete(workout)
-        do {
-            try dataManager.viewContext.save()
-        } catch {
-            print(error.localizedDescription)
-        }
-        
+        try dataManager.viewContext.save()
     }
+
 }
 

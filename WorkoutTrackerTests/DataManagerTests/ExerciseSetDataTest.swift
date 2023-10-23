@@ -5,115 +5,128 @@ import XCTest
 import CoreData
 @testable import WorkoutTracker
 
-class ExerciseSetDataTests: XCTestCase {
+// ExerciseSetDataTests.swift
+// WorkoutTrackerTests
 
+import XCTest
+import CoreData
+@testable import WorkoutTracker
+
+class ExerciseSetDataTests: XCTestCase {
     var dataManager: DataManager!
     var inTest: ExerciseSetData!
-    
+    var exerciseData: ExerciseData!
+
     override func setUpWithError() throws {
-        // Set up an in-memory Core Data stack
-        let container = NSPersistentContainer.inMemoryContainer
-        let testDataManager = DataManager(container: container)
-        inTest = ExerciseSetData(dataManager: testDataManager)
+        dataManager = DataManager(container: NSPersistentContainer.inMemoryContainer)
+        inTest = ExerciseSetData(dataManager: dataManager)
+        exerciseData = ExerciseData(dataManager: dataManager)
     }
 
     override func tearDownWithError() throws {
-        inTest = nil
         dataManager = nil
+        inTest = nil
+        exerciseData = nil
     }
     
     func testCreateExerciseSet() {
-        // Given
-        let setInfo = ExerciseSetInfo(creationTime: Date(), weight: 100, reps: 10)
+        let setInfo = ExerciseSetInfo(creationTime: Date(), weight: Int64(50.0), reps: 10)
+        let exerciseSet = inTest.createExerciseSet(setInfo)
         
-        // When
-        inTest.createExerciseSet(setInfo)
-        
-        // Then
-        let allSets = inTest.getAllSets()
-        XCTAssertEqual(allSets.count, 1, "Should have one set after creation")
-        XCTAssertEqual(allSets.first?.weight, setInfo.weight, "The created set's weight should match the provided weight")
-        XCTAssertEqual(allSets.first?.reps, setInfo.reps, "The created set's reps should match the provided reps")
+        XCTAssertNotNil(exerciseSet)
+        XCTAssertEqual(exerciseSet.creationTime, setInfo.creationTime)
+        XCTAssertEqual(exerciseSet.weight, setInfo.weight)
+        XCTAssertEqual(exerciseSet.reps, setInfo.reps)
     }
-
+    
     func testUpdateExerciseSet() {
-        // Given
-        let setInfo = ExerciseSetInfo(creationTime: Date(), weight: 100, reps: 10)
-        inTest.createExerciseSet(setInfo)
+        // Create a set
+        let initialSetInfo = ExerciseSetInfo(creationTime: Date(), weight: Int64(50.0), reps: 10)
+        let exerciseSet = inTest.createExerciseSet(initialSetInfo)
         
-        guard let existingSet = inTest.getAllSets().first else {
-            XCTFail("There should be an existing set")
-            return
-        }
+        // Update the set
+        let newInfo = ExerciseSetInfo(creationTime: Date(), weight: Int64(60.0), reps: 12)
+        inTest.updateExerciseSet(existingExerciseSet: exerciseSet, with: newInfo)
         
-        let updatedInfo = ExerciseSetInfo(creationTime: Date(), weight: 150, reps: 8)
+        XCTAssertEqual(exerciseSet.weight, newInfo.weight)
+        XCTAssertEqual(exerciseSet.reps, newInfo.reps)
+    }
+    
+    func testFetchAllExerciseSets() {
+        let setInfo1 = ExerciseSetInfo(creationTime: Date(), weight: 50, reps: 10)
+        let setInfo2 = ExerciseSetInfo(creationTime: Date(), weight: 60, reps: 12)
         
-        // When
-        inTest.updateExerciseSet(existingExerciseSet: existingSet, with: updatedInfo)
+        _ = inTest.createExerciseSet(setInfo1)
+        _ = inTest.createExerciseSet(setInfo2)
         
-        // Then
-        let updatedSet = inTest.getSetById(id: existingSet.objectID)
-        XCTAssertEqual(updatedSet?.weight, updatedInfo.weight, "The updated set's weight should match the new weight")
-        XCTAssertEqual(updatedSet?.reps, updatedInfo.reps, "The updated set's reps should match the new reps")
+        let allSets = inTest.getAllSets()
+        
+        XCTAssertEqual(allSets.count, 2)
+    }
+    
+    func testFetchExerciseSetsByExerciseId() {
+        // Create an exercise
+        let exerciseInfo = ExerciseInfo(creationTime: Date(), name: "Squats")
+        let exercise = exerciseData.createExercise(exerciseInfo)
+
+        // Create a set
+        let setInfo = ExerciseSetInfo(creationTime: Date(), weight: 50, reps: 10)
+        let exerciseSet = inTest.createExerciseSet(setInfo)
+
+        // Add the set to the exercise
+        inTest.addExerciseSet(exerciseId: exercise.objectID, exerciseSet: exerciseSet)
+
+        // Fetch the sets for the exercise
+        let fetchedSets = inTest.getExerciseSets(exerciseId: exercise.objectID)
+
+        XCTAssertEqual(fetchedSets.count, 1)
+        XCTAssertEqual(fetchedSets.first?.weight, setInfo.weight)
+        XCTAssertEqual(fetchedSets.first?.reps, setInfo.reps)
     }
 
+
+    func testFetchExerciseSetById() {
+        let setInfo = ExerciseSetInfo(creationTime: Date(), weight: 50, reps: 10)
+        let createdSet = inTest.createExerciseSet(setInfo)
+        
+        let fetchedSet = inTest.getSetById(id: createdSet.objectID)
+        
+        XCTAssertNotNil(fetchedSet)
+        XCTAssertEqual(fetchedSet?.weight, setInfo.weight)
+        XCTAssertEqual(fetchedSet?.reps, setInfo.reps)
+    }
+
+    func testAddExerciseSetToExercise() {
+        // Create an exercise
+        let exerciseInfo = ExerciseInfo(creationTime: Date(), name: "Bench Press")
+        let exercise = exerciseData.createExercise(exerciseInfo)
+
+        // Create a set
+        let setInfo = ExerciseSetInfo(creationTime: Date(), weight: 50, reps: 10)
+        let exerciseSet = inTest.createExerciseSet(setInfo)
+
+        // Add the set to the exercise
+        inTest.addExerciseSet(exerciseId: exercise.objectID, exerciseSet: exerciseSet)
+
+        // Fetch the sets for the exercise
+        let fetchedSets = inTest.getExerciseSets(exerciseId: exercise.objectID)
+
+        XCTAssertEqual(fetchedSets.count, 1)
+    }
+
+
+    
     func testDeleteExerciseSet() {
-        // Given
-        let setInfo = ExerciseSetInfo(creationTime: Date(), weight: 100, reps: 10)
-        inTest.createExerciseSet(setInfo)
+        let setInfo = ExerciseSetInfo(creationTime: Date(), weight: 50, reps: 10)
+        let createdSet = inTest.createExerciseSet(setInfo)
         
-        guard let existingSet = inTest.getAllSets().first else {
-            XCTFail("There should be an existing set")
-            return
-        }
+        XCTAssertEqual(inTest.getAllSets().count, 1)
         
-        // When
-        inTest.deleteSet(exerciseSet: existingSet)
+        inTest.deleteSet(exerciseSet: createdSet)
         
-        // Then
-        let allSets = inTest.getAllSets()
-        XCTAssertEqual(allSets.count, 0, "Should have no sets after deletion")
+        XCTAssertEqual(inTest.getAllSets().count, 0)
     }
 
-    func testGetAllSets() {
-        // Given
-        let setInfo1 = ExerciseSetInfo(creationTime: Date(), weight: 100, reps: 10)
-        let setInfo2 = ExerciseSetInfo(creationTime: Date(), weight: 150, reps: 12)
-        
-        inTest.createExerciseSet(setInfo1)
-        inTest.createExerciseSet(setInfo2)
-        
-        // When
-        let allSets = inTest.getAllSets()
-        
-        // Then
-        XCTAssertEqual(allSets.count, 2, "Should retrieve two sets")
-    }
-
-    func testGetSetById() {
-        // Given
-        let setInfo = ExerciseSetInfo(creationTime: Date(), weight: 100, reps: 10)
-        inTest.createExerciseSet(setInfo)
-        
-        guard let existingSet = inTest.getAllSets().first else {
-            XCTFail("There should be an existing set")
-            return
-        }
-        
-        // When
-        let retrievedSet = inTest.getSetById(id: existingSet.objectID)
-        
-        // Then
-        XCTAssertNotNil(retrievedSet, "Should retrieve a set by its ID")
-        XCTAssertEqual(retrievedSet?.weight, setInfo.weight, "The retrieved set's weight should match the original weight")
-        XCTAssertEqual(retrievedSet?.reps, setInfo.reps, "The retrieved set's reps should match the original reps")
-    }
 
 }
 
-extension ExerciseSetData {
-    convenience init(dataManager: DataManager) {
-        self.init()
-        self.dataManager = dataManager
-    }
-}
