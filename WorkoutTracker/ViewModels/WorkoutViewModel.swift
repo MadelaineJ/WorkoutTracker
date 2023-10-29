@@ -11,6 +11,7 @@ import CoreData
 class WorkoutViewModel: ObservableObject {
 
     var controller: WorkoutData
+    var exerciseViewModel: ExerciseViewModel = ExerciseViewModel()
 
     init(controller: WorkoutData = WorkoutData()) {
         self.controller = controller
@@ -22,6 +23,17 @@ class WorkoutViewModel: ObservableObject {
     func createWorkout(type: String) {
         let workout = WorkoutInfo(creationTime: Date(), type: type)
         controller.createWorkout(workout)
+    }
+    
+    func createWorkoutFromTemplate(workoutTemplate: WorkoutTemplateModel) {
+        // Create a workout using information from the workout template
+        let workoutType = workoutTemplate.type
+        createWorkout(type: workoutType)
+        
+        // Assuming that workoutTemplate has a 'exercises' property that is an array of ExerciseTemplateModel
+        for exerciseTemplate in workoutTemplate.exercises {
+            _ = exerciseViewModel.createExerciseFromTemplate(exerciseTemplate: exerciseTemplate)
+        }
     }
     
     func update(workout: WorkoutModel, withNewInfo newInfo: WorkoutInfo) {

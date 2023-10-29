@@ -23,6 +23,13 @@ class ExerciseViewModel: ObservableObject {
         return exercise
     }
     
+    func createExerciseFromTemplate(exerciseTemplate: ExerciseTemplateModel) -> Exercise {
+        // Create an exercise using information from the exercise template
+        let exerciseName = exerciseTemplate.name
+        return createExercise(name: exerciseName)
+    }
+
+    
     func update(exercise: ExerciseModel, withNewInfo newInfo: ExerciseInfo) {
         let existingExercise = controller.getExerciseById(id: exercise.id)
         if let existingExercise = existingExercise {

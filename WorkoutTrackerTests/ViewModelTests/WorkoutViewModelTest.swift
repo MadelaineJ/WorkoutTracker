@@ -47,6 +47,7 @@ class WorkoutViewModelTests: XCTestCase {
 
         XCTAssertEqual(viewModel.workouts.first?.type, "Cardio")
     }
+    
 
     func testGetAllWorkouts() {
         viewModel.createWorkout(type: "Strength")

@@ -14,7 +14,6 @@ struct WorkoutTrackerApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-              //  .environment(\.managedObjectContext, dataManager.viewContext)
                 .environmentObject(WorkoutViewModel())
                 .environmentObject(ExerciseViewModel())
                 .environmentObject(ExerciseSetViewModel())

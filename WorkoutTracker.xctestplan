@@ -1,0 +1,39 @@
+{
+  "configurations" : [
+    {
+      "id" : "96A46BB5-6220-4143-9F38-F8D3A1D50ADD",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:WorkoutTracker.xcodeproj",
+      "identifier" : "27077BA02AAE49D90024F035",
+      "name" : "WorkoutTracker"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:WorkoutTracker.xcodeproj",
+        "identifier" : "27077BB62AAE49DA0024F035",
+        "name" : "WorkoutTrackerTests"
+      }
+    },
+    {
+      "enabled" : false,
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:WorkoutTracker.xcodeproj",
+        "identifier" : "27077BC02AAE49DA0024F035",
+        "name" : "WorkoutTrackerUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
