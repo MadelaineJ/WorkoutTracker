@@ -45,7 +45,7 @@ class ExerciseTemplateData {
     
     func getExerciseTemplates(workoutId: NSManagedObjectID) -> [ExerciseTemplate] {
         if let workout = workoutController.getWorkoutTemplateById(id: workoutId) {
-            if let exerciseTemplates = workout.exercise as? Set<ExerciseTemplate> {
+            if let exerciseTemplates = workout.exercises as? Set<ExerciseTemplate> {
                 let exerciseTemplatesArray = Array(exerciseTemplates)
                 return exerciseTemplatesArray.sorted(by: { $0.name! > $1.name! })  // Sorting in descending order
             }
@@ -69,7 +69,7 @@ class ExerciseTemplateData {
             return
         }
         
-        workout.addToExercise(exerciseTemplate)
+        workout.addToExercises(exerciseTemplate)
         
         do {
             try dataManager.viewContext.save()

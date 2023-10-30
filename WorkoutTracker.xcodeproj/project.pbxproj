@@ -34,6 +34,9 @@
 		274194F72AD368DC00D010D0 /* DataManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274194F62AD368DC00D010D0 /* DataManagerTest.swift */; };
 		276A6DD62AEF1BF0008EA0D8 /* WorkoutTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A6DD52AEF1BF0008EA0D8 /* WorkoutTemplateView.swift */; };
 		276A6DD82AEF21E8008EA0D8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A6DD72AEF21E8008EA0D8 /* MainView.swift */; };
+		276A6DDA2AEF2E3D008EA0D8 /* ExerciseTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A6DD92AEF2E3D008EA0D8 /* ExerciseTemplateView.swift */; };
+		276A6DDC2AEF319D008EA0D8 /* ExerciseTemplateCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A6DDB2AEF319D008EA0D8 /* ExerciseTemplateCard.swift */; };
+		276A6DDE2AEF34BF008EA0D8 /* InputModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A6DDD2AEF34BF008EA0D8 /* InputModalView.swift */; };
 		27715EAB2AEDC06B002B588B /* WorkoutTemplateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27715EAA2AEDC06B002B588B /* WorkoutTemplateData.swift */; };
 		27715EAF2AEDC267002B588B /* WorkoutTemplateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27715EAE2AEDC267002B588B /* WorkoutTemplateTest.swift */; };
 		27715EB12AEDC547002B588B /* ExerciseTemplateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27715EB02AEDC547002B588B /* ExerciseTemplateData.swift */; };
@@ -52,7 +55,7 @@
 		27EDCD6B2ADB315A00A5B315 /* ExerciseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDCD6A2ADB315A00A5B315 /* ExerciseModel.swift */; };
 		27EDCD6D2ADB316000A5B315 /* ExerciseSetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDCD6C2ADB316000A5B315 /* ExerciseSetModel.swift */; };
 		27EDCD912ADC6B8100A5B315 /* SetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDCD902ADC6B8100A5B315 /* SetCard.swift */; };
-		27EDCD932ADCA09A00A5B315 /* InputModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDCD922ADCA09A00A5B315 /* InputModalView.swift */; };
+		27EDCD932ADCA09A00A5B315 /* SimpleInputModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDCD922ADCA09A00A5B315 /* SimpleInputModalView.swift */; };
 		27EDCD952ADCA37000A5B315 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDCD942ADCA37000A5B315 /* AddButton.swift */; };
 		27EDCD992ADCAD3300A5B315 /* FirstResponderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EDCD982ADCAD3300A5B315 /* FirstResponderTextField.swift */; };
 /* End PBXBuildFile section */
@@ -107,6 +110,9 @@
 		276A6DD42AEEF29E008EA0D8 /* WorkoutTracker.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WorkoutTracker.xctestplan; sourceTree = "<group>"; };
 		276A6DD52AEF1BF0008EA0D8 /* WorkoutTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplateView.swift; sourceTree = "<group>"; };
 		276A6DD72AEF21E8008EA0D8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		276A6DD92AEF2E3D008EA0D8 /* ExerciseTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTemplateView.swift; sourceTree = "<group>"; };
+		276A6DDB2AEF319D008EA0D8 /* ExerciseTemplateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTemplateCard.swift; sourceTree = "<group>"; };
+		276A6DDD2AEF34BF008EA0D8 /* InputModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputModalView.swift; sourceTree = "<group>"; };
 		27715EAA2AEDC06B002B588B /* WorkoutTemplateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplateData.swift; sourceTree = "<group>"; };
 		27715EAE2AEDC267002B588B /* WorkoutTemplateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplateTest.swift; sourceTree = "<group>"; };
 		27715EB02AEDC547002B588B /* ExerciseTemplateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseTemplateData.swift; sourceTree = "<group>"; };
@@ -125,7 +131,7 @@
 		27EDCD6A2ADB315A00A5B315 /* ExerciseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseModel.swift; sourceTree = "<group>"; };
 		27EDCD6C2ADB316000A5B315 /* ExerciseSetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseSetModel.swift; sourceTree = "<group>"; };
 		27EDCD902ADC6B8100A5B315 /* SetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCard.swift; sourceTree = "<group>"; };
-		27EDCD922ADCA09A00A5B315 /* InputModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputModalView.swift; sourceTree = "<group>"; };
+		27EDCD922ADCA09A00A5B315 /* SimpleInputModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleInputModalView.swift; sourceTree = "<group>"; };
 		27EDCD942ADCA37000A5B315 /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		27EDCD982ADCAD3300A5B315 /* FirstResponderTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstResponderTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -292,6 +298,7 @@
 				27EDCD9A2ADCAE9000A5B315 /* MainListViews */,
 				27EDCD6E2ADB325900A5B315 /* SubView */,
 				276A6DD52AEF1BF0008EA0D8 /* WorkoutTemplateView.swift */,
+				276A6DD92AEF2E3D008EA0D8 /* ExerciseTemplateView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -312,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				270924752ADB0C73009B665F /* WorkoutCard.swift */,
+				276A6DDB2AEF319D008EA0D8 /* ExerciseTemplateCard.swift */,
 				27077BA62AAE49D90024F035 /* ContentView.swift */,
 				27EDCD902ADC6B8100A5B315 /* SetCard.swift */,
 			);
@@ -340,7 +348,8 @@
 		27EDCD9C2ADCAEC000A5B315 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				27EDCD922ADCA09A00A5B315 /* InputModalView.swift */,
+				27EDCD922ADCA09A00A5B315 /* SimpleInputModalView.swift */,
+				276A6DDD2AEF34BF008EA0D8 /* InputModalView.swift */,
 				27EDCD942ADCA37000A5B315 /* AddButton.swift */,
 				272EBF922AE2F5DA00126645 /* ViewExtension.swift */,
 				272EBF942AE2F6D200126645 /* CustomUITextField.swift */,
@@ -482,10 +491,12 @@
 			files = (
 				27715EB72AEDD056002B588B /* WorkoutTemplateModel.swift in Sources */,
 				274194C82AD334DA00D010D0 /* WorkoutData.swift in Sources */,
+				276A6DDE2AEF34BF008EA0D8 /* InputModalView.swift in Sources */,
 				27EDCD992ADCAD3300A5B315 /* FirstResponderTextField.swift in Sources */,
 				27715EB92AEDD092002B588B /* ExerciseTemplateModel.swift in Sources */,
 				276A6DD62AEF1BF0008EA0D8 /* WorkoutTemplateView.swift in Sources */,
 				2787C3632AD248FE007CD4F2 /* SetListView.swift in Sources */,
+				276A6DDA2AEF2E3D008EA0D8 /* ExerciseTemplateView.swift in Sources */,
 				272EBF952AE2F6D200126645 /* CustomUITextField.swift in Sources */,
 				276A6DD82AEF21E8008EA0D8 /* MainView.swift in Sources */,
 				2787C3612AD248E9007CD4F2 /* WorkoutListView.swift in Sources */,
@@ -494,7 +505,8 @@
 				272EBF932AE2F5DA00126645 /* ViewExtension.swift in Sources */,
 				27715EB52AEDCFBD002B588B /* WorkoutTemplateViewModel.swift in Sources */,
 				27715EB12AEDC547002B588B /* ExerciseTemplateData.swift in Sources */,
-				27EDCD932ADCA09A00A5B315 /* InputModalView.swift in Sources */,
+				27EDCD932ADCA09A00A5B315 /* SimpleInputModalView.swift in Sources */,
+				276A6DDC2AEF319D008EA0D8 /* ExerciseTemplateCard.swift in Sources */,
 				27EDCD912ADC6B8100A5B315 /* SetCard.swift in Sources */,
 				270924762ADB0C73009B665F /* WorkoutCard.swift in Sources */,
 				270924792ADB2515009B665F /* ExerciseListView.swift in Sources */,

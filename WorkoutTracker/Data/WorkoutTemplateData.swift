@@ -19,8 +19,8 @@ class WorkoutTemplateData {
         dataManager.save()
     }
 
-    func updateWorkoutTemplate(existingWorkoutTemplate: WorkoutTemplate, with newInfo: String) {
-        existingWorkoutTemplate.type = newInfo
+    func updateWorkoutTemplate(existingWorkoutTemplate: WorkoutTemplate, with newInfo: WorkoutTemplateInfo) {
+        existingWorkoutTemplate.type = newInfo.type
 
         dataManager.save()
     }

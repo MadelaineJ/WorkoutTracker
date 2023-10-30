@@ -9,8 +9,13 @@ import SwiftUI
 
 struct WorkoutListView: View {
     @EnvironmentObject private var viewModel: WorkoutViewModel
+    @EnvironmentObject private var templateViewModel: WorkoutTemplateViewModel
     
     @State private var isShowingInputModal = false
+    @State private var selectedTemplate: WorkoutTemplateModel? = nil
+    @State private var showTextField: Bool = false
+
+
     @State private var inputText = ""
     
     var body: some View {
@@ -24,7 +29,6 @@ struct WorkoutListView: View {
                 }
                 .padding(.horizontal, 30)
                 
-                
                 Button(action: {
                     self.isShowingInputModal.toggle()
                 }) {
@@ -33,8 +37,12 @@ struct WorkoutListView: View {
                 .background(Color.clear)
                 .cornerRadius(30)
                 .sheet(isPresented: $isShowingInputModal) {
-                    InputModalView(inputText: $inputText) {
-                        viewModel.createWorkout(type: inputText)
+                    InputModalView(inputText: $inputText, templates: templateViewModel.workoutTemplates, selectedTemplate: $selectedTemplate, showTextField: $showTextField) {
+                        if self.showTextField {
+                            _ = viewModel.createWorkout(type: inputText)
+                        } else if let template = self.selectedTemplate {
+                            viewModel.createWorkoutFromTemplate(workoutTemplate: template)
+                        }
                         viewModel.getAllWorkouts()
                     }
                 }
@@ -64,6 +72,13 @@ struct WorkoutListView: View {
             })
         }
         .background(Color(.systemGray2))
+        .onAppear(perform: {
+            templateViewModel.getAllWorkoutTemplates()
+            if let firstTemplate = templateViewModel.workoutTemplates.first {
+                self.selectedTemplate = firstTemplate
+            }
+        })
+
 
     }
     

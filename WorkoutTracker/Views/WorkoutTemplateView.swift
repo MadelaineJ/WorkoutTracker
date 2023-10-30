@@ -33,7 +33,7 @@ struct WorkoutTemplateView: View {
                 .background(Color.clear)
                 .cornerRadius(30)
                 .sheet(isPresented: $isShowingInputModal) {
-                    InputModalView(inputText: $inputText) {
+                    SimpleInputModalView(inputText: $inputText) {
                         viewModel.createWorkoutTemplate(type: inputText)
                         viewModel.getAllWorkoutTemplates()
                     }
@@ -45,6 +45,10 @@ struct WorkoutTemplateView: View {
                     List {
                         ForEach(viewModel.workoutTemplates, id: \.id) { workout in
                             ZStack {
+                                NavigationLink(destination: ExerciseTemplateView(workoutTemplate: workout)) {
+                                    EmptyView()
+                                }
+                                .opacity(0) // Make it invisible
                                 WorkoutCard(type: workout.type)
                             }
                             

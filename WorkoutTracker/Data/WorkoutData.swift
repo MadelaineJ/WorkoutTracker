@@ -15,12 +15,14 @@ class WorkoutData {
         self.dataManager = dataManager
     }
     
-    func createWorkout(_ workoutInfo: WorkoutInfo) {
+    func createWorkout(_ workoutInfo: WorkoutInfo) -> Workout {
         let workout = Workout(context: dataManager.viewContext)
         workout.creationTime = workoutInfo.creationTime
         workout.type = workoutInfo.type
 
         dataManager.save()
+        
+        return workout
     }
     
     func updateWorkout(existingWorkout: Workout, with newInfo: WorkoutInfo) {

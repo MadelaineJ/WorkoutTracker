@@ -45,9 +45,9 @@ class ExerciseViewModel: ObservableObject {
         exercises = controller.getExercises(workoutId: workout.id).map(ExerciseModel.init)
     }
     
-    func addExercise(workout: WorkoutModel, name: String) {
+    func addExercise(id: NSManagedObjectID, name: String) {
         let exercise = createExercise(name: name)
-        controller.addExercise(workoutId: workout.id, exercise: exercise)
+        controller.addExercise(workoutId: id, exercise: exercise)
         
     }
     

@@ -13,7 +13,7 @@ struct WorkoutTemplateInfo {
 }
 
 // used for displaying in the view
-struct WorkoutTemplateModel {
+struct WorkoutTemplateModel: Hashable {
     let workout: WorkoutTemplate
     
     var id: NSManagedObjectID {
@@ -22,10 +22,5 @@ struct WorkoutTemplateModel {
     
     var type: String {
         return workout.type ?? ""
-    }
-    
-    var exercises: [ExerciseTemplateModel] {
-        // Assuming you can convert Set<ExerciseTemplate> to [ExerciseTemplateModel]
-        return workout.exercise?.allObjects as? [ExerciseTemplateModel] ?? []
     }
 }
