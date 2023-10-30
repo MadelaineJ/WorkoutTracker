@@ -10,7 +10,7 @@ import CoreData
 
 struct WorkoutCard: View {
     var type: String
-    var creationTime: Date
+    var creationTime: Date!
     
     
     var body: some View {
@@ -18,8 +18,11 @@ struct WorkoutCard: View {
             VStack(alignment: .leading) {
                 Text(type)
                     .font(.headline)
-                Text(creationTime, style: .date)
-                    .font(.subheadline)
+                if ((creationTime) != nil) {
+                    Text(creationTime, style: .date)
+                        .font(.subheadline)
+                }
+
             }
             .foregroundColor(Color(.label))
             Spacer()

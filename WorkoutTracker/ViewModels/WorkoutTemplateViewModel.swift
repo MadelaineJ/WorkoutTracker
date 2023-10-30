@@ -11,14 +11,14 @@ import Combine  // If you are using Combine for @Published property
 
 class WorkoutTemplateViewModel: ObservableObject {
 
-    var controller: WorkoutTemplateData  // Adjust this to the type name if it's different
+    var controller: WorkoutTemplateData
 
     init(controller: WorkoutTemplateData = WorkoutTemplateData()) {
         self.controller = controller
     }
 
     var type = ""
-    @Published var workoutTemplates: [WorkoutTemplateModel] = []  // Assuming you have a WorkoutTemplateModel similar to WorkoutModel
+    @Published var workoutTemplates: [WorkoutTemplateModel] = []
 
     func createWorkoutTemplate(type: String) {
         controller.createWorkoutTemplate(type)
@@ -33,7 +33,7 @@ class WorkoutTemplateViewModel: ObservableObject {
     }
 
     func getAllWorkoutTemplates() {
-        workoutTemplates = controller.getAllWorkoutTemplates().map(WorkoutTemplateModel.init)  // Assuming you have a similar initializer in WorkoutTemplateModel
+        workoutTemplates = controller.getAllWorkoutTemplates().map(WorkoutTemplateModel.init)
     }
 
     func delete(_ workoutTemplate: WorkoutTemplateModel) {
@@ -46,8 +46,5 @@ class WorkoutTemplateViewModel: ObservableObject {
             }
         }
     }
-
-
-    // Add other functions as per your needs, similar to how you have in the WorkoutViewModel
 }
 

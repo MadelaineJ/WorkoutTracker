@@ -10,13 +10,19 @@ import SwiftUI
 @main
 struct WorkoutTrackerApp: App {
     let dataManager = DataManager.shared
+    
+
+
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
                 .environmentObject(WorkoutViewModel())
                 .environmentObject(ExerciseViewModel())
                 .environmentObject(ExerciseSetViewModel())
+                .environmentObject(WorkoutTemplateViewModel())
+                .environmentObject(ExerciseTemplateViewModel())
+
         }
     }
 }
