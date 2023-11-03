@@ -94,6 +94,29 @@ class WorkoutDataTests: XCTestCase {
         XCTAssertEqual(allWorkouts.count, 2, "Should retrieve two workouts")
     }
     
+    func testGetAllWorkoutsByType() {
+        // Given
+        let workoutInfoStrength = WorkoutInfo(creationTime: Date(), type: "Strength")
+        let workoutInfoCardio = WorkoutInfo(creationTime: Date(), type: "Cardio")
+        inTest.createWorkout(workoutInfoStrength)
+        inTest.createWorkout(workoutInfoCardio)
+        
+        // When
+        let strengthWorkouts = inTest.getAllWorkoutsByType(type: "Strength")
+        let cardioWorkouts = inTest.getAllWorkoutsByType(type: "Cardio")
+        
+        // Then
+        XCTAssertEqual(strengthWorkouts.count, 1, "Should retrieve one workout of type 'Strength'")
+        XCTAssertEqual(strengthWorkouts.first?.type, "Strength", "The retrieved workout's type should be 'Strength'")
+        XCTAssertEqual(cardioWorkouts.count, 1, "Should retrieve one workout of type 'Cardio'")
+        XCTAssertEqual(cardioWorkouts.first?.type, "Cardio", "The retrieved workout's type should be 'Cardio'")
+        
+        // Testing for no results with an unused type
+        let yogaWorkouts = inTest.getAllWorkoutsByType(type: "Yoga")
+        XCTAssertTrue(yogaWorkouts.isEmpty, "Should retrieve no workouts of type 'Yoga'")
+    }
+
+    
     func testGetWorkoutById() {
         // Given
         let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength")

@@ -74,13 +74,13 @@ class ExerciseViewModelTests: XCTestCase {
 
     func testAddExerciseToWorkout() {
         let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength")
-        mockWorkoutData.createWorkout(workoutInfo)
+        let workout = mockWorkoutData.createWorkout(workoutInfo)
         guard let workout = mockWorkoutData.getAllWorkouts().first else {
             XCTFail("Failed to create workout")
             return
         }
 
-        viewModel.addExercise(workout: WorkoutModel(workout: workout), name: "Squats")
+        viewModel.addExercise(id: workout.objectID, name: "Squats")
 
         viewModel.getExercises(workout: WorkoutModel(workout: workout))
 

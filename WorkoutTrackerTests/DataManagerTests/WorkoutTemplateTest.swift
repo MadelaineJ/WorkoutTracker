@@ -48,9 +48,10 @@ class WorkoutTemplateDataTests: XCTestCase {
         }
         
         let updatedType = "Cardio"
+        let updatedInfo = WorkoutTemplateInfo(type: updatedType)
         
         // When
-        inTest.updateWorkoutTemplate(existingWorkoutTemplate: existingWorkoutTemplate, with: updatedType)
+        inTest.updateWorkoutTemplate(existingWorkoutTemplate: existingWorkoutTemplate, with: updatedInfo)
         
         // Then
         let updatedWorkoutTemplate = inTest.getWorkoutTemplateById(id: existingWorkoutTemplate.objectID)
