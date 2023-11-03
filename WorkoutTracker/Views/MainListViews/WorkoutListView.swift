@@ -15,8 +15,8 @@ struct WorkoutListView: View {
     @State private var selectedTemplate: WorkoutTemplateModel? = nil
     @State private var showTextField: Bool = false
 
-
     @State private var inputText = ""
+    @State private var selectedWorkoutType: String? = nil
     
     var body: some View {
         NavigationView {
@@ -28,24 +28,57 @@ struct WorkoutListView: View {
                     Spacer()
                 }
                 .padding(.horizontal, 30)
-                
-                Button(action: {
-                    self.isShowingInputModal.toggle()
-                }) {
-                    AddButton()
-                }
-                .background(Color.clear)
-                .cornerRadius(30)
-                .sheet(isPresented: $isShowingInputModal) {
-                    InputModalView(inputText: $inputText, templates: templateViewModel.workoutTemplates, selectedTemplate: $selectedTemplate, showTextField: $showTextField) {
-                        if self.showTextField {
-                            _ = viewModel.createWorkout(type: inputText)
-                        } else if let template = self.selectedTemplate {
-                            viewModel.createWorkoutFromTemplate(workoutTemplate: template)
+                .padding(.top, 20)
+                HStack {
+                    
+                    if viewModel.workouts.count != 0 {
+                        HStack {
+                            Menu("Filter") {
+                                
+                                ForEach(viewModel.uniqueWorkoutTypes, id: \.self) { type in
+                                    Button(type) {
+                                        selectedWorkoutType = type
+                                        viewModel.getAllWorkoutsByType(type: type)
+                                    }
+                                }
+                                Button("Clear Filters", action: clearFilters)
+                            }
+                            .onAppear(){
+                                viewModel.fetchAllUniqueWorkoutTypes()
+                            }
+                            
+                            // X button to clear filters, visible only when a filter is selected
+                            if selectedWorkoutType != nil {
+                                Button(action: clearFilters) {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .foregroundColor(.secondary)
+                                }
+                            }
                         }
-                        viewModel.getAllWorkouts()
                     }
+                
+                    Spacer()
+                    Button(action: {
+                        self.isShowingInputModal.toggle()
+                        
+                    }) {
+                        AddButton()
+                    }
+                    .background(Color.clear)
+                    .cornerRadius(30)
+                    .sheet(isPresented: $isShowingInputModal) {
+                        InputModalView(inputText: $inputText, templates: templateViewModel.workoutTemplates, selectedTemplate: $selectedTemplate, showTextField: $showTextField) {
+                            if self.showTextField {
+                                _ = viewModel.createWorkout(type: inputText)
+                            } else if let template = self.selectedTemplate {
+                                viewModel.createWorkoutFromTemplate(workoutTemplate: template)
+                            }
+                            viewModel.getAllWorkouts()
+                        }
+                    }
+                    
                 }
+                .padding(.horizontal, 30)
                 
                 if viewModel.workouts.count == 0 {
                     Text("No Workouts To Display")
@@ -60,7 +93,6 @@ struct WorkoutListView: View {
                                 
                                 WorkoutCard(type: workout.type, creationTime: workout.creationTime)
                             }
-                            
                         }
                         .onDelete(perform: deleteWorkout)
                         .listRowSeparator(.hidden)
@@ -78,8 +110,6 @@ struct WorkoutListView: View {
                 self.selectedTemplate = firstTemplate
             }
         })
-
-
     }
     
     func deleteWorkout(at offsets: IndexSet) {
@@ -98,6 +128,12 @@ struct WorkoutListView: View {
             viewModel.getAllWorkouts()
         }
     }
+    
+    // Clears the selected workout type and gets all workouts
+    func clearFilters() {
+        selectedWorkoutType = nil
+        viewModel.getAllWorkouts()
+    }
 }
 
 struct WorkoutListView_Previews: PreviewProvider {
@@ -107,11 +143,11 @@ struct WorkoutListView_Previews: PreviewProvider {
         let mockDataWorkoutController = WorkoutData(dataManager: mockDataManager)
         let mockViewWorkoutModel = WorkoutViewModel(controller: mockDataWorkoutController)
         
-        let mockDataExerciseController = ExerciseData(dataManager: mockDataManager)
-        let mockViewExerciseModel = ExerciseViewModel(controller: mockDataExerciseController)
+        let mockDataWorkoutTemplateController = WorkoutTemplateData(dataManager: mockDataManager)
+        let mockViewWorkoutTemplateModel = WorkoutTemplateViewModel(controller: mockDataWorkoutTemplateController)
         
         return WorkoutListView()
             .environmentObject(mockViewWorkoutModel)
-            .environmentObject(mockViewExerciseModel)
+            .environmentObject(mockViewWorkoutTemplateModel)
     }
 }

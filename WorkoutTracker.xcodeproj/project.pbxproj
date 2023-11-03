@@ -318,6 +318,7 @@
 		27EDCD6E2ADB325900A5B315 /* SubView */ = {
 			isa = PBXGroup;
 			children = (
+				27EDCD942ADCA37000A5B315 /* AddButton.swift */,
 				270924752ADB0C73009B665F /* WorkoutCard.swift */,
 				276A6DDB2AEF319D008EA0D8 /* ExerciseTemplateCard.swift */,
 				27077BA62AAE49D90024F035 /* ContentView.swift */,
@@ -350,7 +351,6 @@
 			children = (
 				27EDCD922ADCA09A00A5B315 /* SimpleInputModalView.swift */,
 				276A6DDD2AEF34BF008EA0D8 /* InputModalView.swift */,
-				27EDCD942ADCA37000A5B315 /* AddButton.swift */,
 				272EBF922AE2F5DA00126645 /* ViewExtension.swift */,
 				272EBF942AE2F6D200126645 /* CustomUITextField.swift */,
 				272EBF962AE2F6F400126645 /* NumberField.swift */,

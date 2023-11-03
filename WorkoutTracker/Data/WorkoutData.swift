@@ -65,7 +65,21 @@ class WorkoutData {
         }
     }
 
-
+    func getAllUniqueWorkoutTypes() -> [String] {
+        let request: NSFetchRequest<NSFetchRequestResult> = Workout.fetchRequest()
+        request.propertiesToFetch = ["type"]
+        request.returnsDistinctResults = true
+        request.resultType = .dictionaryResultType
+        
+        do {
+            let results = try dataManager.viewContext.fetch(request) as? [[String: String]]
+            let types = results?.compactMap { $0["type"] } ?? []
+            return types
+        } catch {
+            print("Failed to fetch unique workout types: \(error.localizedDescription)")
+            return []
+        }
+    }
     
     func getWorkoutById(id: NSManagedObjectID) -> Workout? {
         

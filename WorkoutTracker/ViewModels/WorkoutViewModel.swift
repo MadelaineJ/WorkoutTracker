@@ -16,15 +16,27 @@ class WorkoutViewModel: ObservableObject {
 
     init(controller: WorkoutData = WorkoutData()) {
         self.controller = controller
+        fetchAllUniqueWorkoutTypes()
     }
 
     var type = ""
     @Published var workouts: [WorkoutModel] = []
+    @Published var uniqueWorkoutTypes: [String] = []
 
     func createWorkout(type: String) -> Workout {
-        let workout = WorkoutInfo(creationTime: Date(), type: type)
-        return controller.createWorkout(workout)
+        let workoutInfo = WorkoutInfo(creationTime: Date(), type: type)
+        let workout = controller.createWorkout(workoutInfo)
+        fetchAllUniqueWorkoutTypes()
+        return workout
+        
+    }
     
+    func fetchAllUniqueWorkoutTypes() {
+        uniqueWorkoutTypes = controller.getAllUniqueWorkoutTypes()
+    }
+    
+    func getAllWorkoutsByType(type: String) {
+        workouts = controller.getAllWorkoutsByType(type: type).map(WorkoutModel.init)
     }
     
     func createWorkoutFromTemplate(workoutTemplate: WorkoutTemplateModel) {
