@@ -21,7 +21,7 @@ struct InputModalView: View {
             VStack(spacing: 0) {
                
                 
-                Text("Templates")
+                Text("Create Workout From Templates")
                     .font(.title2)
                     .padding(.top)
                     .padding(.horizontal)
@@ -33,23 +33,26 @@ struct InputModalView: View {
                 .pickerStyle(WheelPickerStyle())
                 .frame(maxHeight: 150)
                 .padding(.horizontal, 40)
-
             }
             
             Button(action: {
                 onSubmit()
                 self.presentationMode.wrappedValue.dismiss()
             }) {
-                Text("Submit")
+                Text("Create Workout From Template")
             }
             .padding()
+            .padding(.bottom, 10)
             
-            Button("Create New") {
+            Text("Or")
+            
+            Button("Create New Workout") {
                 self.showTextField = true
                 self.selectedTemplate = nil // Reset the template
                 self.inputText = ""
             }
             .padding()
+            .padding(.top, 10)
             
             if showTextField {
                 ZStack {
