@@ -14,7 +14,7 @@ struct SimpleInputModalView: View {
 
     var body: some View {
         VStack {
-            FirstResponderTextField(text: $inputText, placeholder: "Enter Workout Type", onCommit: {
+            FirstResponderTextField(text: $inputText, placeholder: "Enter Exercise Name", onCommit: {
                 self.onSubmit()
                 self.presentationMode.wrappedValue.dismiss() // Dismiss the modal
             })

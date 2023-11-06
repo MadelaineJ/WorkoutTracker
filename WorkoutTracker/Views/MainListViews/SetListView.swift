@@ -14,12 +14,15 @@ struct SetListView: View {
     @EnvironmentObject private var exerciseViewModel: ExerciseViewModel
     
     @State private var editableExerciseName: String = ""
-    
+    @State private var listScrollPosition: UUID?
+    @State private var exerciseSetCount: Int = 0
     
     var body: some View {
-            VStack {
-                
-                HStack {
+        ScrollViewReader { scrollProxy in
+            GeometryReader { geometry in
+                VStack {
+                    
+                    HStack {
                         HStack(spacing: 0) {
                             Text("Sets for ")
                                 .font(.title)
@@ -28,60 +31,75 @@ struct SetListView: View {
                                 .fontWeight(.bold)
                                 .padding(0)
                         }
-                    Spacer()
-                }
-                .onAppear(perform: {
-                    editableExerciseName = exercise.name
-                })
-                .onChange(of: editableExerciseName) { newValue in
-                    let newInfo = ExerciseInfo(creationTime: exercise.creationTime, name: newValue)
-                    exerciseViewModel.update(exercise: exercise, withNewInfo: newInfo)
-                }
-                .padding(.horizontal, 30)
-                
-                Button(action: {
-                    viewModel.addExerciseSet(exercise: exercise)
-                    viewModel.getExerciseSets(exercise: exercise)
-                }) {
-                    AddButton()
-                }
-                .background(Color.clear)
-                .cornerRadius(30)
-                if viewModel.exerciseSets.count == 0 {
-                    Text("No Sets To Display")
-                }
-
-                List {
-                    ForEach(Array(viewModel.exerciseSets.enumerated()), id: \.element.id) { index, exerciseSet in
-                        SetCard(
-                            enteredWeight: Binding<String>(
-                                get: { String(exerciseSet.weight) },
-                                set: { newValue in
-                                    if let intValue = Int64(newValue) {
-                                        let newInfo = ExerciseSetInfo(creationTime: exerciseSet.creationTime, weight: intValue, reps: exerciseSet.reps)
+                        Spacer()
+                    }
+                    .onAppear(perform: {
+                        editableExerciseName = exercise.name
+                    })
+                    .onChange(of: editableExerciseName) { newValue in
+                        let newInfo = ExerciseInfo(creationTime: exercise.creationTime, name: newValue)
+                        exerciseViewModel.update(exercise: exercise, withNewInfo: newInfo)
+                    }
+                    .padding(.horizontal, 30)
+                    
+                    Button(action: {
+                        viewModel.addExerciseSet(exercise: exercise)
+                        viewModel.getExerciseSets(exercise: exercise)
+                    }) {
+                        AddButton()
+                    }
+                    .background(Color.clear)
+                    .cornerRadius(30)
+                    if viewModel.exerciseSets.count == 0 {
+                        Text("No Sets To Display")
+                    }
+                    
+                    List {
+                        ForEach(Array(viewModel.exerciseSets.enumerated()), id: \.element.id) { index, exerciseSet in
+                            SetCard(
+                                enteredWeight: Binding<String>(
+                                    get: { String(exerciseSet.weight) },
+                                    set: { newValue in
+                                        if let intValue = Int64(newValue) {
+                                            let newInfo = ExerciseSetInfo(creationTime: exerciseSet.creationTime, weight: intValue, reps: exerciseSet.reps)
+                                            viewModel.update(exerciseSet: exerciseSet, withNewInfo: newInfo)
+                                            viewModel.getExerciseSets(exercise: exercise)
+                                        }
+                                    }),
+                                selectedReps: Binding<Int>(
+                                    get: { Int(exerciseSet.reps) },
+                                    set: { newValue in
+                                        let newInfo = ExerciseSetInfo(creationTime: exerciseSet.creationTime, weight: exerciseSet.weight, reps: Int64(newValue))
                                         viewModel.update(exerciseSet: exerciseSet, withNewInfo: newInfo)
                                         viewModel.getExerciseSets(exercise: exercise)
-                                    }
-                                }),
-                            selectedReps: Binding<Int>(
-                                get: { Int(exerciseSet.reps) },
-                                set: { newValue in
-                                    let newInfo = ExerciseSetInfo(creationTime: exerciseSet.creationTime, weight: exerciseSet.weight, reps: Int64(newValue))
-                                    viewModel.update(exerciseSet: exerciseSet, withNewInfo: newInfo)
-                                    viewModel.getExerciseSets(exercise: exercise)
-                                })
-                        )
+                                    })
+                            )
+                            .id(exerciseSet.id)
+                        }
+                        .onDelete(perform: deleteExercise)
+                        .listRowSeparator(.hidden)
+                        Color.clear.frame(height: 1 ) // Invisible view with some height, acting as scroll target
+                            .id("bottomPadding")
                     }
-                    .onDelete(perform: deleteExercise)
-                    .listRowSeparator(.hidden)
+                    .listStyle(PlainListStyle())
 
                 }
-                
-                .listStyle(PlainListStyle())
+                .onAppear(perform: {
+                    viewModel.getExerciseSets(exercise: exercise)
+                    exerciseSetCount = viewModel.exerciseSets.count
+                })
+                .onChange(of: viewModel.exerciseSets.count) { newCount in
+                    if newCount > exerciseSetCount {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // slight delay
+                            withAnimation {
+                                scrollProxy.scrollTo("bottomPadding", anchor: .bottom) // Scroll to the invisible view
+                            }
+                        }
+                    }
+                    exerciseSetCount = newCount
+                }
             }
-            .onAppear(perform: {
-                viewModel.getExerciseSets(exercise: exercise)
-            })
+        }
     }
     func deleteExercise(at offsets: IndexSet) {
         offsets.forEach { index in

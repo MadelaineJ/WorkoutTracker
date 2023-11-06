@@ -14,9 +14,11 @@ struct WorkoutListView: View {
     @State private var isShowingInputModal = false
     @State private var selectedTemplate: WorkoutTemplateModel? = nil
     @State private var showTextField: Bool = false
+    @State private var isSortedAscending = false
 
     @State private var inputText = ""
     @State private var selectedWorkoutType: String? = nil
+    
     
     var body: some View {
         NavigationView {
@@ -31,36 +33,9 @@ struct WorkoutListView: View {
                 .padding(.top, 20)
                 HStack {
                     
-                    if viewModel.workouts.count != 0 {
-                        HStack {
-                            Menu("Filter") {
-                                
-                                ForEach(viewModel.uniqueWorkoutTypes, id: \.self) { type in
-                                    Button(type) {
-                                        selectedWorkoutType = type
-                                        viewModel.getAllWorkoutsByType(type: type)
-                                    }
-                                }
-                                Button("Clear Filters", action: clearFilters)
-                            }
-                            .onAppear(){
-                                viewModel.fetchAllUniqueWorkoutTypes()
-                            }
-                            
-                            // X button to clear filters, visible only when a filter is selected
-                            if selectedWorkoutType != nil {
-                                Button(action: clearFilters) {
-                                    Image(systemName: "xmark.circle.fill")
-                                        .foregroundColor(.secondary)
-                                }
-                            }
-                        }
-                    }
-                
-                    Spacer()
                     Button(action: {
                         self.isShowingInputModal.toggle()
-                        
+                        selectedWorkoutType = nil
                     }) {
                         AddButton()
                     }
@@ -76,9 +51,52 @@ struct WorkoutListView: View {
                             viewModel.getAllWorkouts()
                         }
                     }
-                    
                 }
                 .padding(.horizontal, 30)
+                
+                
+                HStack {
+                    
+                    // The Sorting Button
+                    if viewModel.workouts.count != 0 {
+                        Button(action: {
+                            isSortedAscending.toggle()
+                            viewModel.toggleWorkoutOrder(ascending: isSortedAscending)
+                        }) {
+                            Image(systemName: isSortedAscending ? "arrow.up" : "arrow.down")
+                        }
+                        .frame(alignment: .leading)
+
+                    Spacer()
+                    // The Filtering Button
+                        HStack() {
+                            Menu("Filter") {
+                                
+                                ForEach(viewModel.uniqueWorkoutTypes, id: \.self) { type in
+                                    Button(type) {
+                                        selectedWorkoutType = type
+                                        viewModel.getAllWorkoutsByType(type: type)
+                                    }
+                                }
+                            //    Button("Clear Filters", action: clearFilters)
+                            }
+                            .onAppear(){
+                                viewModel.fetchAllUniqueWorkoutTypes()
+                            }
+                            
+                            // X button to clear filters, visible only when a filter is selected
+                            if selectedWorkoutType != nil {
+                                Button(action: clearFilters) {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                        }
+                    }
+                }
+                .padding(.horizontal, 25)
+                .padding(.vertical, 5)
+        
                 
                 if viewModel.workouts.count == 0 {
                     Text("No Workouts To Display")
@@ -98,6 +116,7 @@ struct WorkoutListView: View {
                         .listRowSeparator(.hidden)
                 }
                 .listStyle(PlainListStyle())
+                .padding(.bottom, 25)
             }
             .onAppear(perform: {
                 viewModel.getAllWorkouts()

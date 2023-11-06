@@ -11,40 +11,29 @@ struct InputModalView: View {
     var templates: [WorkoutTemplateModel]
     @Binding var selectedTemplate: WorkoutTemplateModel?
     @Binding var showTextField: Bool
-
+    
     
     var onSubmit: () -> Void
     @Environment(\.presentationMode) var presentationMode
-
+    
     var body: some View {
         VStack {
-            Button("Create New") {
-                self.showTextField = true
-                self.selectedTemplate = nil // Reset the template
-                self.inputText = ""
-            }
-            .padding()
-            
-            Divider()
-            
-            if showTextField {
-                FirstResponderTextField(text: $inputText, placeholder: "Enter Custom Workout Type", onCommit: {
-                    self.onSubmit()
-                    self.presentationMode.wrappedValue.dismiss() // Dismiss the modal
-                })
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(8)
-                .padding()
-            } else {
-                Picker(selection: $selectedTemplate, label: Text("Select Template")) {
+            VStack(spacing: 0) {
+               
+                
+                Text("Templates")
+                    .font(.title2)
+                    .padding(.top)
+                    .padding(.horizontal)
+                Picker(selection: $selectedTemplate, label: Text("Templates")) {
                     ForEach(templates, id: \.id) { template in
                         Text(template.type).tag(template as WorkoutTemplateModel?)
                     }
                 }
-                .labelsHidden()
                 .pickerStyle(WheelPickerStyle())
-                .padding()
+                .frame(maxHeight: 150)
+                .padding(.horizontal, 40)
+
             }
             
             Button(action: {
@@ -54,6 +43,32 @@ struct InputModalView: View {
                 Text("Submit")
             }
             .padding()
+            
+            Button("Create New") {
+                self.showTextField = true
+                self.selectedTemplate = nil // Reset the template
+                self.inputText = ""
+            }
+            .padding()
+            
+            if showTextField {
+                ZStack {
+                    Rectangle()
+                    .foregroundColor(Color(.systemGray6))
+                    .frame(maxHeight: 50)
+                    .cornerRadius(8)
+                    FirstResponderTextField(text: $inputText, placeholder: "Enter Custom Workout Type", onCommit: {
+                        self.onSubmit()
+                        self.presentationMode.wrappedValue.dismiss() // Dismiss the modal
+                    })
+                    .padding()
+                }
+                .padding(.horizontal)
+
+
+                
+            }
+        
         }
         .onAppear() {
             self.inputText = selectedTemplate?.type ?? ""
@@ -61,19 +76,18 @@ struct InputModalView: View {
         }
     }
 }
-
-struct InputModalView_Previews: PreviewProvider {
-    @State static private var previewText: String = ""
-    @State static private var previewSelectedTemplate: WorkoutTemplateModel? = nil
-    @State static private var previewShowTextField: Bool = false
-
-    static var previews: some View {
-        InputModalView(inputText: $previewText,
-                       templates: [],
-                       selectedTemplate: $previewSelectedTemplate,
-                       showTextField: $previewShowTextField,
-                       onSubmit: {
-            print("Submit action from preview")
-        })
+    struct InputModalView_Previews: PreviewProvider {
+        @State static private var previewText: String = ""
+        @State static private var previewSelectedTemplate: WorkoutTemplateModel? = nil
+        @State static private var previewShowTextField: Bool = false
+        
+        static var previews: some View {
+            InputModalView(inputText: $previewText,
+                           templates: [],
+                           selectedTemplate: $previewSelectedTemplate,
+                           showTextField: $previewShowTextField,
+                           onSubmit: {
+                print("Submit action from preview")
+            })
+        }
     }
-}

@@ -18,6 +18,8 @@ struct FirstResponderTextField: UIViewRepresentable {
         textField.delegate = context.coordinator
         textField.placeholder = placeholder
         textField.addTarget(context.coordinator, action: #selector(Coordinator.textFieldDidChange(_:)), for: .editingChanged)
+        textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
+
         return textField
     }
 

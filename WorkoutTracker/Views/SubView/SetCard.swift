@@ -16,7 +16,7 @@ struct SetCard: View {
             // Weight TextField
             NumberField(text: $enteredWeight, placeholder: "Enter Weight")
             .keyboardType(.numberPad)
-            .frame(width: 100)
+            .frame(width: 90)
             .padding(10)
             .background(Color(.systemGray5))
             .cornerRadius(8)

@@ -20,6 +20,8 @@ class WorkoutViewModel: ObservableObject {
     }
 
     var type = ""
+    private var isSortedAscending = false
+    
     @Published var workouts: [WorkoutModel] = []
     @Published var uniqueWorkoutTypes: [String] = []
 
@@ -55,6 +57,10 @@ class WorkoutViewModel: ObservableObject {
 
     }
 
+    func toggleWorkoutOrder(ascending: Bool) {
+        isSortedAscending.toggle()
+        workouts.sort(by: { ascending ? $0.creationTime < $1.creationTime : $0.creationTime > $1.creationTime })
+    }
 
     
     func update(workout: WorkoutModel, withNewInfo newInfo: WorkoutInfo) {
@@ -65,8 +71,9 @@ class WorkoutViewModel: ObservableObject {
     }
     
     func getAllWorkouts() {
-        workouts = controller.getAllWorkouts().map(WorkoutModel.init)
+        workouts = controller.getAllWorkouts().sorted(by: { isSortedAscending ? $0.creationTime ?? Date() < $1.creationTime ?? Date() : $0.creationTime! > $1.creationTime! }).map(WorkoutModel.init)
     }
+
 
     func delete(_ workout: WorkoutModel) throws {
         let existingWorkout = controller.getWorkoutById(id: workout.id)
