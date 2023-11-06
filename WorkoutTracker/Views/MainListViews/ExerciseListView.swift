@@ -20,16 +20,11 @@ struct ExerciseListView: View {
     @State private var editableWorkoutName: String = ""
 
     var body: some View {
-        VStack {
+        VStack(spacing: 5) {
             HStack {
-                    HStack(spacing: 0) {
-                        Text("Exercises for ")
-                            .font(.title)
-                        InlineTextEditView(text: $editableWorkoutName)
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .padding(0)
-                    }
+                InlineTextEditView(text: $editableWorkoutName)
+                    .font(.title)
+                    .padding(.horizontal, 30)
                 Spacer()
             }
             .onAppear(perform: {
@@ -39,8 +34,6 @@ struct ExerciseListView: View {
                 let newInfo = WorkoutInfo(creationTime: workout.creationTime, type: newValue)
                 workoutViewModel.update(workout: workout, withNewInfo: newInfo)
             }
-            .padding(30)
-            
             
             Button(action: {
                 self.isShowingInputModal.toggle()
@@ -57,7 +50,19 @@ struct ExerciseListView: View {
                 }
             }
             
-            if viewModel.exercises.count == 0 {
+            if viewModel.exercises.count != 0 {
+                VStack {
+                    HStack {
+                        Text("Exercises")
+                            .font(.title2)
+                            .padding(.leading, 30)
+                        Spacer()
+                    }
+                    Divider()
+                        .padding(.horizontal)
+                }
+
+            } else {
                 Text("No Exercises To Display")
                     .padding(.vertical, 20)
             }

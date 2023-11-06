@@ -20,17 +20,11 @@ struct SetListView: View {
     var body: some View {
         ScrollViewReader { scrollProxy in
             GeometryReader { geometry in
-                VStack {
-                    
+                VStack(spacing: 5) {
                     HStack {
-                        HStack(spacing: 0) {
-                            Text("Sets for ")
-                                .font(.title)
-                            InlineTextEditView(text: $editableExerciseName)
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .padding(0)
-                        }
+                        InlineTextEditView(text: $editableExerciseName)
+                            .font(.title)
+                            .padding(.horizontal, 20)
                         Spacer()
                     }
                     .onAppear(perform: {
@@ -40,7 +34,7 @@ struct SetListView: View {
                         let newInfo = ExerciseInfo(creationTime: exercise.creationTime, name: newValue)
                         exerciseViewModel.update(exercise: exercise, withNewInfo: newInfo)
                     }
-                    .padding(.horizontal, 30)
+                    .padding(.horizontal)
                     
                     Button(action: {
                         viewModel.addExerciseSet(exercise: exercise)
@@ -50,8 +44,22 @@ struct SetListView: View {
                     }
                     .background(Color.clear)
                     .cornerRadius(30)
-                    if viewModel.exerciseSets.count == 0 {
+
+                    if viewModel.exerciseSets.count != 0 {
+                        VStack {
+                            HStack {
+                                Text("Sets")
+                                    .font(.title2)
+                                    .padding(.leading, 30)
+                                Spacer()
+                            }
+                            Divider()
+                                .padding(.horizontal)
+                        }
+
+                    } else {
                         Text("No Sets To Display")
+                            .padding(.vertical, 20)
                     }
                     
                     List {
@@ -78,8 +86,9 @@ struct SetListView: View {
                         }
                         .onDelete(perform: deleteExercise)
                         .listRowSeparator(.hidden)
-                        Color.clear.frame(height: 1 ) // Invisible view with some height, acting as scroll target
+                        Color.clear.frame(width: 1) // Zero size frame
                             .id("bottomPadding")
+                            .listRowSeparator(.hidden)
                     }
                     .listStyle(PlainListStyle())
 
@@ -116,17 +125,15 @@ struct SetListView_Previews: PreviewProvider {
         let mockDataManager = DataManager(storeType: .inMemory)
         let mockDataController = ExerciseSetData(dataManager: mockDataManager)
         
-        
         let entity = NSEntityDescription.entity(forEntityName: "Exercise", in: mockDataManager.viewContext)!
         let exercise = Exercise(entity: entity, insertInto: mockDataManager.viewContext)
-        exercise.name = "Push"
+        exercise.name = "Bench Press"
         
         let mockViewModel = ExerciseSetViewModel(controller: mockDataController)
         
         let mockExerciseDataManager = DataManager(storeType: .inMemory)
         let mockExerciseDataController = ExerciseData(dataManager: mockExerciseDataManager)
         let mockExericseViewModel = ExerciseViewModel(controller: mockExerciseDataController)
-        
         
         return SetListView(exercise: ExerciseModel(exercise: exercise))
             .environmentObject(mockViewModel)
