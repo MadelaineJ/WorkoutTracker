@@ -9,6 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ExerciseListView: View {
+    @Environment(\.presentationMode) var presentationMode
     
     @EnvironmentObject private var viewModel: ExerciseViewModel
     @EnvironmentObject private var workoutViewModel: WorkoutViewModel
@@ -18,6 +19,7 @@ struct ExerciseListView: View {
     @State private var isShowingInputModal = false
     @State private var inputText = ""
     @State private var editableWorkoutName: String = ""
+    @State private var showingDeleteAlert = false
 
     var body: some View {
         VStack(spacing: 5) {
@@ -26,6 +28,17 @@ struct ExerciseListView: View {
                     .font(.title)
                     .padding(.horizontal, 30)
                 Spacer()
+                DeleteButton(message: "workout") {
+                    do {
+                        try workoutViewModel.delete(workout)
+                        presentationMode.wrappedValue.dismiss()
+                    } catch {
+                        print("Error occurred while deleting workout: \(error.localizedDescription)")
+                    }
+                }
+                .padding(.horizontal, 30)
+
+                
             }
             .onAppear(perform: {
                 editableWorkoutName = workout.type

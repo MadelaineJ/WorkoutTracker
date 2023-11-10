@@ -9,13 +9,16 @@ import SwiftUI
 import CoreData
 
 struct SetListView: View {
-    var exercise: ExerciseModel
+    @Environment(\.presentationMode) var presentationMode
+    
     @EnvironmentObject private var viewModel: ExerciseSetViewModel
     @EnvironmentObject private var exerciseViewModel: ExerciseViewModel
     
     @State private var editableExerciseName: String = ""
     @State private var listScrollPosition: UUID?
     @State private var exerciseSetCount: Int = 0
+    
+    var exercise: ExerciseModel
     
     var body: some View {
         ScrollViewReader { scrollProxy in
@@ -26,6 +29,11 @@ struct SetListView: View {
                             .font(.title)
                             .padding(.horizontal, 20)
                         Spacer()
+                        DeleteButton(message: "exercise") {
+                            exerciseViewModel.delete(exercise)
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                        .padding(.horizontal, 30)
                     }
                     .onAppear(perform: {
                         editableExerciseName = exercise.name

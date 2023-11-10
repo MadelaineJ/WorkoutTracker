@@ -17,6 +17,7 @@
 		27077BC82AAE49DA0024F035 /* WorkoutTrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27077BC72AAE49DA0024F035 /* WorkoutTrackerUITestsLaunchTests.swift */; };
 		270924762ADB0C73009B665F /* WorkoutCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270924752ADB0C73009B665F /* WorkoutCard.swift */; };
 		270924792ADB2515009B665F /* ExerciseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270924782ADB2515009B665F /* ExerciseListView.swift */; };
+		271B29262AFEA9CC00A1CC8A /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271B29252AFEA9CC00A1CC8A /* DeleteButton.swift */; };
 		272EBF932AE2F5DA00126645 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EBF922AE2F5DA00126645 /* ViewExtension.swift */; };
 		272EBF952AE2F6D200126645 /* CustomUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EBF942AE2F6D200126645 /* CustomUITextField.swift */; };
 		272EBF972AE2F6F400126645 /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EBF962AE2F6F400126645 /* NumberField.swift */; };
@@ -92,6 +93,7 @@
 		27077BC72AAE49DA0024F035 /* WorkoutTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		270924752ADB0C73009B665F /* WorkoutCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCard.swift; sourceTree = "<group>"; };
 		270924782ADB2515009B665F /* ExerciseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListView.swift; sourceTree = "<group>"; };
+		271B29252AFEA9CC00A1CC8A /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
 		272EBF922AE2F5DA00126645 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		272EBF942AE2F6D200126645 /* CustomUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUITextField.swift; sourceTree = "<group>"; };
 		272EBF962AE2F6F400126645 /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 				276A6DDB2AEF319D008EA0D8 /* ExerciseTemplateCard.swift */,
 				27077BA62AAE49D90024F035 /* ContentView.swift */,
 				27EDCD902ADC6B8100A5B315 /* SetCard.swift */,
+				271B29252AFEA9CC00A1CC8A /* DeleteButton.swift */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 				2787C36F2AD24953007CD4F2 /* DataManager.swift in Sources */,
 				27715EAB2AEDC06B002B588B /* WorkoutTemplateData.swift in Sources */,
 				27077BA52AAE49D90024F035 /* WorkoutTrackerApp.swift in Sources */,
+				271B29262AFEA9CC00A1CC8A /* DeleteButton.swift in Sources */,
 				274194C62AD334D500D010D0 /* ExerciseData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

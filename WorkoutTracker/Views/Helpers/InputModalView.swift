@@ -19,9 +19,8 @@ struct InputModalView: View {
     var body: some View {
         VStack {
             VStack(spacing: 0) {
-               
                 
-                Text("Create Workout From Templates")
+                Text("Templates")
                     .font(.title2)
                     .padding(.top)
                     .padding(.horizontal)
@@ -67,9 +66,6 @@ struct InputModalView: View {
                     .padding()
                 }
                 .padding(.horizontal)
-
-
-                
             }
         
         }
