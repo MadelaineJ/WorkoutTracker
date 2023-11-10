@@ -12,7 +12,6 @@ struct InputModalView: View {
     @Binding var selectedTemplate: WorkoutTemplateModel?
     @Binding var showTextField: Bool
     
-    
     var onSubmit: () -> Void
     @Environment(\.presentationMode) var presentationMode
     
@@ -45,29 +44,43 @@ struct InputModalView: View {
             
             Text("Or")
             
-            Button("Create New Workout") {
-                self.showTextField = true
-                self.selectedTemplate = nil // Reset the template
-                self.inputText = ""
+            if !showTextField {
+                Button("Create New Workout") {
+                    self.showTextField = true
+                    self.selectedTemplate = nil // Reset the template
+                    self.inputText = ""
+                }
+                .padding()
+                .padding(.top, 10)
             }
-            .padding()
-            .padding(.top, 10)
             
             if showTextField {
+                Button(action: {
+                    if !inputText.isEmpty {
+                        self.onSubmit()
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                }) {
+                    Text("Submit")
+                }
+                .disabled(inputText.isEmpty)
+                .padding()
+
                 ZStack {
                     Rectangle()
                     .foregroundColor(Color(.systemGray6))
                     .frame(maxHeight: 50)
                     .cornerRadius(8)
                     FirstResponderTextField(text: $inputText, placeholder: "Enter Custom Workout Type", onCommit: {
-                        self.onSubmit()
-                        self.presentationMode.wrappedValue.dismiss() // Dismiss the modal
+                        if !inputText.isEmpty {
+                            self.onSubmit()
+                            self.presentationMode.wrappedValue.dismiss() // Dismiss the modal
+                        }
                     })
                     .padding()
                 }
                 .padding(.horizontal)
             }
-        
         }
         .onAppear() {
             self.inputText = selectedTemplate?.type ?? ""
@@ -75,18 +88,20 @@ struct InputModalView: View {
         }
     }
 }
-    struct InputModalView_Previews: PreviewProvider {
-        @State static private var previewText: String = ""
-        @State static private var previewSelectedTemplate: WorkoutTemplateModel? = nil
-        @State static private var previewShowTextField: Bool = false
-        
-        static var previews: some View {
-            InputModalView(inputText: $previewText,
-                           templates: [],
-                           selectedTemplate: $previewSelectedTemplate,
-                           showTextField: $previewShowTextField,
-                           onSubmit: {
-                print("Submit action from preview")
-            })
-        }
+
+
+struct InputModalView_Previews: PreviewProvider {
+    @State static private var previewText: String = ""
+    @State static private var previewSelectedTemplate: WorkoutTemplateModel? = nil
+    @State static private var previewShowTextField: Bool = false
+    
+    static var previews: some View {
+        InputModalView(inputText: $previewText,
+                       templates: [],
+                       selectedTemplate: $previewSelectedTemplate,
+                       showTextField: $previewShowTextField,
+                       onSubmit: {
+            print("Submit action from preview")
+        })
     }
+}

@@ -1,10 +1,3 @@
-//
-//  InputModalView.swift
-//  WorkoutTracker
-//
-//  Created by Madelaine Jones on 2023-10-15.
-//
-
 import SwiftUI
 
 struct SimpleInputModalView: View {
@@ -14,22 +7,28 @@ struct SimpleInputModalView: View {
 
     var body: some View {
         VStack {
-            FirstResponderTextField(text: $inputText, placeholder: "Enter Exercise Name", onCommit: {
-                self.onSubmit()
-                self.presentationMode.wrappedValue.dismiss() // Dismiss the modal
-            })
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(8)
-                .padding()
-            
+            // Submit button
             Button(action: {
-                onSubmit()
-                
-                self.presentationMode.wrappedValue.dismiss()
+                if !inputText.isEmpty {
+                    onSubmit()
+                    self.presentationMode.wrappedValue.dismiss()
+                }
             }) {
                 Text("Submit")
             }
+            .disabled(inputText.isEmpty)
+            .padding()
+
+            // Text field
+            FirstResponderTextField(text: $inputText, placeholder: "Enter Exercise Name", onCommit: {
+                if !inputText.isEmpty {
+                    self.onSubmit()
+                    self.presentationMode.wrappedValue.dismiss() // Dismiss the modal
+                }
+            })
+            .padding()
+            .background(Color(.systemGray6))
+            .cornerRadius(8)
             .padding()
         }
         .onAppear() {
@@ -37,7 +36,6 @@ struct SimpleInputModalView: View {
         }
     }
 }
-
 
 struct SimpleInputModalView_Previews: PreviewProvider {
     @State static private var previewText: String = ""
@@ -48,4 +46,3 @@ struct SimpleInputModalView_Previews: PreviewProvider {
         })
     }
 }
-
