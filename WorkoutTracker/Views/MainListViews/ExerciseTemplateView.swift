@@ -12,7 +12,7 @@ struct ExerciseTemplateView: View {
     
     @EnvironmentObject private var viewModel: ExerciseTemplateViewModel
     @EnvironmentObject private var workoutViewModel: WorkoutTemplateViewModel
-    
+    @State private var isEditMode: EditMode = .inactive
     var workoutTemplate: WorkoutTemplateModel
     
     @State private var isShowingInputModal = false
@@ -79,6 +79,13 @@ struct ExerciseTemplateView: View {
             }
             .listStyle(PlainListStyle())
         }
+        .onChange(of: viewModel.exerciseTemplates.count) { newCount in
+            if newCount == 0 && isEditMode == .active {
+                isEditMode = .inactive
+            }
+        }
+        .navigationBarItems(trailing: EditButton())
+        .environment(\.editMode, $isEditMode)
         .onAppear(perform: {
             viewModel.getExerciseTemplates(workoutTemplate: workoutTemplate)
         })

@@ -18,6 +18,7 @@ struct WorkoutListView: View {
 
     @State private var inputText = ""
     @State private var selectedWorkoutType: String? = nil
+    @State private var isEditMode: EditMode = .inactive
     
     
     var body: some View {
@@ -30,7 +31,6 @@ struct WorkoutListView: View {
                     Spacer()
                 }
                 .padding(.horizontal, 30)
-                .padding(.top, 20)
                 HStack {
                     
                     Button(action: {
@@ -118,6 +118,13 @@ struct WorkoutListView: View {
                 .listStyle(PlainListStyle())
                 .padding(.bottom, 25)
             }
+            .onChange(of: viewModel.workouts.count) { newCount in
+                if newCount == 0 && isEditMode == .active {
+                    isEditMode = .inactive
+                }
+            }
+            .navigationBarItems(trailing: EditButton())
+            .environment(\.editMode, $isEditMode)
             .onAppear(perform: {
                 viewModel.getAllWorkouts()
             })

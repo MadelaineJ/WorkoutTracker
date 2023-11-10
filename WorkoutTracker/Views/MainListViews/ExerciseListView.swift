@@ -20,6 +20,7 @@ struct ExerciseListView: View {
     @State private var inputText = ""
     @State private var editableWorkoutName: String = ""
     @State private var showingDeleteAlert = false
+    @State private var isEditMode: EditMode = .inactive
 
     var body: some View {
         VStack(spacing: 5) {
@@ -95,6 +96,13 @@ struct ExerciseListView: View {
             }
             .listStyle(PlainListStyle())
         }
+        .onChange(of: viewModel.exercises.count) { newCount in
+            if newCount == 0 && isEditMode == .active {
+                isEditMode = .inactive
+            }
+        }
+        .navigationBarItems(trailing: EditButton())
+        .environment(\.editMode, $isEditMode)
         .onAppear(perform: {
             viewModel.getExercises(workout: workout)
         })

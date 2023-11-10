@@ -17,6 +17,7 @@ struct SetListView: View {
     @State private var editableExerciseName: String = ""
     @State private var listScrollPosition: UUID?
     @State private var exerciseSetCount: Int = 0
+    @State private var isEditMode: EditMode = .inactive
     
     var exercise: ExerciseModel
     
@@ -101,6 +102,13 @@ struct SetListView: View {
                     .listStyle(PlainListStyle())
 
                 }
+                .onChange(of: viewModel.exerciseSets.count) { newCount in
+                    if newCount == 0 && isEditMode == .active {
+                        isEditMode = .inactive
+                    }
+                }
+                .navigationBarItems(trailing: EditButton())
+                .environment(\.editMode, $isEditMode)
                 .onAppear(perform: {
                     viewModel.getExerciseSets(exercise: exercise)
                     exerciseSetCount = viewModel.exerciseSets.count
