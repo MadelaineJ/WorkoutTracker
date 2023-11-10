@@ -57,11 +57,12 @@ struct ExerciseListView: View {
             .background(Color.clear)
             .cornerRadius(30)
             .sheet(isPresented: $isShowingInputModal) {
-                SimpleInputModalView(inputText: $inputText) {
+                SimpleInputModalView(inputText: $inputText, isNameNotUnique: .constant(false), onSubmit: {
                     viewModel.addExercise(id: workout.id, name: inputText)
                     viewModel.getExercises(workout: workout)
-                }
+                }, isNameValid: { true })  // Always returns true as uniqueness is not required
             }
+
             
             if viewModel.exercises.count != 0 {
                 VStack {

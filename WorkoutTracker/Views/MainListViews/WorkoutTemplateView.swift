@@ -12,6 +12,7 @@ struct WorkoutTemplateView: View {
     
     @State private var isShowingInputModal = false
     @State private var inputText = ""
+    @State private var isNameNotUnique = false
     
     var body: some View {
         NavigationView {
@@ -33,10 +34,11 @@ struct WorkoutTemplateView: View {
                 .background(Color.clear)
                 .cornerRadius(30)
                 .sheet(isPresented: $isShowingInputModal) {
-                    SimpleInputModalView(inputText: $inputText) {
+                    SimpleInputModalView(inputText: $inputText, isNameNotUnique: $isNameNotUnique, onSubmit: {
                         viewModel.createWorkoutTemplate(type: inputText)
                         viewModel.getAllWorkoutTemplates()
-                    }
+                        isNameNotUnique = false  // Reset the flag
+                    }, isNameValid: isTemplateNameUnique)
                 }
                 
                 if viewModel.workoutTemplates.count == 0 {
@@ -65,7 +67,11 @@ struct WorkoutTemplateView: View {
         .background(Color(.systemGray2))
 
     }
-    
+    func isTemplateNameUnique() -> Bool {
+        let isUnique = !viewModel.workoutTemplates.contains(where: { $0.type.lowercased() == inputText.lowercased() })
+        isNameNotUnique = !isUnique  // Set the state variable based on uniqueness
+        return isUnique
+    }
     
     func deleteWorkout(at offsets: IndexSet) {
         offsets.forEach { index in

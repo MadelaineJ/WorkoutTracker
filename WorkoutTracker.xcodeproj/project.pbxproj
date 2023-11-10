@@ -299,8 +299,6 @@
 				27EDCD9C2ADCAEC000A5B315 /* Helpers */,
 				27EDCD9A2ADCAE9000A5B315 /* MainListViews */,
 				27EDCD6E2ADB325900A5B315 /* SubView */,
-				276A6DD52AEF1BF0008EA0D8 /* WorkoutTemplateView.swift */,
-				276A6DD92AEF2E3D008EA0D8 /* ExerciseTemplateView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -333,6 +331,8 @@
 		27EDCD9A2ADCAE9000A5B315 /* MainListViews */ = {
 			isa = PBXGroup;
 			children = (
+				276A6DD92AEF2E3D008EA0D8 /* ExerciseTemplateView.swift */,
+				276A6DD52AEF1BF0008EA0D8 /* WorkoutTemplateView.swift */,
 				270924782ADB2515009B665F /* ExerciseListView.swift */,
 				2787C3622AD248FE007CD4F2 /* SetListView.swift */,
 				2787C3602AD248E9007CD4F2 /* WorkoutListView.swift */,

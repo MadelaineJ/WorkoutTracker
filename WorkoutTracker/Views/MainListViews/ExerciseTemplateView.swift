@@ -51,11 +51,17 @@ struct ExerciseTemplateView: View {
             .background(Color.clear)
             .cornerRadius(30)
             .sheet(isPresented: $isShowingInputModal) {
-                SimpleInputModalView(inputText: $inputText) {
-                    viewModel.addExerciseTemplate(workoutTemplate: workoutTemplate, name: inputText)
-                    viewModel.getExerciseTemplates(workoutTemplate: workoutTemplate)
-                }
+                SimpleInputModalView(
+                    inputText: $inputText,
+                    isNameNotUnique: .constant(false),  // Always false as uniqueness is not required
+                    onSubmit: {
+                        viewModel.addExerciseTemplate(workoutTemplate: workoutTemplate, name: inputText)
+                        viewModel.getExerciseTemplates(workoutTemplate: workoutTemplate)
+                    },
+                    isNameValid: { true }  // Always returns true, as uniqueness is not required
+                )
             }
+
             
             if viewModel.exerciseTemplates.count == 0 {
                 Text("No Exercises To Display")
