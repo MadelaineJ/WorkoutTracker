@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		27077BA52AAE49D90024F035 /* WorkoutTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27077BA42AAE49D90024F035 /* WorkoutTrackerApp.swift */; };
-		27077BA72AAE49D90024F035 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27077BA62AAE49D90024F035 /* ContentView.swift */; };
 		27077BA92AAE49DA0024F035 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27077BA82AAE49DA0024F035 /* Assets.xcassets */; };
 		27077BAC2AAE49DA0024F035 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27077BAB2AAE49DA0024F035 /* Preview Assets.xcassets */; };
 		27077BB12AAE49DA0024F035 /* WorkoutTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 27077BAF2AAE49DA0024F035 /* WorkoutTracker.xcdatamodeld */; };
@@ -81,7 +80,6 @@
 /* Begin PBXFileReference section */
 		27077BA12AAE49D90024F035 /* WorkoutTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27077BA42AAE49D90024F035 /* WorkoutTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTrackerApp.swift; sourceTree = "<group>"; };
-		27077BA62AAE49D90024F035 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		27077BA82AAE49DA0024F035 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27077BAB2AAE49DA0024F035 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		27077BB02AAE49DA0024F035 /* WorkoutTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WorkoutTracker.xcdatamodel; sourceTree = "<group>"; };
@@ -321,7 +319,6 @@
 				27EDCD942ADCA37000A5B315 /* AddButton.swift */,
 				270924752ADB0C73009B665F /* WorkoutCard.swift */,
 				276A6DDB2AEF319D008EA0D8 /* ExerciseTemplateCard.swift */,
-				27077BA62AAE49D90024F035 /* ContentView.swift */,
 				27EDCD902ADC6B8100A5B315 /* SetCard.swift */,
 				271B29252AFEA9CC00A1CC8A /* DeleteButton.swift */,
 			);
@@ -515,7 +512,6 @@
 				270924792ADB2515009B665F /* ExerciseListView.swift in Sources */,
 				27715EBB2AEDD1C7002B588B /* ExerciseTemplateViewModel.swift in Sources */,
 				272EBF9A2AE4657E00126645 /* InlineTextEditView.swift in Sources */,
-				27077BA72AAE49D90024F035 /* ContentView.swift in Sources */,
 				27EDCD6D2ADB316000A5B315 /* ExerciseSetModel.swift in Sources */,
 				27EDCD6B2ADB315A00A5B315 /* ExerciseModel.swift in Sources */,
 				2787C3732AD2496D007CD4F2 /* ExerciseViewModel.swift in Sources */,

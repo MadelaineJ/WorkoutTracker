@@ -11,11 +11,12 @@ struct WorkoutListView: View {
     @EnvironmentObject private var viewModel: WorkoutViewModel
     @EnvironmentObject private var templateViewModel: WorkoutTemplateViewModel
     
+    @Binding var selectedTab: Int
+    
     @State private var isShowingInputModal = false
     @State private var selectedTemplate: WorkoutTemplateModel? = nil
     @State private var showTextField: Bool = false
     @State private var isSortedAscending = false
-
     @State private var inputText = ""
     @State private var selectedWorkoutType: String? = nil
     @State private var isEditMode: EditMode = .inactive
@@ -42,7 +43,11 @@ struct WorkoutListView: View {
                     .background(Color.clear)
                     .cornerRadius(30)
                     .sheet(isPresented: $isShowingInputModal) {
-                        InputModalView(inputText: $inputText, templates: templateViewModel.workoutTemplates, selectedTemplate: $selectedTemplate, showTextField: $showTextField) {
+                        InputModalView(inputText: $inputText,
+                                       templates: templateViewModel.workoutTemplates,
+                                       selectedTemplate: $selectedTemplate,
+                                       showTextField: $showTextField,
+                                       selectedTab: $selectedTab) {
                             if self.showTextField {
                                 _ = viewModel.createWorkout(type: inputText)
                             } else if let template = self.selectedTemplate {
@@ -163,6 +168,8 @@ struct WorkoutListView: View {
 }
 
 struct WorkoutListView_Previews: PreviewProvider {
+    @State static private var selectedTab: Int = 0
+
     static var previews: some View {
         let mockDataManager = DataManager(storeType: .inMemory)
         
@@ -172,7 +179,7 @@ struct WorkoutListView_Previews: PreviewProvider {
         let mockDataWorkoutTemplateController = WorkoutTemplateData(dataManager: mockDataManager)
         let mockViewWorkoutTemplateModel = WorkoutTemplateViewModel(controller: mockDataWorkoutTemplateController)
         
-        return WorkoutListView()
+        return WorkoutListView(selectedTab: $selectedTab)
             .environmentObject(mockViewWorkoutModel)
             .environmentObject(mockViewWorkoutTemplateModel)
     }

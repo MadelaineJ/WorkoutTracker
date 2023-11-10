@@ -13,6 +13,7 @@ struct WorkoutTemplateView: View {
     @State private var isShowingInputModal = false
     @State private var inputText = ""
     @State private var isNameNotUnique = false
+    @State private var isEditMode: EditMode = .inactive
     
     var body: some View {
         NavigationView {
@@ -60,6 +61,13 @@ struct WorkoutTemplateView: View {
                 }
                 .listStyle(PlainListStyle())
             }
+            .onChange(of: viewModel.workoutTemplates.count) { newCount in
+                if newCount == 0 && isEditMode == .active {
+                    isEditMode = .inactive
+                }
+            }
+            .navigationBarItems(trailing: EditButton())
+            .environment(\.editMode, $isEditMode)
             .onAppear(perform: {
                 viewModel.getAllWorkoutTemplates()
             })

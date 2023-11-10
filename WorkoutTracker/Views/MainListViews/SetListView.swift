@@ -102,6 +102,7 @@ struct SetListView: View {
                     .listStyle(PlainListStyle())
 
                 }
+                .padding(.top, 20)
                 .onChange(of: viewModel.exerciseSets.count) { newCount in
                     if newCount == 0 && isEditMode == .active {
                         isEditMode = .inactive

@@ -38,9 +38,8 @@ struct ExerciseListView: View {
                     }
                 }
                 .padding(.horizontal, 30)
-
-                
             }
+            .padding(.top, 20)
             .onAppear(perform: {
                 editableWorkoutName = workout.type
             })
