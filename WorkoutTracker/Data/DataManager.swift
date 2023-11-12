@@ -15,7 +15,7 @@ class DataManager {
     
     static let shared = DataManager()
     
-    var persistentContainer: NSPersistentContainer
+    var persistentContainer: NSPersistentCloudKitContainer
     
     var viewContext: NSManagedObjectContext {
         return persistentContainer.viewContext
@@ -26,7 +26,9 @@ class DataManager {
     }
     
     init(storeType: StoreType = .actual) {
-        persistentContainer = NSPersistentContainer(name: "WorkoutTracker")
+        persistentContainer = NSPersistentCloudKitContainer(name: "WorkoutTracker")
+        persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+        persistentContainer.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
         if storeType == .inMemory {
             let description = NSPersistentStoreDescription()
