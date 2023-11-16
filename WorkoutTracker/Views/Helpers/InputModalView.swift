@@ -20,7 +20,7 @@ struct InputModalView: View {
         VStack {
             VStack(spacing: 0) {
                 
-                Text("Template")
+                Text("Templates")
                     .font(.title2)
                     .padding(.top)
                     .padding(.horizontal)
@@ -113,6 +113,9 @@ struct InputModalView: View {
             }
         }
         .onAppear() {
+            if !templates.isEmpty {
+                self.selectedTemplate = templates.first
+            }
             self.inputText = selectedTemplate?.type ?? ""
             self.showTextField = false
         }
