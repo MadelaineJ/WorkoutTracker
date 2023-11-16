@@ -45,10 +45,10 @@ class ExerciseViewModel: ObservableObject {
         exercises = controller.getExercises(workoutId: workout.id).map(ExerciseModel.init)
     }
     
-    func addExercise(id: NSManagedObjectID, name: String) {
+    func addExercise(id: NSManagedObjectID, name: String) -> Exercise {
         let exercise = createExercise(name: name)
         controller.addExercise(workoutId: id, exercise: exercise)
-        
+        return exercise
     }
     
     func delete(_ exercise: ExerciseModel) {

@@ -14,9 +14,12 @@ struct WorkoutTemplateView: View {
     @State private var inputText = ""
     @State private var isNameNotUnique = false
     @State private var isEditMode: EditMode = .inactive
+    @State private var navigateToExerciseList = false
+    @State private var selectedWorkoutTemplate: WorkoutTemplateModel?
+    @State private var navigationPath = NavigationPath()
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $navigationPath) {
             VStack {
                 
                 HStack {
@@ -36,9 +39,12 @@ struct WorkoutTemplateView: View {
                 .cornerRadius(30)
                 .sheet(isPresented: $isShowingInputModal) {
                     SimpleInputModalView(inputText: $inputText, isNameNotUnique: $isNameNotUnique, onSubmit: {
-                        viewModel.createWorkoutTemplate(type: inputText)
-                        viewModel.getAllWorkoutTemplates()
-                        isNameNotUnique = false  // Reset the flag
+                        if let newWorkout = viewModel.createWorkoutTemplate(type: inputText) {
+                            viewModel.getAllWorkoutTemplates()
+                            isNameNotUnique = false
+                            let newWorkoutTemplate = WorkoutTemplateModel(workout: newWorkout)
+                            navigationPath.append(newWorkoutTemplate) // Navigate to ExerciseTemplateView
+                        }
                     }, isNameValid: isTemplateNameUnique)
                 }
                 
@@ -47,19 +53,19 @@ struct WorkoutTemplateView: View {
                 }
                     List {
                         ForEach(viewModel.workoutTemplates, id: \.id) { workout in
-                            ZStack {
-                                NavigationLink(destination: ExerciseTemplateView(workoutTemplate: workout)) {
-                                    EmptyView()
+                            WorkoutCard(type: workout.type)
+                                .onTapGesture {
+                                    navigationPath.append(workout) // Navigate on tap
                                 }
-                                .opacity(0) // Make it invisible
-                                WorkoutCard(type: workout.type)
-                            }
                             
                         }
                         .onDelete(perform: deleteWorkout)
                         .listRowSeparator(.hidden)
                 }
                 .listStyle(PlainListStyle())
+            }
+            .navigationDestination(for: WorkoutTemplateModel.self) { workoutTemplate in
+                ExerciseTemplateView(workoutTemplate: workoutTemplate)
             }
             .onChange(of: viewModel.workoutTemplates.count) { newCount in
                 if newCount == 0 && isEditMode == .active {
@@ -72,6 +78,7 @@ struct WorkoutTemplateView: View {
                 viewModel.getAllWorkoutTemplates()
             })
         }
+
         .background(Color(.systemGray2))
 
     }

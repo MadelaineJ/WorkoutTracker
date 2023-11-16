@@ -20,10 +20,12 @@ class WorkoutTemplateViewModel: ObservableObject {
     var type = ""
     @Published var workoutTemplates: [WorkoutTemplateModel] = []
 
-    func createWorkoutTemplate(type: String) {
-        controller.createWorkoutTemplate(type)
+    func createWorkoutTemplate(type: String) -> WorkoutTemplate? {
+        let newWorkoutTemplate = controller.createWorkoutTemplate(type)
         getAllWorkoutTemplates()  // Update the list after creating
+        return newWorkoutTemplate
     }
+
 
     func update(workoutTemplate: WorkoutTemplateModel, withNewInfo newInfo: WorkoutTemplateInfo) {
         if let existingWorkoutTemplate = controller.getWorkoutTemplateById(id: workoutTemplate.id) {

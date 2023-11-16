@@ -13,7 +13,7 @@ struct ExerciseInfo {
     let name: String
 }
 
-struct ExerciseModel {
+struct ExerciseModel: Hashable {
     let exercise: Exercise
     
     var id: NSManagedObjectID {

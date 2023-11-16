@@ -15,7 +15,7 @@ struct WorkoutInfo {
 
 
 // used for displaying in the view
-struct WorkoutModel {
+struct WorkoutModel: Hashable {
     let workout: Workout
     
     var id: NSManagedObjectID {

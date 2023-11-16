@@ -41,7 +41,7 @@ class WorkoutViewModel: ObservableObject {
         workouts = controller.getAllWorkoutsByType(type: type).map(WorkoutModel.init)
     }
     
-    func createWorkoutFromTemplate(workoutTemplate: WorkoutTemplateModel) {
+    func createWorkoutFromTemplate(workoutTemplate: WorkoutTemplateModel) -> Workout {
         // Create a workout using information from the workout template
         let workoutType = workoutTemplate.type
         let workout = createWorkout(type: workoutType) // Assuming this returns a Workout object
@@ -51,9 +51,10 @@ class WorkoutViewModel: ObservableObject {
                 
         if let unwrappedExercises = template.exercises {
             for exerciseTemplate in unwrappedExercises.allObjects as! [ExerciseTemplate] {
-                exerciseViewModel.addExercise(id: workout.objectID, name: exerciseTemplate.name!)
+                _ = exerciseViewModel.addExercise(id: workout.objectID, name: exerciseTemplate.name!)
             }
         }
+        return workout
 
     }
 

@@ -13,10 +13,11 @@ class WorkoutTemplateData {
         self.dataManager = dataManager
     }
 
-    func createWorkoutTemplate(_ type: String) {
+    func createWorkoutTemplate(_ type: String) -> WorkoutTemplate {
         let workoutTemplate = WorkoutTemplate(context: dataManager.viewContext)
         workoutTemplate.type = type
         dataManager.save()
+        return workoutTemplate
     }
 
     func updateWorkoutTemplate(existingWorkoutTemplate: WorkoutTemplate, with newInfo: WorkoutTemplateInfo) {

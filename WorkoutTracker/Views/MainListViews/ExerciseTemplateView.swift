@@ -114,9 +114,9 @@ struct ExerciseTemplateView_Previews: PreviewProvider {
         let mockDataWorkoutController = WorkoutTemplateData(dataManager: mockDataManager)
         let mockViewWorkoutModel = WorkoutTemplateViewModel(controller: mockDataWorkoutController)
 
-        
+        let navigationPath = NavigationPath()
         let mockViewModel = ExerciseTemplateViewModel(controller: mockDataController)
-        return ExerciseListView(workout: WorkoutModel(workout: workout))
+        return ExerciseListView(workout: WorkoutModel(workout: workout), navigationPath: .constant(navigationPath))
             .environmentObject(mockViewModel)
             .environmentObject(mockViewWorkoutModel)
     }

@@ -20,10 +20,11 @@ struct WorkoutListView: View {
     @State private var inputText = ""
     @State private var selectedWorkoutType: String? = nil
     @State private var isEditMode: EditMode = .inactive
+    @State private var navigationPath = NavigationPath()
     
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $navigationPath) {
             VStack {
                 
                 HStack {
@@ -48,10 +49,13 @@ struct WorkoutListView: View {
                                        selectedTemplate: $selectedTemplate,
                                        showTextField: $showTextField,
                                        selectedTab: $selectedTab) {
+                            var newWorkout: WorkoutModel
                             if self.showTextField {
-                                _ = viewModel.createWorkout(type: inputText)
+                                newWorkout = WorkoutModel(workout: viewModel.createWorkout(type: inputText))
+                                navigationPath.append(newWorkout)
                             } else if let template = self.selectedTemplate {
-                                viewModel.createWorkoutFromTemplate(workoutTemplate: template)
+                                newWorkout = WorkoutModel(workout: viewModel.createWorkoutFromTemplate(workoutTemplate: template))
+                                navigationPath.append(newWorkout)
                             }
                             viewModel.getAllWorkouts()
                         }
@@ -106,22 +110,21 @@ struct WorkoutListView: View {
                 if viewModel.workouts.count == 0 {
                     Text("No Workouts To Display")
                 }
-                    List {
-                        ForEach(viewModel.workouts, id: \.id) { workout in
-                            ZStack {
-                                NavigationLink(destination: ExerciseListView(workout: workout)) {
-                                    EmptyView()
-                                }
-                                .opacity(0) // Make it invisible
-                                
-                                WorkoutCard(type: workout.type, creationTime: workout.creationTime)
+                List {
+                    ForEach(viewModel.workouts, id: \.id) { workout in
+                        WorkoutCard(type: workout.type, creationTime: workout.creationTime)
+                            .onTapGesture {
+                                navigationPath.append(workout)
                             }
-                        }
-                        .onDelete(perform: deleteWorkout)
-                        .listRowSeparator(.hidden)
+                    }
+                    .onDelete(perform: deleteWorkout)
+                    .listRowSeparator(.hidden)
                 }
                 .listStyle(PlainListStyle())
                 .padding(.bottom, 25)
+            }
+            .navigationDestination(for: WorkoutModel.self) { workout in
+                ExerciseListView(workout: workout, navigationPath: $navigationPath)
             }
             .onChange(of: viewModel.workouts.count) { newCount in
                 if newCount == 0 && isEditMode == .active {
