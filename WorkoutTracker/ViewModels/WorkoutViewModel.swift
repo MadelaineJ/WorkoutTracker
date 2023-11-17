@@ -55,7 +55,6 @@ class WorkoutViewModel: ObservableObject {
             }
         }
         return workout
-
     }
 
     func toggleWorkoutOrder(ascending: Bool) {

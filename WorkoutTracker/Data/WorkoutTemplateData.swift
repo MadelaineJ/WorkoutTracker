@@ -30,7 +30,7 @@ class WorkoutTemplateData {
         let request: NSFetchRequest<WorkoutTemplate> = WorkoutTemplate.fetchRequest()
         
         // Add a sort descriptor to sort by creationTime in descending order
-        let sortDescriptor = NSSortDescriptor(key: "type", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "type", ascending: false)
         request.sortDescriptors = [sortDescriptor]
         
         do {

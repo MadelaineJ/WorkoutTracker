@@ -12,9 +12,13 @@ import Combine  // If you are using Combine for @Published property
 class WorkoutTemplateViewModel: ObservableObject {
 
     var controller: WorkoutTemplateData
+    var exerciseController: ExerciseTemplateData
 
-    init(controller: WorkoutTemplateData = WorkoutTemplateData()) {
+
+    init(controller: WorkoutTemplateData = WorkoutTemplateData(),
+         exerciseController: ExerciseTemplateData = ExerciseTemplateData()) {
         self.controller = controller
+        self.exerciseController = exerciseController
     }
 
     var type = ""
@@ -25,7 +29,6 @@ class WorkoutTemplateViewModel: ObservableObject {
         getAllWorkoutTemplates()  // Update the list after creating
         return newWorkoutTemplate
     }
-
 
     func update(workoutTemplate: WorkoutTemplateModel, withNewInfo newInfo: WorkoutTemplateInfo) {
         if let existingWorkoutTemplate = controller.getWorkoutTemplateById(id: workoutTemplate.id) {
@@ -41,6 +44,10 @@ class WorkoutTemplateViewModel: ObservableObject {
     func getAllWorkoutTemplates() {
         workoutTemplates = controller.getAllWorkoutTemplates().map(WorkoutTemplateModel.init)
     }
+    
+    func getExercisesForWorkout(workoutTemplate: WorkoutTemplateModel) -> [ExerciseTemplateModel] {
+        return exerciseController.getExerciseTemplates(workoutId: workoutTemplate.id).map(ExerciseTemplateModel.init)
+    }
 
     func delete(_ workoutTemplate: WorkoutTemplateModel) {
         if let existingWorkoutTemplate = controller.getWorkoutTemplateById(id: workoutTemplate.id) {
@@ -52,5 +59,6 @@ class WorkoutTemplateViewModel: ObservableObject {
             }
         }
     }
+    
 }
 

@@ -35,6 +35,8 @@ class ExerciseTemplateData {
     
     func getAllExerciseTemplates() -> [ExerciseTemplate] {
         let request: NSFetchRequest<ExerciseTemplate> = ExerciseTemplate.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "ExerciseTemplate.name", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
         
         do {
             return try dataManager.viewContext.fetch(request)
@@ -47,7 +49,7 @@ class ExerciseTemplateData {
         if let workout = workoutController.getWorkoutTemplateById(id: workoutId) {
             if let exerciseTemplates = workout.exercises as? Set<ExerciseTemplate> {
                 let exerciseTemplatesArray = Array(exerciseTemplates)
-                return exerciseTemplatesArray.sorted(by: { $0.name! > $1.name! })  // Sorting in descending order
+                return exerciseTemplatesArray.sorted(by: { $0.name! < $1.name! })  // Sorting in descending order
             }
         }
         return []

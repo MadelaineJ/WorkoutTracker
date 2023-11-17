@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WorkoutTemplateView: View {
     @EnvironmentObject private var viewModel: WorkoutTemplateViewModel
+    @EnvironmentObject private var exerciseViewModel: ExerciseTemplateViewModel
     
     @State private var isShowingInputModal = false
     @State private var inputText = ""
@@ -18,17 +19,22 @@ struct WorkoutTemplateView: View {
     @State private var selectedWorkoutTemplate: WorkoutTemplateModel?
     @State private var navigationPath = NavigationPath()
     
+  //  let horizontalSpacing: CGFloat = 20 // Example horizontal spacing
+
+    let cardHeight: CGFloat = 150 // Fixed vertical size for each card
+
+    private var gridLayout: [GridItem] = Array(repeating: .init(.flexible(), spacing: 20), count: 2)
+
+    
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack {
-                
                 HStack {
-                        Text("Workout Templates")
-                            .font(.title)
+                    Text("Workout Templates")
+                        .font(.title)
                     Spacer()
                 }
                 .padding(.horizontal, 30)
-                
                 
                 Button(action: {
                     self.isShowingInputModal.toggle()
@@ -43,26 +49,30 @@ struct WorkoutTemplateView: View {
                             viewModel.getAllWorkoutTemplates()
                             isNameNotUnique = false
                             let newWorkoutTemplate = WorkoutTemplateModel(workout: newWorkout)
-                            navigationPath.append(newWorkoutTemplate) // Navigate to ExerciseTemplateView
+                            navigationPath.append(newWorkoutTemplate)
                         }
                     }, isNameValid: isTemplateNameUnique)
                 }
                 
-                if viewModel.workoutTemplates.count == 0 {
-                    Text("No Workout Templates")
-                }
-                    List {
-                        ForEach(viewModel.workoutTemplates, id: \.id) { workout in
-                            WorkoutCard(type: workout.type)
-                                .onTapGesture {
-                                    navigationPath.append(workout) // Navigate on tap
-                                }
-                            
+                if viewModel.workoutTemplates.count > 0 {
+                    ScrollView() {
+                        LazyVGrid(columns: gridLayout, spacing: 50) {
+                            ForEach(viewModel.workoutTemplates, id: \.id) { workout in
+                                TemplateCard(workout: workout, exercises: viewModel.getExercisesForWorkout(workoutTemplate: workout))
+                                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100) // Specify the fixed height here
+                                    .onTapGesture {
+                                        navigationPath.append(workout)
+                                    }
+
+                            }
                         }
-                        .onDelete(perform: deleteWorkout)
-                        .listRowSeparator(.hidden)
+                        .padding(.top, 40)
+                        .padding(.horizontal)
+                    }
+                } else {
+                    Text("No Workout Templates")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity) // Center the text when no templates
                 }
-                .listStyle(PlainListStyle())
             }
             .navigationDestination(for: WorkoutTemplateModel.self) { workoutTemplate in
                 ExerciseTemplateView(workoutTemplate: workoutTemplate)
@@ -78,9 +88,9 @@ struct WorkoutTemplateView: View {
                 viewModel.getAllWorkoutTemplates()
             })
         }
-
+        
         .background(Color(.systemGray2))
-
+        
     }
     func isTemplateNameUnique() -> Bool {
         let isUnique = !viewModel.workoutTemplates.contains(where: { $0.type.lowercased() == inputText.lowercased() })
