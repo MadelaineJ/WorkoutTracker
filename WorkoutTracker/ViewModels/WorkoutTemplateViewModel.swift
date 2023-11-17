@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 import Combine  // If you are using Combine for @Published property
+import UIKit
 
 class WorkoutTemplateViewModel: ObservableObject {
 
@@ -60,5 +61,25 @@ class WorkoutTemplateViewModel: ObservableObject {
         }
     }
     
+    // Colour related
+    func createWorkoutTemplate(type: String, color: UIColor) -> WorkoutTemplate? {
+        let newWorkoutTemplate = controller.createWorkoutTemplate(type, color: color)
+        getAllWorkoutTemplates()  // Update the list after creating
+        return newWorkoutTemplate
+    }
+
+    func update(workoutTemplate: WorkoutTemplateModel, withNewInfo newInfo: WorkoutTemplateInfo, color: UIColor) {
+        if let existingWorkoutTemplate = controller.getWorkoutTemplateById(id: workoutTemplate.id) {
+            controller.updateWorkoutTemplate(existingWorkoutTemplate: existingWorkoutTemplate, with: newInfo, color: color)
+            getAllWorkoutTemplates()  // Update the list after updating
+        }
+    }
+
+    func getColorForWorkoutTemplate(workoutTemplate: WorkoutTemplate) -> UIColor? {
+        if let colorData = workoutTemplate.color {
+            return controller.convertDataToColor(data: colorData)
+        }
+        return nil
+    }
 }
 
