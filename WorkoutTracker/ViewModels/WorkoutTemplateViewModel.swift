@@ -62,22 +62,23 @@ class WorkoutTemplateViewModel: ObservableObject {
     }
     
     // Colour related
-    func createWorkoutTemplate(type: String, color: UIColor) -> WorkoutTemplate? {
-        let newWorkoutTemplate = controller.createWorkoutTemplate(type, color: color)
+    func createWorkoutTemplate(type: String, colour: UIColor) -> WorkoutTemplate? {
+        let newWorkoutTemplate = controller.createWorkoutTemplate(type, colour: colour)
         getAllWorkoutTemplates()  // Update the list after creating
         return newWorkoutTemplate
     }
 
-    func update(workoutTemplate: WorkoutTemplateModel, withNewInfo newInfo: WorkoutTemplateInfo, color: UIColor) {
+    func update(workoutTemplate: WorkoutTemplateModel, withNewInfo newInfo: WorkoutTemplateInfo, colour: UIColor) {
         if let existingWorkoutTemplate = controller.getWorkoutTemplateById(id: workoutTemplate.id) {
-            controller.updateWorkoutTemplate(existingWorkoutTemplate: existingWorkoutTemplate, with: newInfo, color: color)
+            controller.updateWorkoutTemplate(existingWorkoutTemplate: existingWorkoutTemplate, with: newInfo, colour: colour)
             getAllWorkoutTemplates()  // Update the list after updating
         }
     }
 
-    func getColorForWorkoutTemplate(workoutTemplate: WorkoutTemplate) -> UIColor? {
-        if let colorData = workoutTemplate.color {
-            return controller.convertDataToColor(data: colorData)
+    func getColorForWorkoutTemplate(workoutTemplateId: NSManagedObjectID) -> UIColor? {
+        let workoutTemplate = getWorkoutTemplate(id: workoutTemplateId)
+        if let colourData = workoutTemplate.colour {
+            return controller.convertDataToColor(data: colourData)
         }
         return nil
     }

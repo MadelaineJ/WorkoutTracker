@@ -11,7 +11,7 @@ import CoreData
 struct WorkoutCard: View {
     var type: String
     var creationTime: Date!
-    
+    var colour: Color
     
     var body: some View {
         HStack {
@@ -30,15 +30,18 @@ struct WorkoutCard: View {
                 .foregroundColor(Color(.label))
         }
         .padding()
-        .background(Color(.systemGray6))
+        .background(colour)
         .cornerRadius(8)
-        .shadow(radius: 3)
+        .shadow(radius: 2)
+        .onAppear() {
+            print(colour)
+        }
         
     }
 }
 
 struct WorkoutCard_Previews: PreviewProvider {
     static var previews: some View {
-        WorkoutCard(type: "push", creationTime: Date())
+        WorkoutCard(type: "push", creationTime: Date(), colour: Color(.systemGray2))
     }
 }

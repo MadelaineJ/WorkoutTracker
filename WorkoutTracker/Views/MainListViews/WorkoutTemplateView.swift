@@ -18,8 +18,6 @@ struct WorkoutTemplateView: View {
     @State private var navigateToExerciseList = false
     @State private var selectedWorkoutTemplate: WorkoutTemplateModel?
     @State private var navigationPath = NavigationPath()
-    
-  //  let horizontalSpacing: CGFloat = 20 // Example horizontal spacing
 
     let cardHeight: CGFloat = 150 // Fixed vertical size for each card
 
@@ -59,7 +57,8 @@ struct WorkoutTemplateView: View {
                     ScrollView() {
                         LazyVGrid(columns: gridLayout, spacing: 50) {
                             ForEach(viewModel.workoutTemplates, id: \.id) { workout in
-                                TemplateCard(workout: workout, exercises: viewModel.getExercisesForWorkout(workoutTemplate: workout))
+                                TemplateCard(workout: workout, exercises: viewModel.getExercisesForWorkout(workoutTemplate: workout),
+                                             colour: Color(viewModel.getColorForWorkoutTemplate(workoutTemplateId: workout.id) ?? .systemGray6))
                                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100) // Specify the fixed height here
                                     .onTapGesture {
                                         navigationPath.append(workout)

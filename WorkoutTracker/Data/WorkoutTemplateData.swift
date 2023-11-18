@@ -55,25 +55,25 @@ class WorkoutTemplateData {
         try dataManager.viewContext.save()
     }
     
-    func convertColorToData(color: UIColor) -> Data {
-            return try! NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false)
-        }
+    func convertColorToData(colour: UIColor) -> Data {
+            return try! NSKeyedArchiver.archivedData(withRootObject: colour, requiringSecureCoding: false)
+    }
 
     func convertDataToColor(data: Data) -> UIColor? {
         return try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: data)
     }
 
-    func createWorkoutTemplate(_ type: String, color: UIColor) -> WorkoutTemplate {
+    func createWorkoutTemplate(_ type: String, colour: UIColor) -> WorkoutTemplate {
         let workoutTemplate = WorkoutTemplate(context: dataManager.viewContext)
         workoutTemplate.type = type
-        workoutTemplate.color = convertColorToData(color: color)  // Save color as Data
+        workoutTemplate.colour = convertColorToData(colour: colour)  // Save color as Data
         dataManager.save()
         return workoutTemplate
     }
 
-    func updateWorkoutTemplate(existingWorkoutTemplate: WorkoutTemplate, with newInfo: WorkoutTemplateInfo, color: UIColor) {
+    func updateWorkoutTemplate(existingWorkoutTemplate: WorkoutTemplate, with newInfo: WorkoutTemplateInfo, colour: UIColor) {
         existingWorkoutTemplate.type = newInfo.type
-        existingWorkoutTemplate.color = convertColorToData(color: color)  // Update color
+        existingWorkoutTemplate.colour = convertColorToData(colour: colour)  // Update color
         dataManager.save()
     }
 }

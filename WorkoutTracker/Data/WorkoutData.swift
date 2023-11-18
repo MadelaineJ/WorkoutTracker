@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import UIKit
 
 class WorkoutData {
 
@@ -25,10 +26,12 @@ class WorkoutData {
         return workout
     }
     
-    func updateWorkout(existingWorkout: Workout, with newInfo: WorkoutInfo) {
+    func updateWorkout(existingWorkout: Workout, with newInfo: WorkoutInfo, color: UIColor? = nil) {
         existingWorkout.creationTime = newInfo.creationTime
         existingWorkout.type = newInfo.type
-
+        if let color = color {
+            existingWorkout.colour = convertColorToData(color: color)
+        }
         dataManager.save()
     }
     
@@ -93,6 +96,33 @@ class WorkoutData {
     func deleteWorkout(workout: Workout) throws {
         dataManager.viewContext.delete(workout)
         try dataManager.viewContext.save()
+    }
+    
+    // COLOR
+    private func convertColorToData(color: UIColor) -> Data {
+        return try! NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false)
+    }
+
+    private func convertDataToColor(data: Data) -> UIColor? {
+        return try? NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: data)
+    }
+
+    func createWorkout(_ workoutInfo: WorkoutInfo, colorData: Data? = nil) -> Workout {
+        let workout = Workout(context: dataManager.viewContext)
+        workout.creationTime = workoutInfo.creationTime
+        workout.type = workoutInfo.type
+        if let color = colorData {
+            workout.colour = colorData
+        }
+        dataManager.save()
+        return workout
+    }
+
+    func getColourForWorkout(workout: Workout) -> UIColor? {
+        if let colorData = workout.colour {
+            return convertDataToColor(data: colorData)
+        }
+        return nil
     }
 
 }

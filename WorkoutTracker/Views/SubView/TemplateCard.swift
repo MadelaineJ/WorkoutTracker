@@ -6,17 +6,19 @@
 //
 
 import SwiftUI
+
 struct TemplateCard: View {
     var workout: WorkoutTemplateModel
     var exercises: [ExerciseTemplateModel]
+    var colour: Color
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 Text(workout.type)
                     .font(.title2)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
+                    .fontWeight(.bold)
+                    .foregroundColor(colour)
                 Spacer()
             }
             Spacer()
@@ -47,6 +49,7 @@ struct TemplateCard: View {
         .padding()
         .background(Color(.systemGray6))
         .cornerRadius(8)
-        .shadow(radius: 3)
+        .shadow(radius: 2)
+        
     }
 }

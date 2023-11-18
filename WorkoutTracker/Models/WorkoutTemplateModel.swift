@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 struct WorkoutTemplateInfo {
     let type: String
@@ -22,5 +23,9 @@ struct WorkoutTemplateModel: Hashable {
     
     var type: String {
         return workout.type ?? ""
+    }
+    
+    var colour: Data {
+        return workout.colour ?? Data()
     }
 }

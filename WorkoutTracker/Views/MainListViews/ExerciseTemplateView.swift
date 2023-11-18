@@ -12,16 +12,23 @@ struct ExerciseTemplateView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject private var viewModel: ExerciseTemplateViewModel
     @EnvironmentObject private var workoutViewModel: WorkoutTemplateViewModel
-    
+    @State private var isEditMode: EditMode = .inactive
     var workoutTemplate: WorkoutTemplateModel
     
     @State private var isShowingInputModal = false
     @State private var inputText = ""
     @State private var editableWorkoutName: String = ""
-    @State private var isEditMode: EditMode = .inactive
+    @State private var selectedColor: Color = Color.white  // Color picker state variable
 
     var body: some View {
-        VStack(spacing: 5) {
+        VStack {
+            ColorPicker("Choose Workout Color", selection: $selectedColor)
+                .onChange(of: selectedColor) { newValue in
+                    // Convert SwiftUI Color to UIColor
+                    let uiColor = UIColor(newValue)
+                    let newInfo = WorkoutTemplateInfo(type: editableWorkoutName)
+                    workoutViewModel.update(workoutTemplate: workoutTemplate, withNewInfo: newInfo, colour: uiColor)
+                }
             HStack {
                 InlineTextEditView(text: $editableWorkoutName)
                     .font(.title)
@@ -34,7 +41,13 @@ struct ExerciseTemplateView: View {
             }
             .onAppear(perform: {
                 editableWorkoutName = workoutTemplate.type
+
+                // Fetch the UIColor from the workout template and convert it to SwiftUI Color
+                if let workoutColor = workoutViewModel.getColorForWorkoutTemplate(workoutTemplateId: workoutTemplate.id) {
+                    selectedColor = Color(workoutColor)
+                }
             })
+
             .onChange(of: editableWorkoutName) { newValue in
                 let newInfo = WorkoutTemplateInfo(type: newValue)
                 workoutViewModel.update(workoutTemplate: workoutTemplate, withNewInfo: newInfo)

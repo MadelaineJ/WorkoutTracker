@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class WorkoutViewModel: ObservableObject {
 
@@ -25,12 +26,11 @@ class WorkoutViewModel: ObservableObject {
     @Published var workouts: [WorkoutModel] = []
     @Published var uniqueWorkoutTypes: [String] = []
 
-    func createWorkout(type: String) -> Workout {
+    func createWorkout(type: String, colorData: Data? = nil) -> Workout {
         let workoutInfo = WorkoutInfo(creationTime: Date(), type: type)
-        let workout = controller.createWorkout(workoutInfo)
+        let workout = controller.createWorkout(workoutInfo, colorData: colorData)
         fetchAllUniqueWorkoutTypes()
         return workout
-        
     }
     
     func fetchAllUniqueWorkoutTypes() {
@@ -44,7 +44,8 @@ class WorkoutViewModel: ObservableObject {
     func createWorkoutFromTemplate(workoutTemplate: WorkoutTemplateModel) -> Workout {
         // Create a workout using information from the workout template
         let workoutType = workoutTemplate.type
-        let workout = createWorkout(type: workoutType) // Assuming this returns a Workout object
+        let colour = workoutTemplate.colour
+        let workout = createWorkout(type: workoutType, colorData: colour)
 
         // Fetch the template from the database
         let template = templateController.getWorkoutTemplate(id: workoutTemplate.id)
@@ -54,6 +55,7 @@ class WorkoutViewModel: ObservableObject {
                 _ = exerciseViewModel.addExercise(id: workout.objectID, name: exerciseTemplate.name!)
             }
         }
+        
         return workout
     }
 
@@ -63,10 +65,9 @@ class WorkoutViewModel: ObservableObject {
     }
 
     
-    func update(workout: WorkoutModel, withNewInfo newInfo: WorkoutInfo) {
-        let existingWorkout = controller.getWorkoutById(id: workout.id)
-        if let existingWorkout = existingWorkout {
-            controller.updateWorkout(existingWorkout: existingWorkout, with: newInfo)
+    func update(workout: WorkoutModel, withNewInfo newInfo: WorkoutInfo, color: UIColor? = nil) {
+        if let existingWorkout = controller.getWorkoutById(id: workout.id) {
+            controller.updateWorkout(existingWorkout: existingWorkout, with: newInfo, color: color)
         }
     }
     
@@ -80,5 +81,12 @@ class WorkoutViewModel: ObservableObject {
         if let existingWorkout = existingWorkout {
             try controller.deleteWorkout(workout: existingWorkout)
         }
+    }
+
+    func getColourForWorkout(workout: WorkoutModel) -> UIColor? {
+        if let existingWorkout = controller.getWorkoutById(id: workout.id) {
+            return controller.getColourForWorkout(workout: existingWorkout)
+        }
+        return nil
     }
 }
