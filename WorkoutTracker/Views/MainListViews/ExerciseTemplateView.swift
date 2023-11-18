@@ -9,28 +9,28 @@ import SwiftUI
 import CoreData
 
 struct ExerciseTemplateView: View {
-    
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject private var viewModel: ExerciseTemplateViewModel
     @EnvironmentObject private var workoutViewModel: WorkoutTemplateViewModel
-    @State private var isEditMode: EditMode = .inactive
+    
     var workoutTemplate: WorkoutTemplateModel
     
     @State private var isShowingInputModal = false
     @State private var inputText = ""
     @State private var editableWorkoutName: String = ""
+    @State private var isEditMode: EditMode = .inactive
 
     var body: some View {
-        VStack {
+        VStack(spacing: 5) {
             HStack {
-                    HStack(spacing: 0) {
-                        Text("Exercises for ")
-                            .font(.title)
-                        InlineTextEditView(text: $editableWorkoutName)
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .padding(0)
-                    }
+                InlineTextEditView(text: $editableWorkoutName)
+                    .font(.title)
                 Spacer()
+                DeleteButton(message: "Workout Template") {
+                    workoutViewModel.delete(workoutTemplate)
+                    presentationMode.wrappedValue.dismiss()
+                }
+                    
             }
             .onAppear(perform: {
                 editableWorkoutName = workoutTemplate.type
@@ -39,7 +39,8 @@ struct ExerciseTemplateView: View {
                 let newInfo = WorkoutTemplateInfo(type: newValue)
                 workoutViewModel.update(workoutTemplate: workoutTemplate, withNewInfo: newInfo)
             }
-            .padding(30)
+            .padding(.horizontal, 30)
+            .padding(.top, 20)
             
             
             Button(action: {
@@ -63,7 +64,19 @@ struct ExerciseTemplateView: View {
             }
 
             
-            if viewModel.exerciseTemplates.count == 0 {
+            if viewModel.exerciseTemplates.count != 0 {
+                VStack {
+                    HStack {
+                        Text("Exercises")
+                            .font(.title2)
+                            .padding(.leading, 30)
+                        Spacer()
+                    }
+                    Divider()
+                        .padding(.horizontal)
+                }
+                
+            } else {
                 Text("No Exercises To Display")
                     .padding(.vertical, 20)
             }

@@ -21,7 +21,7 @@ struct TemplateCard: View {
             }
             Spacer()
             if exercises.count > 0 {
-                VStack(spacing: 0) {
+                VStack(alignment: .leading, spacing: 0) {
                     ForEach(exercises.prefix(3), id: \.id) { exercise in
                         Text(exercise.name)
                             .font(.body)
@@ -32,7 +32,7 @@ struct TemplateCard: View {
                         Text("...") // Indicate more exercises
                             .foregroundColor(.secondary)
                     } else {
-                        Text("...")
+                        Text("")
                             .hidden()
                     }
                 }

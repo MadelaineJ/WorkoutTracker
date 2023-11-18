@@ -32,6 +32,7 @@ struct WorkoutTemplateView: View {
                 HStack {
                     Text("Workout Templates")
                         .font(.title)
+                        .padding(.top, 39)
                     Spacer()
                 }
                 .padding(.horizontal, 30)
@@ -82,8 +83,6 @@ struct WorkoutTemplateView: View {
                     isEditMode = .inactive
                 }
             }
-            .navigationBarItems(trailing: EditButton())
-            .environment(\.editMode, $isEditMode)
             .onAppear(perform: {
                 viewModel.getAllWorkoutTemplates()
             })
