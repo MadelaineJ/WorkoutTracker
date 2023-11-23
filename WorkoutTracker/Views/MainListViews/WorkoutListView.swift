@@ -138,7 +138,7 @@ struct WorkoutListView: View {
                 viewModel.getAllWorkouts()
             })
         }
-        .background(Color(.systemGray2))
+        .background(Color(.white))
         .onAppear(perform: {
             templateViewModel.getAllWorkoutTemplates()
             if let firstTemplate = templateViewModel.workoutTemplates.first {

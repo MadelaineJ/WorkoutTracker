@@ -33,9 +33,6 @@ struct WorkoutCard: View {
         .background(colour)
         .cornerRadius(8)
         .shadow(radius: 2)
-        .onAppear() {
-            print(colour)
-        }
         
     }
 }

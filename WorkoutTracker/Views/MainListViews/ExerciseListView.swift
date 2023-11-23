@@ -97,9 +97,6 @@ struct ExerciseListView: View {
                 }
                 .listStyle(PlainListStyle())
             }
-            .navigationDestination(for: ExerciseModel.self) { exercise in
-                SetListView(exercise: exercise)
-            }
             .onChange(of: viewModel.exercises.count) { newCount in
                 if newCount == 0 && isEditMode == .active {
                     isEditMode = .inactive

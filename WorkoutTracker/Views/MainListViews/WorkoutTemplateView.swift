@@ -23,7 +23,6 @@ struct WorkoutTemplateView: View {
 
     private var gridLayout: [GridItem] = Array(repeating: .init(.flexible(), spacing: 20), count: 2)
 
-    
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack {
@@ -63,7 +62,6 @@ struct WorkoutTemplateView: View {
                                     .onTapGesture {
                                         navigationPath.append(workout)
                                     }
-
                             }
                         }
                         .padding(.top, 40)
@@ -75,7 +73,7 @@ struct WorkoutTemplateView: View {
                 }
             }
             .navigationDestination(for: WorkoutTemplateModel.self) { workoutTemplate in
-                ExerciseTemplateView(workoutTemplate: workoutTemplate)
+                ExerciseTemplateView(workoutTemplate: workoutTemplate, navigationPath: $navigationPath)
             }
             .onChange(of: viewModel.workoutTemplates.count) { newCount in
                 if newCount == 0 && isEditMode == .active {
@@ -86,9 +84,7 @@ struct WorkoutTemplateView: View {
                 viewModel.getAllWorkoutTemplates()
             })
         }
-        
-        .background(Color(.systemGray2))
-        
+        .background(Color(.white))
     }
     func isTemplateNameUnique() -> Bool {
         let isUnique = !viewModel.workoutTemplates.contains(where: { $0.type.lowercased() == inputText.lowercased() })

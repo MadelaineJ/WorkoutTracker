@@ -14,6 +14,7 @@ struct ExerciseTemplateView: View {
     @EnvironmentObject private var workoutViewModel: WorkoutTemplateViewModel
     @State private var isEditMode: EditMode = .inactive
     var workoutTemplate: WorkoutTemplateModel
+    @Binding var navigationPath: NavigationPath
     
     @State private var isShowingInputModal = false
     @State private var inputText = ""
