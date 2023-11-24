@@ -21,13 +21,15 @@ struct ExerciseListView: View {
     @State private var editableWorkoutName: String = ""
     @State private var showingDeleteAlert = false
     @State private var isEditMode: EditMode = .inactive
+    @State private var isEditing: Bool = true  // State to control editing
+    @FocusState private var isTextFieldFocused: Bool  // Focus state
     
     @Binding var navigationPath: NavigationPath
 
     var body: some View {
             VStack(spacing: 5) {
                 HStack {
-                    InlineTextEditView(text: $editableWorkoutName)
+                    InlineTextEditView(text: $editableWorkoutName, isEditing: $isEditing, isTextFieldFocused: $isTextFieldFocused)
                         .font(.title)
                         .padding(.horizontal, 30)
                     Spacer()

@@ -58,7 +58,7 @@ struct WorkoutTemplateView: View {
                             ForEach(viewModel.workoutTemplates, id: \.id) { workout in
                                 TemplateCard(workout: workout, exercises: viewModel.getExercisesForWorkout(workoutTemplate: workout),
                                              colour: Color(viewModel.getColorForWorkoutTemplate(workoutTemplateId: workout.id) ?? .systemGray6))
-                                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100) // Specify the fixed height here
+                                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100)
                                     .onTapGesture {
                                         navigationPath.append(workout)
                                     }
@@ -67,13 +67,14 @@ struct WorkoutTemplateView: View {
                         .padding(.top, 40)
                         .padding(.horizontal)
                     }
+                    .padding(.bottom, 25)
                 } else {
                     Text("No Workout Templates")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity) // Center the text when no templates
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
             .navigationDestination(for: WorkoutTemplateModel.self) { workoutTemplate in
-                ExerciseTemplateView(workoutTemplate: workoutTemplate, navigationPath: $navigationPath)
+                ExerciseTemplateView(workoutTemplate: workoutTemplate, editableWorkoutName: workoutTemplate.type, navigationPath: $navigationPath)
             }
             .onChange(of: viewModel.workoutTemplates.count) { newCount in
                 if newCount == 0 && isEditMode == .active {

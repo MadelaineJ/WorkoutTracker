@@ -18,6 +18,8 @@ struct SetListView: View {
     @State private var listScrollPosition: UUID?
     @State private var exerciseSetCount: Int = 0
     @State private var isEditMode: EditMode = .inactive
+    @State private var isEditing: Bool = true  // State to control editing
+    @FocusState private var isTextFieldFocused: Bool  // Focus state
     
     var exercise: ExerciseModel
     
@@ -26,7 +28,7 @@ struct SetListView: View {
             GeometryReader { geometry in
                 VStack(spacing: 5) {
                     HStack {
-                        InlineTextEditView(text: $editableExerciseName)
+                        InlineTextEditView(text: $editableExerciseName, isEditing: $isEditing, isTextFieldFocused: $isTextFieldFocused)
                             .font(.title)
                             .padding(.horizontal, 20)
                         Spacer()

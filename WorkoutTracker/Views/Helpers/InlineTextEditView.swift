@@ -9,32 +9,35 @@ import SwiftUI
 
 struct InlineTextEditView: View {
     @Binding var text: String
-    @State private var isEditing: Bool = false
-    @FocusState private var isTextFieldFocused: Bool  // New focus state
+    @Binding var isEditing: Bool
+    var isTextFieldFocused: FocusState<Bool>.Binding
+
+    var onCommit: () -> Void = {}
 
     var body: some View {
         HStack {
             if isEditing {
                 TextField("", text: $text, onCommit: {
                     isEditing = false
+                    onCommit()
                 })
                 .autocapitalization(.none)
-                .focused($isTextFieldFocused)  // Attach the focus state here
+                .focused(isTextFieldFocused)
             } else {
                 Text(text)
                     .font(.title)
                     .fontWeight(.bold)
                     .padding(0)
                     .onTapGesture {
-                        isEditing.toggle()
-                        isTextFieldFocused = true  // Set focus state to true when tapping on Text
+                        isEditing = true
+                        isTextFieldFocused.wrappedValue = true
                     }
             }
             
             if !isEditing {
                 Button(action: {
                     isEditing.toggle()
-                    isTextFieldFocused = true  // Set focus state to true when tapping on the pencil icon
+                    isTextFieldFocused.wrappedValue = true  // Set focus state to true when tapping on the pencil icon
                 }) {
                     Image(systemName: "pencil")
                         .resizable()

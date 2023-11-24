@@ -112,7 +112,7 @@ class WorkoutData {
         workout.creationTime = workoutInfo.creationTime
         workout.type = workoutInfo.type
         if let color = colorData {
-            workout.colour = colorData
+            workout.colour = color
         }
         dataManager.save()
         return workout
