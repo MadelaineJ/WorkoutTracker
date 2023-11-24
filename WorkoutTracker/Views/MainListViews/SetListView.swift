@@ -20,6 +20,7 @@ struct SetListView: View {
     @State private var isEditMode: EditMode = .inactive
     @State private var isEditing: Bool = true  // State to control editing
     @FocusState private var isTextFieldFocused: Bool  // Focus state
+    @Binding var navigationPath: NavigationPath
     
     var exercise: ExerciseModel
     
@@ -154,7 +155,9 @@ struct SetListView_Previews: PreviewProvider {
         let mockExerciseDataController = ExerciseData(dataManager: mockExerciseDataManager)
         let mockExericseViewModel = ExerciseViewModel(controller: mockExerciseDataController)
         
-        return SetListView(exercise: ExerciseModel(exercise: exercise))
+        let navigationPath = NavigationPath()
+        
+        return SetListView(navigationPath: .constant(navigationPath), exercise: ExerciseModel(exercise: exercise))
             .environmentObject(mockViewModel)
             .environmentObject(mockExericseViewModel)
     }

@@ -99,6 +99,9 @@ struct ExerciseListView: View {
                 }
                 .listStyle(PlainListStyle())
             }
+            .navigationDestination(for: ExerciseModel.self) { exercise in
+                SetListView(navigationPath: $navigationPath, exercise: exercise)
+            }
             .onChange(of: viewModel.exercises.count) { newCount in
                 if newCount == 0 && isEditMode == .active {
                     isEditMode = .inactive
@@ -135,6 +138,7 @@ struct ExerciseListView_Previews: PreviewProvider {
         let mockViewWorkoutModel = WorkoutViewModel(controller: mockDataWorkoutController)
 
         let navigationPath = NavigationPath()
+        
         let mockViewModel = ExerciseViewModel(controller: mockDataController)
         return ExerciseListView(workout: WorkoutModel(workout: workout), navigationPath: .constant(navigationPath))
             .environmentObject(mockViewModel)

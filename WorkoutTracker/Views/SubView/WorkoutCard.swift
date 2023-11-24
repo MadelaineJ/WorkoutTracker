@@ -22,7 +22,6 @@ struct WorkoutCard: View {
                     Text(creationTime, style: .date)
                         .font(.subheadline)
                 }
-
             }
             .foregroundColor(Color(.label))
             Spacer()

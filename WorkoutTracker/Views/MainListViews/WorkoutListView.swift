@@ -22,6 +22,7 @@ struct WorkoutListView: View {
     @State private var isEditMode: EditMode = .inactive
     @State private var navigationPath = NavigationPath()
     
+    @State private var groupedWorkouts: [String: [WorkoutModel]] = [:]
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -111,18 +112,17 @@ struct WorkoutListView: View {
                     Text("No Workouts To Display")
                 }
                 List {
-                    ForEach(viewModel.workouts, id: \.id) { workout in
-                        WorkoutCard(type: workout.type, creationTime: workout.creationTime, colour:
-                                        Color(viewModel.getColourForWorkout(workout: workout) ?? .systemGray6))
-                            .onTapGesture {
-                                navigationPath.append(workout)
-                            }
+                    ForEach(groupedWorkouts.keys.sorted(), id: \.self) { month in
+                        MonthSectionView(navigationPath: $navigationPath, month: month, workouts: groupedWorkouts[month] ?? [],
+                                         deleteAction: deleteWorkout)
                     }
-                    .onDelete(perform: deleteWorkout)
-                    .listRowSeparator(.hidden)
                 }
                 .listStyle(PlainListStyle())
                 .padding(.bottom, 25)
+                .onAppear(perform: {
+                    groupedWorkouts = viewModel.groupedWorkoutsByMonth()
+                })
+
             }
             .navigationDestination(for: WorkoutModel.self) { workout in
                 ExerciseListView(workout: workout, navigationPath: $navigationPath)
@@ -169,6 +169,7 @@ struct WorkoutListView: View {
         selectedWorkoutType = nil
         viewModel.getAllWorkouts()
     }
+
 }
 
 struct WorkoutListView_Previews: PreviewProvider {

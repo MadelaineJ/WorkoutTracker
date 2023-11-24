@@ -27,7 +27,12 @@ class WorkoutViewModel: ObservableObject {
     @Published var uniqueWorkoutTypes: [String] = []
 
     func createWorkout(type: String, colorData: Data? = nil) -> Workout {
-        let workoutInfo = WorkoutInfo(creationTime: Date(), type: type)
+        let currentCalendar = Calendar.current
+        var dateComponents = DateComponents()
+        dateComponents.month = -1 // Subtract 1 month
+        let lastMonthDate = currentCalendar.date(byAdding: dateComponents, to: Date())
+
+        let workoutInfo = WorkoutInfo(creationTime: lastMonthDate ?? Date(), type: type)
         let workout = controller.createWorkout(workoutInfo, colorData: colorData)
         fetchAllUniqueWorkoutTypes()
         return workout
@@ -88,5 +93,14 @@ class WorkoutViewModel: ObservableObject {
             return controller.getColourForWorkout(workout: existingWorkout)
         }
         return nil
+    }
+    
+    func groupedWorkoutsByMonth() -> [String: [WorkoutModel]] {
+        let groupedWorkouts = Dictionary(grouping: workouts) { workout -> String in
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MMMM yyyy" // Format the date to Month Year
+            return formatter.string(from: workout.creationTime)
+        }
+        return groupedWorkouts
     }
 }
