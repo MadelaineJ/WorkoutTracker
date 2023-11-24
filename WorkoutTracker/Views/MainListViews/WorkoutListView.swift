@@ -52,7 +52,7 @@ struct WorkoutListView: View {
                                        selectedTab: $selectedTab) {
                             var newWorkout: WorkoutModel
                             if self.showTextField {
-                                newWorkout = WorkoutModel(workout: viewModel.createWorkout(type: inputText))
+                                newWorkout = WorkoutModel(workout: viewModel.createWorkout(type: inputText, template: nil))
                                 navigationPath.append(newWorkout)
                             } else if let template = self.selectedTemplate {
                                 newWorkout = WorkoutModel(workout: viewModel.createWorkoutFromTemplate(workoutTemplate: template))
@@ -161,6 +161,7 @@ struct WorkoutListView: View {
             }
             
             viewModel.getAllWorkouts()
+            groupedWorkouts = viewModel.groupedWorkoutsByMonth()
         }
     }
     

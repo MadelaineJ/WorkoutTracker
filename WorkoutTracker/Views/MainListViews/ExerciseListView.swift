@@ -48,7 +48,7 @@ struct ExerciseListView: View {
                     editableWorkoutName = workout.type
                 })
                 .onChange(of: editableWorkoutName) { newValue in
-                    let newInfo = WorkoutInfo(creationTime: workout.creationTime, type: newValue)
+                    let newInfo = WorkoutInfo(creationTime: workout.creationTime, type: newValue, template: workout.template ?? nil)
                     workoutViewModel.update(workout: workout, withNewInfo: newInfo)
                 }
                 

@@ -15,7 +15,6 @@ class WorkoutTemplateViewModel: ObservableObject {
     var controller: WorkoutTemplateData
     var exerciseController: ExerciseTemplateData
 
-
     init(controller: WorkoutTemplateData = WorkoutTemplateData(),
          exerciseController: ExerciseTemplateData = ExerciseTemplateData()) {
         self.controller = controller

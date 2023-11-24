@@ -11,8 +11,8 @@ import CoreData
 struct WorkoutInfo {
     let creationTime: Date
     let type: String
+    let template: WorkoutTemplate?
 }
-
 
 // used for displaying in the view
 struct WorkoutModel: Hashable {
@@ -28,5 +28,9 @@ struct WorkoutModel: Hashable {
     
     var type: String {
         return workout.type ?? ""
+    }
+    
+    var template: WorkoutTemplate? {
+        return workout.template
     }
 }

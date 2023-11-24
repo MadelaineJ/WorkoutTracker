@@ -13,6 +13,7 @@ struct MonthSectionView: View {
     var month: String
     var workouts: [WorkoutModel]
     var deleteAction: (IndexSet) -> Void
+    
 
     var body: some View {
         Section(
@@ -25,6 +26,8 @@ struct MonthSectionView: View {
                         .padding(.top, 10)
                         .onTapGesture {
                             navigationPath.append(workouts[index])
+                        }
+                        .onAppear() {
                         }
                 } else {
                     WorkoutCard(type: workouts[index].type, creationTime: workouts[index].creationTime, colour:

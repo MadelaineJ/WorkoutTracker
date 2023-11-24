@@ -20,6 +20,7 @@ class WorkoutData {
         let workout = Workout(context: dataManager.viewContext)
         workout.creationTime = workoutInfo.creationTime
         workout.type = workoutInfo.type
+        workout.template = workoutInfo.template
 
         dataManager.save()
         
@@ -111,6 +112,7 @@ class WorkoutData {
         let workout = Workout(context: dataManager.viewContext)
         workout.creationTime = workoutInfo.creationTime
         workout.type = workoutInfo.type
+        workout.template = workoutInfo.template
         if let color = colorData {
             workout.colour = color
         }
@@ -119,6 +121,11 @@ class WorkoutData {
     }
 
     func getColourForWorkout(workout: Workout) -> UIColor? {
+        if let template = workout.template {
+            workout.colour = template.colour
+
+        }
+
         if let colorData = workout.colour {
             return convertDataToColor(data: colorData)
         }
