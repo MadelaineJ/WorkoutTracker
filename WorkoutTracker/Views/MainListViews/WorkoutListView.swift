@@ -64,7 +64,6 @@ struct WorkoutListView: View {
                 }
                 .padding(.horizontal, 30)
                 
-                
                 HStack {
                     
                     // The Sorting Button
@@ -85,7 +84,7 @@ struct WorkoutListView: View {
                                 ForEach(viewModel.uniqueWorkoutTypes, id: \.self) { type in
                                     Button(type) {
                                         selectedWorkoutType = type
-                                        viewModel.getAllWorkoutsByType(type: type)
+                                        filterWorkouts(byType: type)
                                     }
                                 }
                             //    Button("Clear Filters", action: clearFilters)
@@ -147,6 +146,11 @@ struct WorkoutListView: View {
         })
     }
     
+    func filterWorkouts(byType type: String?) {
+        viewModel.getAllWorkoutsByType(type: type!) // This will update viewModel.workouts
+        groupedWorkouts = viewModel.groupedWorkoutsByMonth() // Update groupedWorkouts based on the filtered workouts
+    }
+    
     func deleteWorkout(at offsets: IndexSet) {
         offsets.forEach { index in
             guard viewModel.workouts.indices.contains(index) else { return } // Safely check if the index is valid
@@ -168,8 +172,10 @@ struct WorkoutListView: View {
     // Clears the selected workout type and gets all workouts
     func clearFilters() {
         selectedWorkoutType = nil
-        viewModel.getAllWorkouts()
+        viewModel.getAllWorkouts() // This will reset viewModel.workouts
+        groupedWorkouts = viewModel.groupedWorkoutsByMonth() // Reset groupedWorkouts
     }
+
 
 }
 
