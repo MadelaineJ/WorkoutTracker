@@ -19,22 +19,14 @@ struct MonthSectionView: View {
         Section(
             header: Text(month).font(.title3)
         ) {
-            ForEach(workouts.indices, id: \.self) { index in
-                if index == workouts.startIndex {
-                    WorkoutCard(type: workouts[index].type, creationTime: workouts[index].creationTime, colour:
-                                Color(viewModel.getColourForWorkout(workout: workouts[index]) ?? .systemGray6))
-                        .padding(.top, 10)
+            ForEach(workouts, id: \.self) { workout in
+                HStack {
+                    WorkoutCard(type: workout.type, creationTime: workout.creationTime, colour:
+                                Color(viewModel.getColourForWorkout(workout: workout) ?? .systemGray6))
+                        .padding(.top, workout == workouts.first ? 10 : 0)
                         .onTapGesture {
-                            navigationPath.append(workouts[index])
+                            navigationPath.append(workout)
                         }
-                        .onAppear() {
-                        }
-                } else {
-                    WorkoutCard(type: workouts[index].type, creationTime: workouts[index].creationTime, colour:
-                                Color(viewModel.getColourForWorkout(workout: workouts[index]) ?? .systemGray6))
-                    .onTapGesture {
-                        navigationPath.append(workouts[index])
-                    }
                 }
             }
             .onDelete(perform: deleteAction)

@@ -114,6 +114,7 @@ struct WorkoutListView: View {
                         MonthSectionView(navigationPath: $navigationPath, month: month, workouts: viewModel.groupedWorkouts[month] ?? [],
                                          deleteAction: deleteWorkout)
                     }
+
                 }
                 .listStyle(PlainListStyle())
                 .padding(.bottom, 25)
@@ -127,6 +128,7 @@ struct WorkoutListView: View {
                 ExerciseListView(workout: workout, navigationPath: $navigationPath)
             }
             .onChange(of: viewModel.workouts.count) { newCount in
+                print(newCount)
                 if newCount == 0 && isEditMode == .active {
                     isEditMode = .inactive
                 }
@@ -164,7 +166,6 @@ struct WorkoutListView: View {
                 print("Error occurred while deleting workout: \(error.localizedDescription)")
             }
             
-            viewModel.getAllWorkouts()
             viewModel.groupedWorkoutsByMonth()
         }
     }
@@ -172,7 +173,6 @@ struct WorkoutListView: View {
     // Clears the selected workout type and gets all workouts
     func clearFilters() {
         selectedWorkoutType = nil
-        viewModel.getAllWorkouts() // This will reset viewModel.workouts
         viewModel.groupedWorkoutsByMonth() // Reset groupedWorkouts
     }
 
