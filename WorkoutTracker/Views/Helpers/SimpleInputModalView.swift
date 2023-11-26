@@ -14,6 +14,17 @@ struct SimpleInputModalView: View {
                     .foregroundColor(.red)
                     .padding()
             }
+            
+            FirstResponderTextField(text: $inputText, placeholder: "Enter Name", onCommit: {
+                if !inputText.isEmpty && isNameValid() {
+                    self.onSubmit()
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+            })
+            .padding()
+            .background(Color(.systemGray6))
+            .cornerRadius(8)
+            .padding(.bottom, 0)
 
             Button(action: {
                 if !inputText.isEmpty && isNameValid() {
@@ -26,16 +37,7 @@ struct SimpleInputModalView: View {
             .disabled(inputText.isEmpty)
             .padding()
 
-            FirstResponderTextField(text: $inputText, placeholder: "Enter Name", onCommit: {
-                if !inputText.isEmpty && isNameValid() {
-                    self.onSubmit()
-                    self.presentationMode.wrappedValue.dismiss()
-                }
-            })
-            .padding()
-            .background(Color(.systemGray6))
-            .cornerRadius(8)
-            .padding()
+
         }
         .onAppear() {
             self.inputText = ""

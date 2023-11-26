@@ -85,7 +85,6 @@ class WorkoutTemplateViewModel: ObservableObject {
             workoutViewModel.getAllWorkouts()
             workoutViewModel.groupedWorkoutsByMonth()
             getAllWorkoutTemplates()  // Update the list after updating
-
         }
         
     }
@@ -98,7 +97,6 @@ class WorkoutTemplateViewModel: ObservableObject {
             }
             return workoutTemplateId == templateId
         }
-        print(associatedWorkouts.count)
         return associatedWorkouts
     }
 

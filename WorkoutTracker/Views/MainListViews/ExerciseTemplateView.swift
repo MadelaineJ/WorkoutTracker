@@ -51,11 +51,6 @@ struct ExerciseTemplateView: View {
                         }
                     )
                 }
-                .onChange(of: editableWorkoutName) { newValue in
-                    let newInfo = WorkoutTemplateInfo(type: newValue)
-                    workoutViewModel.update(workoutTemplate: workoutTemplate, withNewInfo: newInfo)
-                    
-                }
                 Spacer()
                 DeleteButton(message: "Workout Template") {
                     workoutViewModel.delete(workoutTemplate)
@@ -112,7 +107,6 @@ struct ExerciseTemplateView: View {
                 }
             }
 
-            
             if viewModel.exerciseTemplates.count != 0 {
                 VStack {
                     HStack {
@@ -163,6 +157,7 @@ struct ExerciseTemplateView: View {
     }
     private func workoutNameExists(_ name: String) -> Bool {
         if name == workoutTemplate.type {
+            print(workoutTemplate.type)
             return false
         } else {
             return workoutViewModel.workoutTemplates.contains { workout in
