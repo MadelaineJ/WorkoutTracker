@@ -51,6 +51,11 @@ struct ExerciseTemplateView: View {
                         }
                     )
                 }
+                .onChange(of: editableWorkoutName) { newValue in
+                    let newInfo = WorkoutTemplateInfo(type: newValue)
+                    workoutViewModel.update(workoutTemplate: workoutTemplate, withNewInfo: newInfo)
+                    
+                }
                 Spacer()
                 DeleteButton(message: "Workout Template") {
                     workoutViewModel.delete(workoutTemplate)

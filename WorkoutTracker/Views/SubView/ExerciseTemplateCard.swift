@@ -27,7 +27,6 @@ struct ExerciseTemplateCard: View {
         .padding()
         .background(Color(.systemGray6))
         .cornerRadius(8)
-        .shadow(radius: 3)
         
     }
 }

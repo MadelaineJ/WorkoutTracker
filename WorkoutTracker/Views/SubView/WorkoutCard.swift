@@ -18,21 +18,32 @@ struct WorkoutCard: View {
             VStack(alignment: .leading) {
                 Text(type)
                     .font(.headline)
+                    .foregroundColor(colour.contrastingTextColor())
                 if ((creationTime) != nil) {
                     Text(creationTime, style: .date)
                         .font(.subheadline)
+                        .foregroundColor(colour.contrastingTextColor())
                 }
             }
             .foregroundColor(Color(.label))
             Spacer()
             Image(systemName: "chevron.right") // You can add an arrow or any other symbol to indicate a link
-                .foregroundColor(Color(.label))
+                .foregroundColor(colour.contrastingTextColor())
         }
         .padding()
-        .background(colour)
+        .background(RoundedRectangle(cornerRadius: 8).fill(adjustedBackgroundColour()))
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(colour.isLightColor() ? Color.black.opacity(0.1) : Color.white.opacity(0.1), lineWidth: 1)
+        )
+
+    //    .background(colour)
         .cornerRadius(8)
-        .shadow(radius: 2)
         
+    }
+    
+    private func adjustedBackgroundColour() -> Color {
+        return colour.isWhiteOrVeryLight() ? colour.adjustLightness(by: 0.05) : colour
     }
 }
 

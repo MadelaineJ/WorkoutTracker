@@ -21,12 +21,6 @@ class WorkoutTemplateData {
         return workoutTemplate
     }
 
-    func updateWorkoutTemplate(existingWorkoutTemplate: WorkoutTemplate, with newInfo: WorkoutTemplateInfo) {
-        existingWorkoutTemplate.type = newInfo.type
-
-        dataManager.save()
-    }
-
     func getAllWorkoutTemplates() -> [WorkoutTemplate] {
         let request: NSFetchRequest<WorkoutTemplate> = WorkoutTemplate.fetchRequest()
         
@@ -71,9 +65,12 @@ class WorkoutTemplateData {
         return workoutTemplate
     }
 
-    func updateWorkoutTemplate(existingWorkoutTemplate: WorkoutTemplate, with newInfo: WorkoutTemplateInfo, colour: UIColor) {
+    func updateWorkoutTemplate(existingWorkoutTemplate: WorkoutTemplate, with newInfo: WorkoutTemplateInfo, colour: UIColor?) {
         existingWorkoutTemplate.type = newInfo.type
-        existingWorkoutTemplate.colour = convertColorToData(colour: colour)  // Update color
+        if let colour = colour {
+            existingWorkoutTemplate.colour = convertColorToData(colour: colour)  // Update color
+        }
+        
         dataManager.save()
     }
 }

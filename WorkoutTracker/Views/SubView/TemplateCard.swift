@@ -8,28 +8,24 @@
 import SwiftUI
 
 struct TemplateCard: View {
-    var workout: WorkoutTemplateModel
+    var type: String
     var exercises: [ExerciseTemplateModel]
     var colour: Color
     
     var body: some View {
         
         VStack(alignment: .leading) {
-            VStack {
-                ZStack {
-                    Rectangle()
-                        .fill(colour)
-                        .cornerRadius(8)
-                        .frame(height: 35)
-                        .padding(.horizontal, -10)
-                    HStack {
-                        Text(workout.type)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                        Spacer()
-                    }
-                    .cornerRadius(8)
+            VStack(spacing: 0) {
+                HStack {
+                    Text(type)
+                        .font(.title3)
+                        .foregroundColor(colour.contrastingTextColor())
+                    Spacer()
                 }
+                .padding(.bottom, 10)
+                Divider()
+                    .foregroundColor(colour.contrastingTextColor())
+                    .background(colour.contrastingTextColor())
             }
             Spacer()
             VStack {
@@ -38,12 +34,12 @@ struct TemplateCard: View {
                         ForEach(exercises.prefix(3), id: \.id) { exercise in
                             Text(exercise.name)
                                 .font(.body)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(colour.contrastingTextColor())
                         }
 
                         if exercises.count > 3 {
                             Text("...") // Indicate more exercises
-                                .foregroundColor(.secondary)
+                                .foregroundColor(colour.contrastingTextColor())
                         } else {
                             Text("")
                                 .hidden()
@@ -51,15 +47,24 @@ struct TemplateCard: View {
                     }
                 } else if (exercises.count == 0) {
                     Text("Click to add exercises")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(colour.contrastingTextColor())
                 }
             }
             .frame(minHeight: 80)
         }
+      
         .frame(height: 100) // Set a fixed height here
         .padding(20)
-        .background(Color(.systemGray6))
-        .cornerRadius(8)
-        .shadow(radius: 2)
+        .background(RoundedRectangle(cornerRadius: 8).fill(adjustedBackgroundColour()))
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(colour.isLightColor() ? Color.black.opacity(0.1) : Color.white.opacity(0.1), lineWidth: 1)
+        )
+        
+   //     .background(Color(.systemGray6))
+    }
+    
+    private func adjustedBackgroundColour() -> Color {
+        return colour.isWhiteOrVeryLight() ? colour.adjustLightness(by: 0.05) : colour
     }
 }

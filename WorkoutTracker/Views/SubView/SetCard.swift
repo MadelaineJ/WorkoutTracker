@@ -44,7 +44,6 @@ struct SetCard: View {
         .padding(.vertical, 10)
         .background(Color(.systemGray6))
         .cornerRadius(8)
-        .shadow(radius: 3)
     }
 }
 

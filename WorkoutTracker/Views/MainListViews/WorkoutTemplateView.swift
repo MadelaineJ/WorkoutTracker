@@ -54,9 +54,9 @@ struct WorkoutTemplateView: View {
                 
                 if viewModel.workoutTemplates.count > 0 {
                     ScrollView() {
-                        LazyVGrid(columns: gridLayout, spacing: 50) {
+                        LazyVGrid(columns: gridLayout, spacing: 55) {
                             ForEach(viewModel.workoutTemplates, id: \.id) { workout in
-                                TemplateCard(workout: workout, exercises: viewModel.getExercisesForWorkout(workoutTemplate: workout),
+                                TemplateCard(type: workout.type, exercises: viewModel.getExercisesForWorkout(workoutTemplate: workout),
                                              colour: Color(viewModel.getColorForWorkoutTemplate(workoutTemplateId: workout.id) ?? .systemGray6))
                                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100)
                                     .onTapGesture {
@@ -68,6 +68,9 @@ struct WorkoutTemplateView: View {
                         .padding(.horizontal)
                     }
                     .padding(.bottom, 25)
+                    .onAppear(perform: {
+                        viewModel.getAllWorkoutTemplates()
+                    })
                 } else {
                     Text("No Workout Templates")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)

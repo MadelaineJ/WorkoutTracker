@@ -13,7 +13,6 @@ class WorkoutViewModel: ObservableObject {
 
     var controller: WorkoutData
     var exerciseViewModel: ExerciseViewModel = ExerciseViewModel()
-    var templateController: WorkoutTemplateViewModel = WorkoutTemplateViewModel()
 
     init(controller: WorkoutData = WorkoutData()) {
         self.controller = controller
@@ -24,18 +23,19 @@ class WorkoutViewModel: ObservableObject {
     private var isSortedAscending = false
     
     @Published var workouts: [WorkoutModel] = []
+    @Published var groupedWorkouts: [String: [WorkoutModel]] = [:]
     @Published var uniqueWorkoutTypes: [String] = []
 
     func createWorkout(type: String, colorData: Data? = nil, template: WorkoutTemplate?) -> Workout {
         
         // TODO: Remove testing code for adding workout from last month
-//        let currentCalendar = Calendar.current
-//        var dateComponents = DateComponents()
-//        dateComponents.month = -1 // Subtract 1 month
-//        let lastMonthDate = currentCalendar.date(byAdding: dateComponents, to: Date())
-//
-//        let workoutInfo = WorkoutInfo(creationTime: lastMonthDate ?? Date(), type: type, template: template)
-        let workoutInfo = WorkoutInfo(creationTime: Date(), type: type, template: template)
+        let currentCalendar = Calendar.current
+        var dateComponents = DateComponents()
+        dateComponents.month = -1 // Subtract 1 month
+        let lastMonthDate = currentCalendar.date(byAdding: dateComponents, to: Date())
+
+        let workoutInfo = WorkoutInfo(creationTime: lastMonthDate ?? Date(), type: type, template: template)
+    //    let workoutInfo = WorkoutInfo(creationTime: Date(), type: type, template: template)
         let workout = controller.createWorkout(workoutInfo, colorData: colorData)
         fetchAllUniqueWorkoutTypes()
         return workout
@@ -47,24 +47,6 @@ class WorkoutViewModel: ObservableObject {
     
     func getAllWorkoutsByType(type: String) {
         workouts = controller.getAllWorkoutsByType(type: type).map(WorkoutModel.init)
-    }
-    
-    func createWorkoutFromTemplate(workoutTemplate: WorkoutTemplateModel) -> Workout {
-        // Create a workout using information from the workout template
-        let workoutType = workoutTemplate.type
-        let colour = workoutTemplate.colour
-        let workout = createWorkout(type: workoutType, colorData: colour, template: templateController.getWorkoutTemplate(id: workoutTemplate.id))
-
-        // Fetch the template from the database
-        let template = templateController.getWorkoutTemplate(id: workoutTemplate.id)
-                
-        if let unwrappedExercises = template.exercises {
-            for exerciseTemplate in unwrappedExercises.allObjects as! [ExerciseTemplate] {
-                _ = exerciseViewModel.addExercise(id: workout.objectID, name: exerciseTemplate.name!)
-            }
-        }
-        
-        return workout
     }
 
     func toggleWorkoutOrder(ascending: Bool) {
@@ -98,12 +80,12 @@ class WorkoutViewModel: ObservableObject {
         return nil
     }
     
-    func groupedWorkoutsByMonth() -> [String: [WorkoutModel]] {
-        let groupedWorkouts = Dictionary(grouping: workouts) { workout -> String in
+    func groupedWorkoutsByMonth() {
+        let workouts = Dictionary(grouping: workouts) { workout -> String in
             let formatter = DateFormatter()
             formatter.dateFormat = "MMMM yyyy" // Format the date to Month Year
             return formatter.string(from: workout.creationTime)
         }
-        return groupedWorkouts
+        self.groupedWorkouts = workouts
     }
 }

@@ -17,6 +17,7 @@
 		270924762ADB0C73009B665F /* WorkoutCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270924752ADB0C73009B665F /* WorkoutCard.swift */; };
 		270924792ADB2515009B665F /* ExerciseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270924782ADB2515009B665F /* ExerciseListView.swift */; };
 		271B29262AFEA9CC00A1CC8A /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271B29252AFEA9CC00A1CC8A /* DeleteButton.swift */; };
+		272381C62B12A27200F41CD9 /* Colour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272381C52B12A27200F41CD9 /* Colour.swift */; };
 		272EBF932AE2F5DA00126645 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EBF922AE2F5DA00126645 /* ViewExtension.swift */; };
 		272EBF952AE2F6D200126645 /* CustomUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EBF942AE2F6D200126645 /* CustomUITextField.swift */; };
 		272EBF972AE2F6F400126645 /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EBF962AE2F6F400126645 /* NumberField.swift */; };
@@ -95,6 +96,7 @@
 		270924782ADB2515009B665F /* ExerciseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListView.swift; sourceTree = "<group>"; };
 		271B29252AFEA9CC00A1CC8A /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
 		271B292C2B00564000A1CC8A /* WorkoutTracker.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = WorkoutTracker.entitlements; path = ../../.Trash/WorkoutTracker.entitlements; sourceTree = "<group>"; };
+		272381C52B12A27200F41CD9 /* Colour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colour.swift; sourceTree = "<group>"; };
 		272EBF922AE2F5DA00126645 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		272EBF942AE2F6D200126645 /* CustomUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUITextField.swift; sourceTree = "<group>"; };
 		272EBF962AE2F6F400126645 /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				272EBF942AE2F6D200126645 /* CustomUITextField.swift */,
 				272EBF962AE2F6F400126645 /* NumberField.swift */,
 				272EBF992AE4657E00126645 /* InlineTextEditView.swift */,
+				272381C52B12A27200F41CD9 /* Colour.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 				27EDCD992ADCAD3300A5B315 /* FirstResponderTextField.swift in Sources */,
 				27715EB92AEDD092002B588B /* ExerciseTemplateModel.swift in Sources */,
 				276A6DD62AEF1BF0008EA0D8 /* WorkoutTemplateView.swift in Sources */,
+				272381C62B12A27200F41CD9 /* Colour.swift in Sources */,
 				2787C3632AD248FE007CD4F2 /* SetListView.swift in Sources */,
 				276A6DDA2AEF2E3D008EA0D8 /* ExerciseTemplateView.swift in Sources */,
 				272EBF952AE2F6D200126645 /* CustomUITextField.swift in Sources */,

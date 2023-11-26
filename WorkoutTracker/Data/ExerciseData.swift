@@ -50,7 +50,7 @@ class ExerciseData {
         if let workout = workoutController.getWorkoutById(id: workoutId) {
             if let exercises = workout.exercises as? Set<Exercise> {
                 let exercisesArray = Array(exercises)
-                return exercisesArray.sorted(by: { $0.creationTime! > $1.creationTime! })  // Sorting in descending order
+                return exercisesArray.sorted(by: { $0.name! < $1.name! })  // Sorting in descending order
             }
         }
         return []

@@ -22,8 +22,6 @@ struct WorkoutListView: View {
     @State private var isEditMode: EditMode = .inactive
     @State private var navigationPath = NavigationPath()
     
-    @State private var groupedWorkouts: [String: [WorkoutModel]] = [:]
-    
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack {
@@ -55,7 +53,7 @@ struct WorkoutListView: View {
                                 newWorkout = WorkoutModel(workout: viewModel.createWorkout(type: inputText, template: nil))
                                 navigationPath.append(newWorkout)
                             } else if let template = self.selectedTemplate {
-                                newWorkout = WorkoutModel(workout: viewModel.createWorkoutFromTemplate(workoutTemplate: template))
+                                newWorkout = WorkoutModel(workout: templateViewModel.createWorkoutFromTemplate(workoutTemplate: template))
                                 navigationPath.append(newWorkout)
                             }
                             viewModel.getAllWorkouts()
@@ -111,15 +109,17 @@ struct WorkoutListView: View {
                     Text("No Workouts To Display")
                 }
                 List {
-                    ForEach(groupedWorkouts.keys.sorted(), id: \.self) { month in
-                        MonthSectionView(navigationPath: $navigationPath, month: month, workouts: groupedWorkouts[month] ?? [],
+                    ForEach(viewModel.groupedWorkouts.keys.sorted(), id: \.self) { month in
+                        
+                        MonthSectionView(navigationPath: $navigationPath, month: month, workouts: viewModel.groupedWorkouts[month] ?? [],
                                          deleteAction: deleteWorkout)
                     }
                 }
                 .listStyle(PlainListStyle())
                 .padding(.bottom, 25)
                 .onAppear(perform: {
-                    groupedWorkouts = viewModel.groupedWorkoutsByMonth()
+                    viewModel.getAllWorkouts()
+                    viewModel.groupedWorkoutsByMonth()
                 })
 
             }
@@ -148,7 +148,7 @@ struct WorkoutListView: View {
     
     func filterWorkouts(byType type: String?) {
         viewModel.getAllWorkoutsByType(type: type!) // This will update viewModel.workouts
-        groupedWorkouts = viewModel.groupedWorkoutsByMonth() // Update groupedWorkouts based on the filtered workouts
+        viewModel.groupedWorkoutsByMonth() // Update groupedWorkouts based on the filtered workouts
     }
     
     func deleteWorkout(at offsets: IndexSet) {
@@ -165,7 +165,7 @@ struct WorkoutListView: View {
             }
             
             viewModel.getAllWorkouts()
-            groupedWorkouts = viewModel.groupedWorkoutsByMonth()
+            viewModel.groupedWorkoutsByMonth()
         }
     }
     
@@ -173,7 +173,7 @@ struct WorkoutListView: View {
     func clearFilters() {
         selectedWorkoutType = nil
         viewModel.getAllWorkouts() // This will reset viewModel.workouts
-        groupedWorkouts = viewModel.groupedWorkoutsByMonth() // Reset groupedWorkouts
+        viewModel.groupedWorkoutsByMonth() // Reset groupedWorkouts
     }
 
 
