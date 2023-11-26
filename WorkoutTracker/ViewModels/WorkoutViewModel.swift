@@ -29,13 +29,13 @@ class WorkoutViewModel: ObservableObject {
     func createWorkout(type: String, colorData: Data? = nil, template: WorkoutTemplate?) -> Workout {
         
         // TODO: Remove testing code for adding workout from last month
-        let currentCalendar = Calendar.current
-        var dateComponents = DateComponents()
-        dateComponents.month = -1 // Subtract 1 month
-        let lastMonthDate = currentCalendar.date(byAdding: dateComponents, to: Date())
-
-        let workoutInfo = WorkoutInfo(creationTime: lastMonthDate ?? Date(), type: type, template: template)
-    //    let workoutInfo = WorkoutInfo(creationTime: Date(), type: type, template: template)
+//        let currentCalendar = Calendar.current
+//        var dateComponents = DateComponents()
+//        dateComponents.month = -1 // Subtract 1 month
+//        let lastMonthDate = currentCalendar.date(byAdding: dateComponents, to: Date())
+//
+//        let workoutInfo = WorkoutInfo(creationTime: lastMonthDate ?? Date(), type: type, template: template)
+        let workoutInfo = WorkoutInfo(creationTime: Date(), type: type, template: template)
         let workout = controller.createWorkout(workoutInfo, colorData: colorData)
         fetchAllUniqueWorkoutTypes()
         return workout

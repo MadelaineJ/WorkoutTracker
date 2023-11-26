@@ -74,7 +74,7 @@ class WorkoutTemplateViewModel: ObservableObject {
 
     func update(workoutTemplate: WorkoutTemplateModel, withNewInfo newInfo: WorkoutTemplateInfo, colour: UIColor = UIColor.systemGray6) {
         if let existingWorkoutTemplate = controller.getWorkoutTemplateById(id: workoutTemplate.id) {
-            controller.updateWorkoutTemplate(existingWorkoutTemplate: existingWorkoutTemplate, with: newInfo, colour: nil)
+            controller.updateWorkoutTemplate(existingWorkoutTemplate: existingWorkoutTemplate, with: newInfo, colour: colour)
             
             if let template = controller.getWorkoutTemplateById(id: workoutTemplate.id) {
                 for workout in getAssociatedWorkouts(templateId: workoutTemplate.id) {
