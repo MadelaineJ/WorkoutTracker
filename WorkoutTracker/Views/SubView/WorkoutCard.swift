@@ -31,7 +31,6 @@ struct WorkoutCard: View {
             }
             .onAppear() {
                 contrastingTextColour = displayColour.contrastingTextColor()
-                print(type, displayColour, contrastingTextColour)
             }
             .foregroundColor(Color(.label))
             Spacer()

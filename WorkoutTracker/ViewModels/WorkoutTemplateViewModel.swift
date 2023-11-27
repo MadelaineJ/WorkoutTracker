@@ -107,7 +107,6 @@ class WorkoutTemplateViewModel: ObservableObject {
         let colour = workoutTemplate.colour
         let template = getWorkoutTemplate(id: workoutTemplate.id)
         let workout = workoutViewModel.createWorkout(type: workoutType, colorData: colour, template: template)
-
                 
         if let unwrappedExercises = template.exercises {
             for exerciseTemplate in unwrappedExercises.allObjects as! [ExerciseTemplate] {

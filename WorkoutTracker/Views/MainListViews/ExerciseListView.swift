@@ -29,9 +29,21 @@ struct ExerciseListView: View {
     var body: some View {
             VStack(spacing: 5) {
                 HStack {
-                    InlineTextEditView(text: $editableWorkoutName, isEditing: $isEditing, isTextFieldFocused: $isTextFieldFocused)
-                        .font(.title)
-                        .padding(.horizontal, 30)
+                    if let template = workout.template {
+                        Text(template.type!)
+                            .font(.title)
+                            .padding(.horizontal, 30)
+                    } else {
+                        InlineTextEditView(text: $editableWorkoutName, isEditing: $isEditing, isTextFieldFocused: $isTextFieldFocused)
+                            .font(.title)
+                            .padding(.horizontal, 30)
+                            .onAppear(perform: {
+                                isEditMode = .inactive
+                                isEditing = false
+                                editableWorkoutName = workout.type
+                            })
+                    }
+
                     Spacer()
                     DeleteButton(message: "workout") {
                         do {
@@ -44,11 +56,6 @@ struct ExerciseListView: View {
                     .padding(.horizontal, 30)
                 }
                 .padding(.top, 20)
-                .onAppear(perform: {
-                    isEditMode = .inactive
-                    isEditing = false
-                    editableWorkoutName = workout.type
-                })
                 .onChange(of: editableWorkoutName) { newValue in
                     let newInfo = WorkoutInfo(creationTime: workout.creationTime, type: newValue, template: workout.template ?? nil)
                     workoutViewModel.update(workout: workout, withNewInfo: newInfo)

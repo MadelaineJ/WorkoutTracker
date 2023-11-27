@@ -63,16 +63,7 @@ struct WorkoutListView: View {
                 .padding(.horizontal, 30)
                 
                 HStack {
-                    
-                    // The Sorting Button
                     if viewModel.workouts.count != 0 {
-                        Button(action: {
-                            isSortedAscending.toggle()
-                            viewModel.toggleWorkoutOrder(ascending: isSortedAscending)
-                        }) {
-                            Image(systemName: isSortedAscending ? "arrow.up" : "arrow.down")
-                        }
-                        .frame(alignment: .leading)
 
                     Spacer()
                     // The Filtering Button
@@ -127,7 +118,6 @@ struct WorkoutListView: View {
                 ExerciseListView(workout: workout, navigationPath: $navigationPath)
             }
             .onChange(of: viewModel.workouts.count) { newCount in
-                print(newCount)
                 if newCount == 0 && isEditMode == .active {
                     isEditMode = .inactive
                 }
@@ -164,7 +154,7 @@ struct WorkoutListView: View {
                 // Handle or log the error if needed
                 print("Error occurred while deleting workout: \(error.localizedDescription)")
             }
-            
+            viewModel.getAllWorkouts()
             viewModel.groupedWorkoutsByMonth()
         }
     }

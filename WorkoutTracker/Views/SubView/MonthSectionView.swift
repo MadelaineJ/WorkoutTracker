@@ -14,6 +14,7 @@ struct MonthSectionView: View {
     var workouts: [WorkoutModel]
     var deleteAction: (IndexSet) -> Void
     
+    
 
     var body: some View {
         Section(
@@ -21,7 +22,7 @@ struct MonthSectionView: View {
         ) {
             ForEach(workouts, id: \.self) { workout in
                 HStack {
-                    WorkoutCard(type: workout.type, creationTime: workout.creationTime, colour:
+                    WorkoutCard(type: workout.template?.type ?? workout.type, creationTime: workout.creationTime, colour:
                                 viewModel.getColourForWorkout(workout: workout))
                         .padding(.top, workout == workouts.first ? 10 : 0)
                         .onTapGesture {

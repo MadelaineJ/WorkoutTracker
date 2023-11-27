@@ -35,7 +35,12 @@ struct ExerciseTemplateView: View {
                         isEditing = true
                     } else {
                         let newInfo = WorkoutTemplateInfo(type: editableWorkoutName)
-                        workoutViewModel.update(workoutTemplate: workoutTemplate, withNewInfo: newInfo)
+                        if let colour = workoutViewModel.getColorForWorkoutTemplate(workoutTemplateId: workoutTemplate.id) {
+                            workoutViewModel.update(workoutTemplate: workoutTemplate, withNewInfo: newInfo, colour: colour)
+                        } else {
+                            workoutViewModel.update(workoutTemplate: workoutTemplate, withNewInfo: newInfo)
+                        }
+                        
                         isEditing = false
                     }
                 })

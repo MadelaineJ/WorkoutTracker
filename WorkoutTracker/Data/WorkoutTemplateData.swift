@@ -69,7 +69,6 @@ class WorkoutTemplateData {
         existingWorkoutTemplate.type = newInfo.type
 
         if let colour = colour {
-            print("updating!", colour)
             existingWorkoutTemplate.colour = convertColorToData(colour: colour)  // Update color
         }
         

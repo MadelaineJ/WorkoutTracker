@@ -59,7 +59,7 @@ struct TemplateCard: View {
         .onAppear() {
             uiColour = colour ?? .systemGray6
             contrastingTextColour = displayColour.contrastingTextColor()
-            print(type, displayColour, contrastingTextColour)
+            print(type, uiColour)
         }
         .onChange(of: colorScheme) { newColour in
             contrastingTextColour = displayColour.contrastingTextColor()

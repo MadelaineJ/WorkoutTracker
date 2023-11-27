@@ -81,7 +81,6 @@ class WorkoutViewModel: ObservableObject {
     }
     
     func groupedWorkoutsByMonth() {
-        getAllWorkouts()
         let workouts = Dictionary(grouping: workouts) { workout -> String in
             let formatter = DateFormatter()
             formatter.dateFormat = "MMMM yyyy" // Format the date to Month Year
