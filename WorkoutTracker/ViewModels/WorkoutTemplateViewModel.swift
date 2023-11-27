@@ -34,13 +34,6 @@ class WorkoutTemplateViewModel: ObservableObject {
         getAllWorkoutTemplates()  // Update the list after creating
         return newWorkoutTemplate
     }
-
-//    func update(workoutTemplate: WorkoutTemplateModel, withNewInfo newInfo: WorkoutTemplateInfo) {
-//        if let existingWorkoutTemplate = controller.getWorkoutTemplateById(id: workoutTemplate.id) {
-//            controller.updateWorkoutTemplate(existingWorkoutTemplate: existingWorkoutTemplate, with: newInfo)
-//            getAllWorkoutTemplates()  // Update the list after updating
-//        }
-//    }
     
     func getWorkoutTemplate(id: NSManagedObjectID) -> WorkoutTemplate {
         return controller.getWorkoutTemplateById(id: id) ?? WorkoutTemplate()

@@ -103,8 +103,7 @@ struct WorkoutListView: View {
                 }
                 .padding(.horizontal, 25)
                 .padding(.vertical, 5)
-        
-                
+
                 if viewModel.workouts.count == 0 {
                     Text("No Workouts To Display")
                 }

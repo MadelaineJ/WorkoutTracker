@@ -22,7 +22,7 @@ struct MonthSectionView: View {
             ForEach(workouts, id: \.self) { workout in
                 HStack {
                     WorkoutCard(type: workout.type, creationTime: workout.creationTime, colour:
-                                Color(viewModel.getColourForWorkout(workout: workout) ?? .systemGray6))
+                                viewModel.getColourForWorkout(workout: workout))
                         .padding(.top, workout == workouts.first ? 10 : 0)
                         .onTapGesture {
                             navigationPath.append(workout)

@@ -89,7 +89,7 @@ struct ExerciseListView: View {
                 List {
                     ForEach(viewModel.exercises, id: \.id) { exercise in
                         WorkoutCard(type: exercise.name, creationTime: exercise.creationTime,
-                                    colour: Color(workoutViewModel.getColourForWorkout(workout: workout) ?? .systemGray6))
+                                    colour: workoutViewModel.getColourForWorkout(workout: workout))
                             .onTapGesture {
                                 navigationPath.append(exercise)
                             }

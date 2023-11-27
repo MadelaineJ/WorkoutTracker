@@ -57,7 +57,7 @@ struct WorkoutTemplateView: View {
                         LazyVGrid(columns: gridLayout, spacing: 55) {
                             ForEach(viewModel.workoutTemplates, id: \.id) { workout in
                                 TemplateCard(type: workout.type, exercises: viewModel.getExercisesForWorkout(workoutTemplate: workout),
-                                             colour: Color(viewModel.getColorForWorkoutTemplate(workoutTemplateId: workout.id) ?? .systemGray6))
+                                             colour: viewModel.getColorForWorkoutTemplate(workoutTemplateId: workout.id))
                                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 100)
                                     .onTapGesture {
                                         navigationPath.append(workout)

@@ -9,14 +9,31 @@ import SwiftUI
 
 extension Color {
     func luminance() -> Double {
-        // Assuming Color is in the sRGB color space
-        let components = UIColor(self).cgColor.components
-        let r = components?[0] ?? 0
-        let g = components?[1] ?? 0
-        let b = components?[2] ?? 0
-
+        let uiColor = UIColor(self)
+        
+        // Get the current trait collection
+        let currentTraitCollection = UIScreen.main.traitCollection
+        // Resolve the color for the current trait collection
+        let resolvedColor = uiColor.resolvedColor(with: currentTraitCollection)
+        
+        // Extract the RGB components from the resolved color
+        guard let components = resolvedColor.cgColor.components, components.count >= 3 else {
+            return 0.0 // Return a default value or handle the error
+        }
+        
+        let r = components[0]
+        let g = components[1]
+        let b = components[2]
+        let luminance = 0.299 * r + 0.587 * g + 0.114 * b
         // Calculating luminance
-        return 0.299 * r + 0.587 * g + 0.114 * b
+        let isDynamic = !resolvedColor.isEqual(uiColor)
+        let isDarkMode = UIScreen.main.traitCollection.userInterfaceStyle == .dark
+        if isDynamic && isDarkMode {            
+            return 1.0 - luminance
+        } else {
+            return luminance
+        }
+        
     }
 
     func contrastingTextColor() -> Color {

@@ -67,9 +67,13 @@ class WorkoutTemplateData {
 
     func updateWorkoutTemplate(existingWorkoutTemplate: WorkoutTemplate, with newInfo: WorkoutTemplateInfo, colour: UIColor?) {
         existingWorkoutTemplate.type = newInfo.type
+
         if let colour = colour {
+            print("updating!", colour)
             existingWorkoutTemplate.colour = convertColorToData(colour: colour)  // Update color
         }
+        
+        
         
         dataManager.save()
     }
