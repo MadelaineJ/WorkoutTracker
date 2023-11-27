@@ -45,6 +45,8 @@ struct ExerciseListView: View {
                 }
                 .padding(.top, 20)
                 .onAppear(perform: {
+                    isEditMode = .inactive
+                    isEditing = false
                     editableWorkoutName = workout.type
                 })
                 .onChange(of: editableWorkoutName) { newValue in

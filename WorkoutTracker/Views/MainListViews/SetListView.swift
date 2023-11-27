@@ -41,6 +41,8 @@ struct SetListView: View {
                     }
                     .onAppear(perform: {
                         editableExerciseName = exercise.name
+                        isEditMode = .inactive
+                        isEditing = false
                     })
                     .onChange(of: editableExerciseName) { newValue in
                         let newInfo = ExerciseInfo(creationTime: exercise.creationTime, name: newValue)
