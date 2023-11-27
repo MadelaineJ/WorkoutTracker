@@ -33,7 +33,7 @@ struct SetListView: View {
                             .font(.title)
                             .padding(.horizontal, 20)
                         Spacer()
-                        DeleteButton(message: "exercise") {
+                        DeleteButton(message: "Exercise?\nThis action is irreversible!") {
                             exerciseViewModel.delete(exercise)
                             presentationMode.wrappedValue.dismiss()
                         }

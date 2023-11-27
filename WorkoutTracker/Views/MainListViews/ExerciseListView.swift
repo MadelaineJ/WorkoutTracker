@@ -45,7 +45,7 @@ struct ExerciseListView: View {
                     }
 
                     Spacer()
-                    DeleteButton(message: "workout") {
+                    DeleteButton(message: "Workout?\nThis action is irreversible!") {
                         do {
                             try workoutViewModel.delete(workout)
                             presentationMode.wrappedValue.dismiss()

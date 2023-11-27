@@ -37,6 +37,7 @@ class WorkoutViewModel: ObservableObject {
 //        let workoutInfo = WorkoutInfo(creationTime: lastMonthDate ?? Date(), type: type, template: template)
         let workoutInfo = WorkoutInfo(creationTime: Date(), type: type, template: template)
         let workout = controller.createWorkout(workoutInfo, colorData: colorData)
+
         fetchAllUniqueWorkoutTypes()
         return workout
     }

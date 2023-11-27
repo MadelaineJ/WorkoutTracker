@@ -59,7 +59,6 @@ struct TemplateCard: View {
         .onAppear() {
             uiColour = colour ?? .systemGray6
             contrastingTextColour = displayColour.contrastingTextColor()
-            print(type, uiColour)
         }
         .onChange(of: colorScheme) { newColour in
             contrastingTextColour = displayColour.contrastingTextColor()
@@ -71,8 +70,6 @@ struct TemplateCard: View {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(contrastingTextColour.opacity(0.2), lineWidth: 1)
         )
-        
-   //     .background(Color(.systemGray6))
     }
     
     private func adjustedBackgroundColour(displayColour: Color) -> Color {

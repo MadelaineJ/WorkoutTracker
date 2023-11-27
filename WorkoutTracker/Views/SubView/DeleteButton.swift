@@ -26,7 +26,7 @@ struct DeleteButton: View {
         .alert(isPresented: $showingDeleteAlert) {
             Alert(
                 title: Text("Are you sure?"),
-                message: Text("Do you want to delete this \(message)?"),
+                message: Text("Do you want to delete this \(message)"),
                 primaryButton: .destructive(Text("Delete")) {
                     onDelete() // Call the provided delete function
                 },

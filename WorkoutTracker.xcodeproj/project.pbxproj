@@ -18,6 +18,7 @@
 		270924792ADB2515009B665F /* ExerciseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270924782ADB2515009B665F /* ExerciseListView.swift */; };
 		271B29262AFEA9CC00A1CC8A /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271B29252AFEA9CC00A1CC8A /* DeleteButton.swift */; };
 		272381C62B12A27200F41CD9 /* Colour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272381C52B12A27200F41CD9 /* Colour.swift */; };
+		272381CC2B151E2F00F41CD9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 272381CB2B151E2F00F41CD9 /* LaunchScreen.storyboard */; };
 		272EBF932AE2F5DA00126645 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EBF922AE2F5DA00126645 /* ViewExtension.swift */; };
 		272EBF952AE2F6D200126645 /* CustomUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EBF942AE2F6D200126645 /* CustomUITextField.swift */; };
 		272EBF972AE2F6F400126645 /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272EBF962AE2F6F400126645 /* NumberField.swift */; };
@@ -97,6 +98,7 @@
 		271B29252AFEA9CC00A1CC8A /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
 		271B292C2B00564000A1CC8A /* WorkoutTracker.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = WorkoutTracker.entitlements; path = ../../.Trash/WorkoutTracker.entitlements; sourceTree = "<group>"; };
 		272381C52B12A27200F41CD9 /* Colour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colour.swift; sourceTree = "<group>"; };
+		272381CB2B151E2F00F41CD9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		272EBF922AE2F5DA00126645 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		272EBF942AE2F6D200126645 /* CustomUITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUITextField.swift; sourceTree = "<group>"; };
 		272EBF962AE2F6F400126645 /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				27077BB22AAE49DA0024F035 /* Info.plist */,
 				27077BAF2AAE49DA0024F035 /* WorkoutTracker.xcdatamodeld */,
 				27077BAA2AAE49DA0024F035 /* Preview Content */,
+				272381CB2B151E2F00F41CD9 /* LaunchScreen.storyboard */,
 			);
 			path = WorkoutTracker;
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				272381CC2B151E2F00F41CD9 /* LaunchScreen.storyboard in Resources */,
 				27077BAC2AAE49DA0024F035 /* Preview Assets.xcassets in Resources */,
 				27077BA92AAE49DA0024F035 /* Assets.xcassets in Resources */,
 			);
@@ -707,7 +711,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = WorkoutTracker/WorkoutTracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"WorkoutTracker/Preview Content\"";
 				DEVELOPMENT_TEAM = CZYTFZAZMX;
 				ENABLE_PREVIEWS = YES;
@@ -718,6 +722,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -744,7 +749,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = WorkoutTracker/WorkoutTracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"WorkoutTracker/Preview Content\"";
 				DEVELOPMENT_TEAM = CZYTFZAZMX;
 				ENABLE_PREVIEWS = YES;
@@ -755,6 +760,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (

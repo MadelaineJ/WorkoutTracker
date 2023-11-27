@@ -57,7 +57,7 @@ struct ExerciseTemplateView: View {
                     )
                 }
                 Spacer()
-                DeleteButton(message: "Workout Template") {
+                DeleteButton(message: "Workout Template? \nThis action is irreversible! \n\n Deleting a template will not delete any workouts created from that template. But you will lose the ability to change their colour.") {
                     workoutViewModel.delete(workoutTemplate)
                     presentationMode.wrappedValue.dismiss()
                 }

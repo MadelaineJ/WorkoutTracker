@@ -162,6 +162,7 @@ struct WorkoutListView: View {
     // Clears the selected workout type and gets all workouts
     func clearFilters() {
         selectedWorkoutType = nil
+        viewModel.getAllWorkouts()
         viewModel.groupedWorkoutsByMonth() // Reset groupedWorkouts
     }
 

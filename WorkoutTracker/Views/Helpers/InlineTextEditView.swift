@@ -21,7 +21,6 @@ struct InlineTextEditView: View {
                     isEditing = false
                     onCommit()
                 })
-                .autocapitalization(.none)
                 .focused(isTextFieldFocused)
             } else {
                 Text(text)

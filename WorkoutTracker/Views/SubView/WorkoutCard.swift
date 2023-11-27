@@ -12,7 +12,7 @@ struct WorkoutCard: View {
     @Environment(\.colorScheme) var colorScheme
     var type: String
     var creationTime: Date!
-    var colour: UIColor? // Make colour optional
+    var colour: UIColor?
     
     var body: some View {
         let uiColour = colour ?? .systemGray6
@@ -47,10 +47,8 @@ struct WorkoutCard: View {
         .background(RoundedRectangle(cornerRadius: 8).fill(displayColour))
         .overlay(
             RoundedRectangle(cornerRadius: 8)
-                .stroke(displayColour.isLightColor() ? Color.black.opacity(0.1) : Color.white.opacity(0.1), lineWidth: 1)
+                .stroke(contrastingTextColour.opacity(0.3), lineWidth: 1)
         )
-
-    //    .background(colour)
         .cornerRadius(8)
         
     }

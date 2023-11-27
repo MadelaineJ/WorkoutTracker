@@ -13,8 +13,6 @@ struct MonthSectionView: View {
     var month: String
     var workouts: [WorkoutModel]
     var deleteAction: (IndexSet) -> Void
-    
-    
 
     var body: some View {
         Section(
