@@ -101,12 +101,13 @@ struct WorkoutListView: View {
                 List {
                     ForEach(viewModel.groupedWorkouts.keys.sorted(), id: \.self) { month in
                         
-                        MonthSectionView(navigationPath: $navigationPath, month: month, workouts: viewModel.groupedWorkouts[month] ?? [],
-                                         deleteAction: deleteWorkout)
+                        MonthSectionView(navigationPath: $navigationPath, month: month, workouts: viewModel.groupedWorkouts[month] ?? [])
                     }
 
                 }
                 .listStyle(PlainListStyle())
+                .navigationBarItems(trailing: EditButton())
+                .environment(\.editMode, $isEditMode)
                 .padding(.bottom, 25)
                 .onAppear(perform: {
                     viewModel.getAllWorkouts()
@@ -114,6 +115,10 @@ struct WorkoutListView: View {
                 })
 
             }
+            .onAppear(perform: {
+                   viewModel.getAllWorkouts()
+                   isEditMode = .inactive
+            })
             .navigationDestination(for: WorkoutModel.self) { workout in
                 ExerciseListView(workout: workout, navigationPath: $navigationPath)
             }
@@ -122,8 +127,6 @@ struct WorkoutListView: View {
                     isEditMode = .inactive
                 }
             }
-            .navigationBarItems(trailing: EditButton())
-            .environment(\.editMode, $isEditMode)
             .onAppear(perform: {
                 viewModel.getAllWorkouts()
             })
@@ -140,23 +143,6 @@ struct WorkoutListView: View {
     func filterWorkouts(byType type: String?) {
         viewModel.getAllWorkoutsByType(type: type!) // This will update viewModel.workouts
         viewModel.groupedWorkoutsByMonth() // Update groupedWorkouts based on the filtered workouts
-    }
-    
-    func deleteWorkout(at offsets: IndexSet) {
-        offsets.forEach { index in
-            guard viewModel.workouts.indices.contains(index) else { return } // Safely check if the index is valid
-            
-            let workout = viewModel.workouts[index] // get the set to be deleted
-            
-            do {
-                try viewModel.delete(workout)
-            } catch {
-                // Handle or log the error if needed
-                print("Error occurred while deleting workout: \(error.localizedDescription)")
-            }
-            viewModel.getAllWorkouts()
-            viewModel.groupedWorkoutsByMonth()
-        }
     }
     
     // Clears the selected workout type and gets all workouts
