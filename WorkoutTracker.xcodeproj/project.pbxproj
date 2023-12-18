@@ -34,6 +34,10 @@
 		274194F22AD3687700D010D0 /* ExerciseDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274194F12AD3687700D010D0 /* ExerciseDataTest.swift */; };
 		274194F42AD368C600D010D0 /* WorkoutDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274194F32AD368C600D010D0 /* WorkoutDataTest.swift */; };
 		274194F72AD368DC00D010D0 /* DataManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274194F62AD368DC00D010D0 /* DataManagerTest.swift */; };
+		275A8C482B1A470100EB0264 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A8C472B1A470100EB0264 /* OnboardingView.swift */; };
+		275A8C4B2B1A4A6500EB0264 /* Tooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A8C4A2B1A4A6500EB0264 /* Tooltip.swift */; };
+		275A8C4D2B1A4C1B00EB0264 /* TutorialOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A8C4C2B1A4C1B00EB0264 /* TutorialOverlayView.swift */; };
+		275A8C4F2B1A573300EB0264 /* TutorialData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275A8C4E2B1A573300EB0264 /* TutorialData.swift */; };
 		276A6DD62AEF1BF0008EA0D8 /* WorkoutTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A6DD52AEF1BF0008EA0D8 /* WorkoutTemplateView.swift */; };
 		276A6DD82AEF21E8008EA0D8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A6DD72AEF21E8008EA0D8 /* MainView.swift */; };
 		276A6DDA2AEF2E3D008EA0D8 /* ExerciseTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A6DD92AEF2E3D008EA0D8 /* ExerciseTemplateView.swift */; };
@@ -114,6 +118,10 @@
 		274194F12AD3687700D010D0 /* ExerciseDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDataTest.swift; sourceTree = "<group>"; };
 		274194F32AD368C600D010D0 /* WorkoutDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDataTest.swift; sourceTree = "<group>"; };
 		274194F62AD368DC00D010D0 /* DataManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerTest.swift; sourceTree = "<group>"; };
+		275A8C472B1A470100EB0264 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		275A8C4A2B1A4A6500EB0264 /* Tooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tooltip.swift; sourceTree = "<group>"; };
+		275A8C4C2B1A4C1B00EB0264 /* TutorialOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialOverlayView.swift; sourceTree = "<group>"; };
+		275A8C4E2B1A573300EB0264 /* TutorialData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialData.swift; sourceTree = "<group>"; };
 		276A6DD42AEEF29E008EA0D8 /* WorkoutTracker.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WorkoutTracker.xctestplan; sourceTree = "<group>"; };
 		276A6DD52AEF1BF0008EA0D8 /* WorkoutTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplateView.swift; sourceTree = "<group>"; };
 		276A6DD72AEF21E8008EA0D8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -302,9 +310,21 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		275A8C462B1A46E900EB0264 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				275A8C472B1A470100EB0264 /* OnboardingView.swift */,
+				275A8C4A2B1A4A6500EB0264 /* Tooltip.swift */,
+				275A8C4C2B1A4C1B00EB0264 /* TutorialOverlayView.swift */,
+				275A8C4E2B1A573300EB0264 /* TutorialData.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		2787C35F2AD24884007CD4F2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				275A8C462B1A46E900EB0264 /* Onboarding */,
 				27EDCD9C2ADCAEC000A5B315 /* Helpers */,
 				27EDCD9A2ADCAE9000A5B315 /* MainListViews */,
 				27EDCD6E2ADB325900A5B315 /* SubView */,
@@ -437,7 +457,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					27077BA02AAE49D90024F035 = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -515,8 +535,10 @@
 				276A6DDA2AEF2E3D008EA0D8 /* ExerciseTemplateView.swift in Sources */,
 				272EBF952AE2F6D200126645 /* CustomUITextField.swift in Sources */,
 				276A6DD82AEF21E8008EA0D8 /* MainView.swift in Sources */,
+				275A8C4F2B1A573300EB0264 /* TutorialData.swift in Sources */,
 				2787C3612AD248E9007CD4F2 /* WorkoutListView.swift in Sources */,
 				27EDCD952ADCA37000A5B315 /* AddButton.swift in Sources */,
+				275A8C482B1A470100EB0264 /* OnboardingView.swift in Sources */,
 				2787C3752AD24972007CD4F2 /* ExerciseSetViewModel.swift in Sources */,
 				272EBF932AE2F5DA00126645 /* ViewExtension.swift in Sources */,
 				27715EB52AEDCFBD002B588B /* WorkoutTemplateViewModel.swift in Sources */,
@@ -528,6 +550,7 @@
 				270924762ADB0C73009B665F /* WorkoutCard.swift in Sources */,
 				270924792ADB2515009B665F /* ExerciseListView.swift in Sources */,
 				27EDBBEE2B0802C60083509A /* TemplateCard.swift in Sources */,
+				275A8C4D2B1A4C1B00EB0264 /* TutorialOverlayView.swift in Sources */,
 				27715EBB2AEDD1C7002B588B /* ExerciseTemplateViewModel.swift in Sources */,
 				272EBF9A2AE4657E00126645 /* InlineTextEditView.swift in Sources */,
 				27EDCD6D2ADB316000A5B315 /* ExerciseSetModel.swift in Sources */,
@@ -541,6 +564,7 @@
 				2787C36F2AD24953007CD4F2 /* DataManager.swift in Sources */,
 				27715EAB2AEDC06B002B588B /* WorkoutTemplateData.swift in Sources */,
 				27077BA52AAE49D90024F035 /* WorkoutTrackerApp.swift in Sources */,
+				275A8C4B2B1A4A6500EB0264 /* Tooltip.swift in Sources */,
 				271B29262AFEA9CC00A1CC8A /* DeleteButton.swift in Sources */,
 				274194C62AD334D500D010D0 /* ExerciseData.swift in Sources */,
 			);
@@ -593,6 +617,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -625,6 +650,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -653,6 +679,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -685,6 +712,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -711,7 +739,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = WorkoutTracker/WorkoutTracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"WorkoutTracker/Preview Content\"";
 				DEVELOPMENT_TEAM = CZYTFZAZMX;
 				ENABLE_PREVIEWS = YES;
@@ -749,7 +777,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = WorkoutTracker/WorkoutTracker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"WorkoutTracker/Preview Content\"";
 				DEVELOPMENT_TEAM = CZYTFZAZMX;
 				ENABLE_PREVIEWS = YES;
