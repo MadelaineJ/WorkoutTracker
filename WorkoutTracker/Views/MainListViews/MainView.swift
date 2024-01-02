@@ -9,8 +9,18 @@ import SwiftUI
 
 struct MainView: View {
     @State private var selectedTab = 0
-    
+    @State private var isOnboardingActive = !UserDefaults.standard.bool(forKey: "didCompleteOnboarding")
+
     var body: some View {
+        if isOnboardingActive {
+            OnboardingMainView(isOnboardingActive: $isOnboardingActive)
+                .onDisappear {
+                    // Set the UserDefaults flag when onboarding is completed
+                    if !isOnboardingActive {
+                        UserDefaults.standard.set(true, forKey: "didCompleteOnboarding")
+                    }
+                }
+        } else {
             VStack {
                 TabView(selection: $selectedTab) {
                     WorkoutListView(selectedTab: $selectedTab)
@@ -18,7 +28,7 @@ struct MainView: View {
                             Label("Workouts", systemImage: "list.bullet")
                         }
                         .tag(0)
-                    
+
                     WorkoutTemplateView()
                         .tabItem {
                             Label("Templates", systemImage: "square.grid.2x2")
@@ -27,6 +37,7 @@ struct MainView: View {
                 }
                 .background(Color.white)
             }
+        }
     }
 }
 
