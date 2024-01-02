@@ -99,8 +99,8 @@ struct WorkoutListView: View {
                     Text("No Workouts To Display")
                 }
                 List {
-                    ForEach(viewModel.groupedWorkouts.keys.sorted(), id: \.self) { month in
-                        
+                    ForEach(viewModel.sortedMonths, id: \.self) { month in
+    
                         MonthSectionView(navigationPath: $navigationPath, month: month, workouts: viewModel.groupedWorkouts[month] ?? [])
                     }
 

@@ -12,7 +12,7 @@ struct MainView: View {
     @State private var isOnboardingActive = !UserDefaults.standard.bool(forKey: "didCompleteOnboarding")
 
     var body: some View {
-        if isOnboardingActive {
+        if isOnboardingActive && UIDevice.current.userInterfaceIdiom != .pad {
             OnboardingMainView(isOnboardingActive: $isOnboardingActive)
                 .onDisappear {
                     // Set the UserDefaults flag when onboarding is completed

@@ -25,6 +25,7 @@ class WorkoutViewModel: ObservableObject {
     @Published var workouts: [WorkoutModel] = []
     @Published var groupedWorkouts: [String: [WorkoutModel]] = [:]
     @Published var uniqueWorkoutTypes: [String] = []
+    @Published var sortedMonths: [String] = []
 
     func createWorkout(type: String, colorData: Data? = nil, template: WorkoutTemplate?) -> Workout {
         
@@ -82,11 +83,40 @@ class WorkoutViewModel: ObservableObject {
     }
     
     func groupedWorkoutsByMonth() {
-        let workouts = Dictionary(grouping: workouts) { workout -> String in
-            let formatter = DateFormatter()
-            formatter.dateFormat = "MMMM yyyy" // Format the date to Month Year
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy" // Format the date to Month Year
+
+        // Convert the month and year back to a Date for sorting
+        let sortedWorkouts = workouts.sorted {
+            guard let date1 = formatter.date(from: formatter.string(from: $0.creationTime)),
+                  let date2 = formatter.date(from: formatter.string(from: $1.creationTime)) else {
+                return false
+            }
+            return date1 > date2
+        }
+
+
+        // Group the sorted workouts
+        let grouped = Dictionary(grouping: sortedWorkouts) { workout -> String in
             return formatter.string(from: workout.creationTime)
         }
-        self.groupedWorkouts = workouts
+
+        self.groupedWorkouts = grouped
+        
+        // 1. Convert the string keys back into Date objects for sorting
+        self.sortedMonths = self.groupedWorkouts.keys.compactMap { monthString -> Date? in
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MMMM yyyy"
+            return formatter.date(from: monthString)
+        }
+        // 2. Sort the dates in descending order
+        .sorted(by: { $0 > $1 })
+        // 3. Map back to string format
+        .map { date -> String in
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MMMM yyyy"
+            return formatter.string(from: date)
+        }
     }
+
 }
