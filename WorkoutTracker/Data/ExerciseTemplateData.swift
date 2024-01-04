@@ -35,7 +35,7 @@ class ExerciseTemplateData {
     
     func getAllExerciseTemplates() -> [ExerciseTemplate] {
         let request: NSFetchRequest<ExerciseTemplate> = ExerciseTemplate.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "ExerciseTemplate.name", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         
         do {

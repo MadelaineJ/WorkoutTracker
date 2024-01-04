@@ -29,7 +29,7 @@ class WorkoutTemplateDataTests: XCTestCase {
         let workoutType = "Strength"
         
         // When
-        inTest.createWorkoutTemplate(workoutType)
+        _ = inTest.createWorkoutTemplate(workoutType)
         
         // Then
         let allWorkoutTemplates = inTest.getAllWorkoutTemplates()
@@ -40,7 +40,7 @@ class WorkoutTemplateDataTests: XCTestCase {
     func testUpdateWorkoutTemplate() {
         // Given
         let workoutType = "Strength"
-        inTest.createWorkoutTemplate(workoutType)
+        _ = inTest.createWorkoutTemplate(workoutType)
         
         guard let existingWorkoutTemplate = inTest.getAllWorkoutTemplates().first else {
             XCTFail("There should be an existing workout template")
@@ -51,7 +51,7 @@ class WorkoutTemplateDataTests: XCTestCase {
         let updatedInfo = WorkoutTemplateInfo(type: updatedType)
         
         // When
-        inTest.updateWorkoutTemplate(existingWorkoutTemplate: existingWorkoutTemplate, with: updatedInfo)
+        inTest.updateWorkoutTemplate(existingWorkoutTemplate: existingWorkoutTemplate, with: updatedInfo, colour: nil)
         
         // Then
         let updatedWorkoutTemplate = inTest.getWorkoutTemplateById(id: existingWorkoutTemplate.objectID)
@@ -61,7 +61,7 @@ class WorkoutTemplateDataTests: XCTestCase {
     func testDeleteWorkoutTemplate() {
         // Given
         let workoutType = "Strength"
-        inTest.createWorkoutTemplate(workoutType)
+        _ = inTest.createWorkoutTemplate(workoutType)
         
         guard let existingWorkoutTemplate = inTest.getAllWorkoutTemplates().first else {
             XCTFail("There should be an existing workout template")
@@ -85,8 +85,8 @@ class WorkoutTemplateDataTests: XCTestCase {
         let workoutType1 = "Strength"
         let workoutType2 = "Cardio"
         
-        inTest.createWorkoutTemplate(workoutType1)
-        inTest.createWorkoutTemplate(workoutType2)
+        _ = inTest.createWorkoutTemplate(workoutType1)
+        _ = inTest.createWorkoutTemplate(workoutType2)
         
         // When
         let allWorkoutTemplates = inTest.getAllWorkoutTemplates()
@@ -98,7 +98,7 @@ class WorkoutTemplateDataTests: XCTestCase {
     func testGetWorkoutTemplateById() {
         // Given
         let workoutType = "Strength"
-        inTest.createWorkoutTemplate(workoutType)
+        _ = inTest.createWorkoutTemplate(workoutType)
         
         guard let existingWorkoutTemplate = inTest.getAllWorkoutTemplates().first else {
             XCTFail("There should be an existing workout template")

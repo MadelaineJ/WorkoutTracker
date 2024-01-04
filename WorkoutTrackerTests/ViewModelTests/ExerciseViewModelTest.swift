@@ -56,8 +56,8 @@ class ExerciseViewModelTests: XCTestCase {
     }
 
     func testGetExercisesByWorkout() {
-        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength")
-        mockWorkoutData.createWorkout(workoutInfo)
+        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength", template: nil)
+        _ = mockWorkoutData.createWorkout(workoutInfo)
         guard let workout = mockWorkoutData.getAllWorkouts().first else {
             XCTFail("Failed to create workout")
             return
@@ -73,20 +73,20 @@ class ExerciseViewModelTests: XCTestCase {
     }
 
     func testAddExerciseToWorkout() {
-        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength")
-        let workout = mockWorkoutData.createWorkout(workoutInfo)
+        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength", template: nil)
+        _ = mockWorkoutData.createWorkout(workoutInfo)
         guard let workout = mockWorkoutData.getAllWorkouts().first else {
             XCTFail("Failed to create workout")
             return
         }
 
-        viewModel.addExercise(id: workout.objectID, name: "Squats")
+        _ = viewModel.addExercise(id: workout.objectID, name: "Squats")
 
         viewModel.getExercises(workout: WorkoutModel(workout: workout))
 
         XCTAssertEqual(viewModel.exercises.count, 1)
     }
-
+//
     func testDeleteExercise() {
         let exercise = viewModel.createExercise(name: "Squats")
         viewModel.getAllExercises()

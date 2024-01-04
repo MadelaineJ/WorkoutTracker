@@ -57,8 +57,8 @@ class ExerciseDataTests: XCTestCase {
     }
     
     func testGetExercisesByWorkoutId() {
-        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength")
-        workoutData.createWorkout(workoutInfo) // This method doesn't return a workout, so we fetch it afterwards
+        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength", template: nil)
+        _ = workoutData.createWorkout(workoutInfo) // This method doesn't return a workout, so we fetch it afterwards
         
         guard let workout = workoutData.getAllWorkouts().first else {
             XCTFail("Failed to create workout")
@@ -89,8 +89,8 @@ class ExerciseDataTests: XCTestCase {
     }
 
     func testAddExerciseToWorkout() {
-        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength")
-        workoutData.createWorkout(workoutInfo) // This method doesn't return a workout, so we fetch it afterwards
+        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength", template: nil)
+        _ = workoutData.createWorkout(workoutInfo)
         
         guard let workout = workoutData.getAllWorkouts().first else {
             XCTFail("Failed to create workout")

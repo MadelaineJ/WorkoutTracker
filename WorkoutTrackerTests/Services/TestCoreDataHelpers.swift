@@ -11,8 +11,8 @@ import CoreData
 
 
 extension NSPersistentContainer {
-    static var inMemoryContainer: NSPersistentContainer {
-        let container = NSPersistentContainer(name: "WorkoutTracker")
+    static var inMemoryContainer: NSPersistentCloudKitContainer {
+        let container = NSPersistentCloudKitContainer(name: "WorkoutTracker")
         let description = NSPersistentStoreDescription()
         description.type = NSInMemoryStoreType
         description.shouldAddStoreAsynchronously = false
@@ -28,7 +28,7 @@ extension NSPersistentContainer {
 
 // Extensions for Dependency Injection
 extension DataManager {
-    convenience init(container: NSPersistentContainer) {
+    convenience init(container: NSPersistentCloudKitContainer) {
         self.init()
         self.persistentContainer = container
     }

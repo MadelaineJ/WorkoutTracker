@@ -75,7 +75,5 @@ class ExerciseTemplateDataTests: XCTestCase {
         let allExerciseTemplates = inTest.getAllExerciseTemplates()
         XCTAssertEqual(allExerciseTemplates.count, 0, "Should have no exercise templates after deletion")
     }
-    
-    // Add more tests here for other methods like `getExerciseTemplates`, `getExerciseTemplateById`, and `addExerciseTemplate`...
 }
 

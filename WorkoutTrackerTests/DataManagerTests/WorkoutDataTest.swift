@@ -26,10 +26,10 @@ class WorkoutDataTests: XCTestCase {
     
     func testCreateWorkout() {
         // Given
-        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength")
+        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength", template: nil)
         
         // When
-        inTest.createWorkout(workoutInfo)
+        _ = inTest.createWorkout(workoutInfo)
         
         // Then
         let allWorkouts = inTest.getAllWorkouts()
@@ -39,15 +39,15 @@ class WorkoutDataTests: XCTestCase {
     
     func testUpdateWorkout() {
         // Given
-        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength")
-        inTest.createWorkout(workoutInfo)
+        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength", template: nil)
+        _ = inTest.createWorkout(workoutInfo)
         
         guard let existingWorkout = inTest.getAllWorkouts().first else {
             XCTFail("There should be an existing workout")
             return
         }
         
-        let updatedInfo = WorkoutInfo(creationTime: Date(), type: "Cardio")
+        let updatedInfo = WorkoutInfo(creationTime: Date(), type: "Cardio", template: nil)
         
         // When
         inTest.updateWorkout(existingWorkout: existingWorkout, with: updatedInfo)
@@ -59,8 +59,8 @@ class WorkoutDataTests: XCTestCase {
     
     func testDeleteWorkout() {
         // Given
-        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength")
-        inTest.createWorkout(workoutInfo)
+        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength", template: nil)
+        _ = inTest.createWorkout(workoutInfo)
         
         guard let existingWorkout = inTest.getAllWorkouts().first else {
             XCTFail("There should be an existing workout")
@@ -81,11 +81,11 @@ class WorkoutDataTests: XCTestCase {
     
     func testGetAllWorkouts() {
         // Given
-        let workoutInfo1 = WorkoutInfo(creationTime: Date(), type: "Strength")
-        let workoutInfo2 = WorkoutInfo(creationTime: Date(), type: "Cardio")
+        let workoutInfo1 = WorkoutInfo(creationTime: Date(), type: "Strength", template: nil)
+        let workoutInfo2 = WorkoutInfo(creationTime: Date(), type: "Cardio", template: nil)
         
-        inTest.createWorkout(workoutInfo1)
-        inTest.createWorkout(workoutInfo2)
+        _ = inTest.createWorkout(workoutInfo1)
+        _ = inTest.createWorkout(workoutInfo2)
         
         // When
         let allWorkouts = inTest.getAllWorkouts()
@@ -96,10 +96,10 @@ class WorkoutDataTests: XCTestCase {
     
     func testGetAllWorkoutsByType() {
         // Given
-        let workoutInfoStrength = WorkoutInfo(creationTime: Date(), type: "Strength")
-        let workoutInfoCardio = WorkoutInfo(creationTime: Date(), type: "Cardio")
-        inTest.createWorkout(workoutInfoStrength)
-        inTest.createWorkout(workoutInfoCardio)
+        let workoutInfoStrength = WorkoutInfo(creationTime: Date(), type: "Strength", template: nil)
+        let workoutInfoCardio = WorkoutInfo(creationTime: Date(), type: "Cardio", template: nil)
+        _ = inTest.createWorkout(workoutInfoStrength)
+        _ = inTest.createWorkout(workoutInfoCardio)
         
         // When
         let strengthWorkouts = inTest.getAllWorkoutsByType(type: "Strength")
@@ -119,8 +119,8 @@ class WorkoutDataTests: XCTestCase {
     
     func testGetWorkoutById() {
         // Given
-        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength")
-        inTest.createWorkout(workoutInfo)
+        let workoutInfo = WorkoutInfo(creationTime: Date(), type: "Strength", template: nil)
+        _ = inTest.createWorkout(workoutInfo)
         
         guard let existingWorkout = inTest.getAllWorkouts().first else {
             XCTFail("There should be an existing workout")

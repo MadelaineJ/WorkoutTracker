@@ -9,7 +9,6 @@
     }
   ],
   "defaultOptions" : {
-    "codeCoverage" : false,
     "targetForVariableExpansion" : {
       "containerPath" : "container:WorkoutTracker.xcodeproj",
       "identifier" : "27077BA02AAE49D90024F035",
