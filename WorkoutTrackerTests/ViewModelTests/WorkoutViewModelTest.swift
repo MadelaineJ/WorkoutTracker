@@ -72,4 +72,5 @@ class WorkoutViewModelTests: XCTestCase {
             XCTFail("Delete operation failed with error: \(error)")
         }
     }
+    
 }

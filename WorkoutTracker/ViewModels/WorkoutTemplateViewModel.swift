@@ -7,7 +7,7 @@
 
 import Foundation
 import CoreData
-import Combine  // If you are using Combine for @Published property
+import Combine
 import UIKit
 import SwiftUI
 
@@ -84,6 +84,7 @@ class WorkoutTemplateViewModel: ObservableObject {
     
     func getAssociatedWorkouts(templateId: NSManagedObjectID) -> [WorkoutModel]  {
 
+        workoutViewModel.getAllWorkouts()
         let associatedWorkouts = workoutViewModel.workouts.filter { workout in
             guard let workoutTemplateId = workout.template?.objectID else {
                 return false

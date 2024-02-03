@@ -29,14 +29,12 @@ struct MonthSectionView: View {
                         }
                 }
             }
-
             .onDelete(perform: deleteWorkout)
             .listRowSeparator(.hidden)
             .listSectionSeparator(.visible, edges: .top) // This will show the divider only below the header
 
         }
     }
-    
     
     func deleteWorkout(at offsets: IndexSet) {
         

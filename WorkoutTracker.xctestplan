@@ -17,20 +17,10 @@
   },
   "testTargets" : [
     {
-      "parallelizable" : true,
       "target" : {
         "containerPath" : "container:WorkoutTracker.xcodeproj",
         "identifier" : "27077BB62AAE49DA0024F035",
         "name" : "WorkoutTrackerTests"
-      }
-    },
-    {
-      "enabled" : false,
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:WorkoutTracker.xcodeproj",
-        "identifier" : "27077BC02AAE49DA0024F035",
-        "name" : "WorkoutTrackerUITests"
       }
     }
   ],
