@@ -33,6 +33,7 @@
 		274194F22AD3687700D010D0 /* ExerciseDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274194F12AD3687700D010D0 /* ExerciseDataTest.swift */; };
 		274194F42AD368C600D010D0 /* WorkoutDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274194F32AD368C600D010D0 /* WorkoutDataTest.swift */; };
 		275116D22B49F16F00DD3CF8 /* WorkoutTemplateViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275116D12B49F16F00DD3CF8 /* WorkoutTemplateViewModelTest.swift */; };
+		2757FC4C2B6F00F500876924 /* DuplicateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2757FC4B2B6F00F500876924 /* DuplicateButton.swift */; };
 		276A6DD62AEF1BF0008EA0D8 /* WorkoutTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A6DD52AEF1BF0008EA0D8 /* WorkoutTemplateView.swift */; };
 		276A6DD82AEF21E8008EA0D8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A6DD72AEF21E8008EA0D8 /* MainView.swift */; };
 		276A6DDA2AEF2E3D008EA0D8 /* ExerciseTemplateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276A6DD92AEF2E3D008EA0D8 /* ExerciseTemplateView.swift */; };
@@ -107,6 +108,7 @@
 		274194F12AD3687700D010D0 /* ExerciseDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDataTest.swift; sourceTree = "<group>"; };
 		274194F32AD368C600D010D0 /* WorkoutDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDataTest.swift; sourceTree = "<group>"; };
 		275116D12B49F16F00DD3CF8 /* WorkoutTemplateViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplateViewModelTest.swift; sourceTree = "<group>"; };
+		2757FC4B2B6F00F500876924 /* DuplicateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuplicateButton.swift; sourceTree = "<group>"; };
 		276A6DD42AEEF29E008EA0D8 /* WorkoutTracker.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = WorkoutTracker.xctestplan; sourceTree = "<group>"; };
 		276A6DD52AEF1BF0008EA0D8 /* WorkoutTemplateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTemplateView.swift; sourceTree = "<group>"; };
 		276A6DD72AEF21E8008EA0D8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 				270924752ADB0C73009B665F /* WorkoutCard.swift */,
 				276A6DDB2AEF319D008EA0D8 /* ExerciseTemplateCard.swift */,
 				27EDCD902ADC6B8100A5B315 /* SetCard.swift */,
+				2757FC4B2B6F00F500876924 /* DuplicateButton.swift */,
 				271B29252AFEA9CC00A1CC8A /* DeleteButton.swift */,
 				27EDBBED2B0802C60083509A /* TemplateCard.swift */,
 				27A2B6362B11270400EC4E23 /* MonthSectionView.swift */,
@@ -479,6 +482,7 @@
 				272EBF932AE2F5DA00126645 /* ViewExtension.swift in Sources */,
 				27715EB52AEDCFBD002B588B /* WorkoutTemplateViewModel.swift in Sources */,
 				27715EB12AEDC547002B588B /* ExerciseTemplateData.swift in Sources */,
+				2757FC4C2B6F00F500876924 /* DuplicateButton.swift in Sources */,
 				27EDCD932ADCA09A00A5B315 /* SimpleInputModalView.swift in Sources */,
 				276A6DDC2AEF319D008EA0D8 /* ExerciseTemplateCard.swift in Sources */,
 				27EDCD912ADC6B8100A5B315 /* SetCard.swift in Sources */,

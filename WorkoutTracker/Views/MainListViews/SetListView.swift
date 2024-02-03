@@ -94,7 +94,11 @@ struct SetListView: View {
                                         let newInfo = ExerciseSetInfo(creationTime: exerciseSet.creationTime, weight: exerciseSet.weight, reps: Int64(newValue))
                                         viewModel.update(exerciseSet: exerciseSet, withNewInfo: newInfo)
                                         viewModel.getExerciseSets(exercise: exercise)
-                                    })
+                                    }),
+                                onDuplicate: {
+                                    // Closure that calls the ViewModel to duplicate the set
+                                    viewModel.duplicateExerciseSet(setModel: exerciseSet, exercise: exercise)
+                                }
                             )
                             .id(exerciseSet.id)
                         }

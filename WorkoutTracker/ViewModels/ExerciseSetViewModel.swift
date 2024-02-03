@@ -52,4 +52,22 @@ class ExerciseSetViewModel: ObservableObject {
             controller.deleteSet(exerciseSet: existingSet)
         }
     }
+    
+    func duplicateExerciseSet(setModel: SetModel, exercise: ExerciseModel) {
+        let newSetInfo = ExerciseSetInfo(
+            creationTime: Date(), // Use the current date/time for the new set's creation time
+            weight: setModel.weight,
+            reps: setModel.reps
+        )
+        
+        // Use the controller to create a new ExerciseSet with the same weight and reps as the original.
+        let newExerciseSet = controller.createExerciseSet(newSetInfo)
+        
+        // Add the newly created ExerciseSet to the specified exercise.
+        controller.addExerciseSet(exerciseId: exercise.id, exerciseSet: newExerciseSet)
+        
+        // Update the local exerciseSets array to reflect this addition.
+        getExerciseSets(exercise: exercise)
+    }
+
 }
