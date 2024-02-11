@@ -9,8 +9,6 @@ import Foundation
 import CoreData
 import SwiftUI
 
-import CoreData
-
 class DataManager {
     
     static let shared = DataManager()

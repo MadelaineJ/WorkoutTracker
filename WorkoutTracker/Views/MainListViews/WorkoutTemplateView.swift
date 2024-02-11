@@ -79,11 +79,14 @@ struct WorkoutTemplateView: View {
             .navigationDestination(for: WorkoutTemplateModel.self) { workoutTemplate in
                 ExerciseTemplateView(workoutTemplate: workoutTemplate, editableWorkoutName: workoutTemplate.type, navigationPath: $navigationPath)
             }
+            // TODO: Do we need this code now that you can't edit templates?
             .onChange(of: viewModel.workoutTemplates.count) { newCount in
                 if newCount == 0 && isEditMode == .active {
                     isEditMode = .inactive
                 }
             }
+            
+            
             .onAppear(perform: {
                 viewModel.getAllWorkoutTemplates()
             })
