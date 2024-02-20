@@ -35,6 +35,11 @@ struct MainView: View {
                             Label("Templates", systemImage: "square.grid.2x2")
                         }
                         .tag(1)
+                    ExerciseTemplateListView()
+                        .tabItem {
+                            Label("Best", systemImage: "square.grid.2x2")
+                        }
+                        .tag(2)
                 }
                 .background(Color.white)
             }

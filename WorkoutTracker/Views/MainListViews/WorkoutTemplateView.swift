@@ -67,7 +67,7 @@ struct WorkoutTemplateView: View {
                         .padding(.top, 40)
                         .padding(.horizontal)
                     }
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 25)
                     .onAppear(perform: {
                         viewModel.getAllWorkoutTemplates()
                     })
@@ -75,16 +75,6 @@ struct WorkoutTemplateView: View {
                     Text("No Workout Templates")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-                
-                // Exercise Template List View
-                NavigationLink {
-                    ExerciseTemplateListView()
-                } label: {
-                    Label("View Exercise Templates", systemImage: "figure.run.circle.fill")
-                        .foregroundColor(Color(.systemIndigo))
-                }
-                .padding(.bottom, 40)
-                
             }
             .navigationDestination(for: WorkoutTemplateModel.self) { workoutTemplate in
                 ExerciseTemplateView(workoutTemplate: workoutTemplate, editableWorkoutName: workoutTemplate.type, navigationPath: $navigationPath)
@@ -95,13 +85,13 @@ struct WorkoutTemplateView: View {
                     isEditMode = .inactive
                 }
             }
+            
+            
             .onAppear(perform: {
                 viewModel.getAllWorkoutTemplates()
             })
         }
         .background(Color(.white))
-        
-        
     }
     func isTemplateNameUnique() -> Bool {
         let isUnique = !viewModel.workoutTemplates.contains(where: { $0.type.lowercased() == inputText.lowercased() })
