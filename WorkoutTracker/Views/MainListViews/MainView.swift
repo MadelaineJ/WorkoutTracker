@@ -29,17 +29,17 @@ struct MainView: View {
                             Label("Workouts", systemImage: "list.bullet")
                         }
                         .tag(0)
-
-                    WorkoutTemplateView()
-                        .tabItem {
-                            Label("Templates", systemImage: "square.grid.2x2")
-                        }
-                        .tag(1)
                     ExerciseTemplateListView()
                         .tabItem {
-                            Label("Best", systemImage: "square.grid.2x2")
+                            Label("Exercise Templates", systemImage: "tray.full")
+                        }
+                        .tag(1)
+                    WorkoutTemplateView()
+                        .tabItem {
+                            Label("Workout Templates", systemImage: "square.grid.2x2")
                         }
                         .tag(2)
+
                 }
                 .background(Color.white)
             }
