@@ -11,6 +11,7 @@ import CoreData
 class ExerciseTemplateViewModel: ObservableObject {
     
     var controller: ExerciseTemplateData
+    var workoutViewModel: WorkoutTemplateViewModel = WorkoutTemplateViewModel()
 
     init(controller: ExerciseTemplateData = ExerciseTemplateData()) {
         self.controller = controller
@@ -20,6 +21,7 @@ class ExerciseTemplateViewModel: ObservableObject {
     
     func createExerciseTemplate(name: String) -> ExerciseTemplate {
         let exerciseTemplate = controller.createExerciseTemplate(name)
+        getAllExerciseTemplates()
         return exerciseTemplate
     }
     
@@ -48,5 +50,17 @@ class ExerciseTemplateViewModel: ObservableObject {
         if let existingExerciseTemplate = existingExerciseTemplate {
             controller.deleteExerciseTemplate(exerciseTemplate: existingExerciseTemplate)
         }
+    }
+    
+    func checkDelete(exerciseTemplate: ExerciseTemplateModel) -> Bool {
+        workoutViewModel.getAllWorkoutTemplates()
+        let workouts = workoutViewModel.workoutTemplates
+        for workout in workouts {
+            if workoutViewModel.getExercisesForWorkout(workoutTemplate: workout).contains(exerciseTemplate) {
+                return false
+            }
+        }
+        
+        return true
     }
 }

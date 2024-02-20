@@ -12,6 +12,7 @@ struct MainView: View {
     @State private var isOnboardingActive = !UserDefaults.standard.bool(forKey: "didCompleteOnboarding")
 
     var body: some View {
+        
         if isOnboardingActive && UIDevice.current.userInterfaceIdiom != .pad {
             OnboardingMainView(isOnboardingActive: $isOnboardingActive)
                 .onDisappear {
@@ -34,6 +35,11 @@ struct MainView: View {
                             Label("Templates", systemImage: "square.grid.2x2")
                         }
                         .tag(1)
+                    ExerciseTemplateListView()
+                        .tabItem {
+                            Label("Best", systemImage: "square.grid.2x2")
+                        }
+                        .tag(2)
                 }
                 .background(Color.white)
             }

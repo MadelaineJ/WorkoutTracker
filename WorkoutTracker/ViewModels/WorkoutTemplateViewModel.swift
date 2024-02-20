@@ -43,6 +43,7 @@ class WorkoutTemplateViewModel: ObservableObject {
         workoutTemplates = controller.getAllWorkoutTemplates().map(WorkoutTemplateModel.init)
     }
     
+
     func getExercisesForWorkout(workoutTemplate: WorkoutTemplateModel) -> [ExerciseTemplateModel] {
         return exerciseController.getExerciseTemplates(workoutId: workoutTemplate.id).map(ExerciseTemplateModel.init)
     }
