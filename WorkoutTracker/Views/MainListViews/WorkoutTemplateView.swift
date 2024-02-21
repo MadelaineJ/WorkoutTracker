@@ -11,6 +11,8 @@ struct WorkoutTemplateView: View {
     @EnvironmentObject private var viewModel: WorkoutTemplateViewModel
     @EnvironmentObject private var exerciseViewModel: ExerciseTemplateViewModel
     
+    @Binding var selectedTab: Int
+    
     @State private var isShowingInputModal = false
     @State private var inputText = ""
     @State private var isNameNotUnique = false
@@ -21,7 +23,7 @@ struct WorkoutTemplateView: View {
 
     let cardHeight: CGFloat = 150 // Fixed vertical size for each card
 
-    private var gridLayout: [GridItem] = Array(repeating: .init(.flexible(), spacing: 20), count: 2)
+    var gridLayout: [GridItem] = Array(repeating: .init(.flexible(), spacing: 20), count: 2)
 
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -77,7 +79,7 @@ struct WorkoutTemplateView: View {
                 }
             }
             .navigationDestination(for: WorkoutTemplateModel.self) { workoutTemplate in
-                ExerciseTemplateView(workoutTemplate: workoutTemplate, editableWorkoutName: workoutTemplate.type, navigationPath: $navigationPath)
+                ExerciseTemplateView(workoutTemplate: workoutTemplate, editableWorkoutName: workoutTemplate.type, navigationPath: $navigationPath, selectedTab: $selectedTab)
             }
             // TODO: Do we need this code now that you can't edit templates?
             .onChange(of: viewModel.workoutTemplates.count) { newCount in
@@ -85,7 +87,6 @@ struct WorkoutTemplateView: View {
                     isEditMode = .inactive
                 }
             }
-            
             
             .onAppear(perform: {
                 viewModel.getAllWorkoutTemplates()
@@ -112,14 +113,8 @@ struct WorkoutTemplateView: View {
 }
 
 struct TemplateView_Previews: PreviewProvider {
+    @State static var tab: Int = 0
     static var previews: some View {
-        let mockDataManager = DataManager(storeType: .inMemory)
-        
-        let mockDataWorkoutController = WorkoutTemplateData(dataManager: mockDataManager)
-        let mockViewWorkoutModel = WorkoutTemplateViewModel(controller: mockDataWorkoutController)
-        
-        
-        return WorkoutTemplateView()
-            .environmentObject(mockViewWorkoutModel)
+        WorkoutTemplateView(selectedTab: $tab)
     }
 }

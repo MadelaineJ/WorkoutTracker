@@ -12,7 +12,7 @@ struct ExerciseTemplateInfo {
     let name: String
 }
 
-struct ExerciseTemplateModel: Identifiable, Hashable {
+struct ExerciseTemplateModel: Hashable, Identifiable {
     let exercise: ExerciseTemplate
     
     var id: NSManagedObjectID {

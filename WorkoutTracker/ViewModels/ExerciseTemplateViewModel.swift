@@ -36,6 +36,10 @@ class ExerciseTemplateViewModel: ObservableObject {
         exerciseTemplates = controller.getAllExerciseTemplates().map(ExerciseTemplateModel.init) // Assuming you have a similar initializer in ExerciseTemplateModel
     }
     
+    func returnAllExerciseTemplates() -> [ExerciseTemplateModel] {
+        return controller.getAllExerciseTemplates().map(ExerciseTemplateModel.init) // Assuming you have a similar initializer in ExerciseTemplateModel
+    }
+    
     func getExerciseTemplates(workoutTemplate: WorkoutTemplateModel) {
         exerciseTemplates = controller.getExerciseTemplates(workoutId: workoutTemplate.id).map(ExerciseTemplateModel.init)
     }

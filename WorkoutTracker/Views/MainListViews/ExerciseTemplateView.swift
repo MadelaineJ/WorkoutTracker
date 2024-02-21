@@ -16,14 +16,18 @@ struct ExerciseTemplateView: View {
     var workoutTemplate: WorkoutTemplateModel
     @State var editableWorkoutName: String
     @Binding var navigationPath: NavigationPath
+    @Binding var selectedTab: Int
     
     @State private var isShowingInputModal = false
     @State private var inputText = ""
+    @State private var isNameNotUnique = false
     @State private var selectedColor: Color = Color.white  // Color picker state variable
     @State private var showAlert: Bool = false
     @State private var isEditing: Bool = false  // State to control editing
     @State private var alertMessage: String = ""  // Alert message
     @FocusState private var isTextFieldFocused: Bool  // Focus state
+    @State private var selectedTemplate: ExerciseTemplateModel? = nil
+    @State private var showTextField: Bool = false
 
     var body: some View {
         VStack {
@@ -85,15 +89,15 @@ struct ExerciseTemplateView: View {
                     .background(Color.clear)
                     .cornerRadius(30)
                     .sheet(isPresented: $isShowingInputModal) {
-                        SimpleInputModalView(
-                            inputText: $inputText,
-                            isNameNotUnique: .constant(false),  // Always false as uniqueness is not required
-                            onSubmit: {
+                        InputModalViewExercises(inputText: $inputText, isNameNotUnique: $isNameNotUnique,
+                                                templates: viewModel.returnAllExerciseTemplates(), // Direct array, not a Binding
+                                                selectedTemplate: $selectedTemplate,
+                                                showTextField: $showTextField,
+                                                selectedTab: $selectedTab,
+                                                onSubmit: { /* Your onSubmit code */
                                 viewModel.addExerciseTemplate(workoutTemplate: workoutTemplate, name: inputText)
                                 viewModel.getExerciseTemplates(workoutTemplate: workoutTemplate)
-                            },
-                            isNameValid: { true }  // Always returns true, as uniqueness is not required
-                        )
+                            }, isNameValid: isTemplateNameUnique)
                     }
                 }
 
@@ -169,6 +173,11 @@ struct ExerciseTemplateView: View {
                 workout.type == name
             }
         }
+    }
+    func isTemplateNameUnique() -> Bool {
+        let isUnique = !viewModel.exerciseTemplates.contains(where: { $0.name.lowercased() == inputText.lowercased() })
+        isNameNotUnique = !isUnique  // Set the state variable based on uniqueness
+        return isUnique
     }
 }
 

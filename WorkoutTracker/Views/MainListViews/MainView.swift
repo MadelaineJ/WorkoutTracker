@@ -34,7 +34,7 @@ struct MainView: View {
                             Label("Exercise Templates", systemImage: "tray.full")
                         }
                         .tag(1)
-                    WorkoutTemplateView()
+                    WorkoutTemplateView(selectedTab: $selectedTab)
                         .tabItem {
                             Label("Workout Templates", systemImage: "square.grid.2x2")
                         }
