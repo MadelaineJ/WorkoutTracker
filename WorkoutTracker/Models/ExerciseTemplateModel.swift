@@ -22,4 +22,8 @@ struct ExerciseTemplateModel: Hashable, Identifiable {
     var name: String {
         return exercise.name ?? ""
     }
+    
+    var creationDate: Date {
+        return exercise.creationDate ?? Date.distantPast
+    }
 }

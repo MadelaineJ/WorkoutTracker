@@ -21,6 +21,7 @@ class ExerciseTemplateData {
     func createExerciseTemplate(_ name: String) -> ExerciseTemplate {
         let exerciseTemplate = ExerciseTemplate(context: dataManager.viewContext)
         exerciseTemplate.name = name
+        exerciseTemplate.creationDate = Date()
 
         dataManager.save()
         
