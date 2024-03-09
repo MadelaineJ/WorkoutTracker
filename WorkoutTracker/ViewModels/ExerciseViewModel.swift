@@ -28,6 +28,12 @@ class ExerciseViewModel: ObservableObject {
         let exerciseName = exerciseTemplate.name
         return createExercise(name: exerciseName)
     }
+    
+    func addExerciseFromTemplate(exerciseTemplate: ExerciseTemplateModel, workout: WorkoutModel) -> Exercise {
+        // Create an exercise using information from the exercise template
+        
+        return addExercise(id: workout.id, name: exerciseTemplate.name)
+    }
 
     
     func update(exercise: ExerciseModel, withNewInfo newInfo: ExerciseInfo) {

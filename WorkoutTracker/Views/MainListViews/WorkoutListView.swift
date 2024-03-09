@@ -120,7 +120,7 @@ struct WorkoutListView: View {
                    isEditMode = .inactive
             })
             .navigationDestination(for: WorkoutModel.self) { workout in
-                ExerciseListView(workout: workout, navigationPath: $navigationPath)
+                ExerciseListView(workout: workout, selectedTab: $selectedTab, navigationPath: $navigationPath)
             }
             .onChange(of: viewModel.workouts.count) { newCount in
                 if newCount == 0 && isEditMode == .active {

@@ -90,11 +90,11 @@ struct ExerciseTemplateView: View {
                     .cornerRadius(30)
                     .sheet(isPresented: $isShowingInputModal) {
                         InputModalViewExercises(inputText: $inputText, isNameNotUnique: $isNameNotUnique,
-                                                templates: viewModel.returnAllExerciseTemplates(), // Direct array, not a Binding
+                                                templates: viewModel.returnAllExerciseTemplates(),
                                                 selectedTemplate: $selectedTemplate,
                                                 showTextField: $showTextField,
                                                 selectedTab: $selectedTab,
-                                                onSubmit: { /* Your onSubmit code */
+                                                onSubmit: {
                                 viewModel.addExerciseTemplate(workoutTemplate: workoutTemplate, name: inputText)
                                 viewModel.getExerciseTemplates(workoutTemplate: workoutTemplate)
                             }, isNameValid: isTemplateNameUnique)
@@ -182,6 +182,7 @@ struct ExerciseTemplateView: View {
 }
 
 struct ExerciseTemplateView_Previews: PreviewProvider {
+    @State static private var selectedTab: Int = 0
     static var previews: some View {
         
         let mockDataManager = DataManager(storeType: .inMemory)
@@ -196,7 +197,7 @@ struct ExerciseTemplateView_Previews: PreviewProvider {
 
         let navigationPath = NavigationPath()
         let mockViewModel = ExerciseTemplateViewModel(controller: mockDataController)
-        return ExerciseListView(workout: WorkoutModel(workout: workout), navigationPath: .constant(navigationPath))
+        return ExerciseListView(workout: WorkoutModel(workout: workout), selectedTab: $selectedTab, navigationPath: .constant(navigationPath))
             .environmentObject(mockViewModel)
             .environmentObject(mockViewWorkoutModel)
     }

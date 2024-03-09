@@ -13,17 +13,22 @@ struct ExerciseListView: View {
     
     @EnvironmentObject private var viewModel: ExerciseViewModel
     @EnvironmentObject private var workoutViewModel: WorkoutViewModel
-    
+    @EnvironmentObject private var templateViewModel: ExerciseTemplateViewModel
+
     var workout: WorkoutModel
     
     @State private var isShowingInputModal = false
     @State private var inputText = ""
     @State private var editableWorkoutName: String = ""
     @State private var showingDeleteAlert = false
+    @State private var isNameNotUnique = false
     @State private var isEditMode: EditMode = .inactive
     @State private var isEditing: Bool = true  // State to control editing
     @FocusState private var isTextFieldFocused: Bool  // Focus state
+    @State private var selectedTemplate: ExerciseTemplateModel? = nil
+    @State private var showTextField: Bool = false
     
+    @Binding var selectedTab: Int
     @Binding var navigationPath: NavigationPath
 
     var body: some View {
@@ -70,12 +75,23 @@ struct ExerciseListView: View {
                 .background(Color.clear)
                 .cornerRadius(30)
                 .sheet(isPresented: $isShowingInputModal) {
-                    SimpleInputModalView(inputText: $inputText, isNameNotUnique: .constant(false), onSubmit: {
-                        let exercise = ExerciseModel(exercise: viewModel.addExercise(id: workout.id, name: inputText))
-                        viewModel.getExercises(workout: workout)
-                        navigationPath.append(exercise)
-                    }, isNameValid: { true })  // Always returns true as uniqueness is not required
+                    InputModalViewExercises(inputText: $inputText,
+                        isNameNotUnique: $isNameNotUnique,
+                        templates: templateViewModel.returnAllExerciseTemplates(), // Direct array, not a Binding
+                        selectedTemplate: $selectedTemplate,
+                        showTextField: $showTextField,
+                        selectedTab: $selectedTab,
+                        onSubmit: { // Start of onSubmit closure
+                        
+                            if let selectedTemplate = selectedTemplate {
+                                let exercise = viewModel.addExerciseFromTemplate(exerciseTemplate: selectedTemplate, workout: workout)
+                                navigationPath.append(ExerciseModel(exercise: exercise))
+                            }
+                            viewModel.getExercises(workout: workout)
+                        }, // Properly closing the onSubmit closure
+                        isNameValid: isExerciseNameUnique)
                 }
+
                 
                 
                 if viewModel.exercises.count != 0 {
@@ -130,9 +146,15 @@ struct ExerciseListView: View {
             
         }
     }
+    func isExerciseNameUnique() -> Bool {
+        let isUnique = !viewModel.exercises.contains(where: { $0.name.lowercased() == inputText.lowercased() })
+        isNameNotUnique = !isUnique  // Set the state variable based on uniqueness
+        return isUnique
+    }
 }
 
 struct ExerciseListView_Previews: PreviewProvider {
+    @State static var tab: Int = 0
     static var previews: some View {
         
         let mockDataManager = DataManager(storeType: .inMemory)
@@ -149,7 +171,7 @@ struct ExerciseListView_Previews: PreviewProvider {
         let navigationPath = NavigationPath()
         
         let mockViewModel = ExerciseViewModel(controller: mockDataController)
-        return ExerciseListView(workout: WorkoutModel(workout: workout), navigationPath: .constant(navigationPath))
+        return ExerciseListView(workout: WorkoutModel(workout: workout), selectedTab: $tab, navigationPath: .constant(navigationPath))
             .environmentObject(mockViewModel)
             .environmentObject(mockViewWorkoutModel)
     }

@@ -29,8 +29,7 @@ struct InputModalViewExercises: View {
                 if templates.count > 0 {
                     Picker(selection: $selectedTemplate, label: Text("Templates")) {
                         ForEach(templates) { template in
-                            Text(template.name).tag(template as? ExerciseTemplateModel)
-
+                            Text(template.name).tag(template as ExerciseTemplateModel?)
                         }
                     }
                     .pickerStyle(WheelPickerStyle())

@@ -18,7 +18,7 @@ class ExerciseData {
         self.workoutController = WorkoutData(dataManager: dataManager)
     }
     
-    
+     
     func createExercise(_ exerciseInfo: ExerciseInfo) -> Exercise {
         let exercise = Exercise(context: dataManager.viewContext)
         exercise.creationTime = exerciseInfo.creationTime

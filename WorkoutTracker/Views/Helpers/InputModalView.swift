@@ -54,7 +54,7 @@ struct InputModalView: View {
 
                         Button(action: {
                             self.presentationMode.wrappedValue.dismiss()
-                            self.selectedTab = 1 // Set the selectedTab to navigate to the Templates tab
+                            self.selectedTab = 2 // Set the selectedTab to navigate to the Templates tab
                         }) {
                             HStack {
                                 Image(systemName: "square.grid.2x2")
