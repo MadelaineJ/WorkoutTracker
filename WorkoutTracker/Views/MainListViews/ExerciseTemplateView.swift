@@ -90,14 +90,18 @@ struct ExerciseTemplateView: View {
                     .cornerRadius(30)
                     .sheet(isPresented: $isShowingInputModal) {
                         InputModalViewExercises(inputText: $inputText, isNameNotUnique: $isNameNotUnique,
-                                                templates: viewModel.returnAllExerciseTemplates(),
-                                                selectedTemplate: $selectedTemplate,
-                                                showTextField: $showTextField,
-                                                selectedTab: $selectedTab,
-                                                onSubmit: {
+                            templates: viewModel.returnAllExerciseTemplates(),
+                            selectedTemplate: $selectedTemplate,
+                            showTextField: $showTextField,
+                            selectedTab: $selectedTab,
+                            onSubmit: {
+                            if self.showTextField {
                                 viewModel.addExerciseTemplate(workoutTemplate: workoutTemplate, name: inputText)
-                                viewModel.getExerciseTemplates(workoutTemplate: workoutTemplate)
-                            }, isNameValid: isTemplateNameUnique)
+                            } else if let template = self.selectedTemplate {
+                                viewModel.addExerciseTemplate(workoutTemplate: workoutTemplate, name: template.name)
+                            }
+                            viewModel.getExerciseTemplates(workoutTemplate: workoutTemplate)
+                        }, isNameValid: isTemplateNameUnique)
                     }
                 }
 
@@ -158,8 +162,8 @@ struct ExerciseTemplateView: View {
     }
     func deleteExercise(at offsets: IndexSet) {
         offsets.forEach { index in
-            let set = viewModel.exerciseTemplates[index] // get the set to be deleted
-            viewModel.delete(set)
+            let exercise = viewModel.exerciseTemplates[index] // get the set to be deleted
+            viewModel.remove(exerciseTemplate: exercise, workoutTemplate: workoutTemplate)
             viewModel.getExerciseTemplates(workoutTemplate: workoutTemplate)
             
         }

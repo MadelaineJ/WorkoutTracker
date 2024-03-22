@@ -28,7 +28,7 @@ struct InputModalViewExercises: View {
                     .padding(.horizontal)
                 if templates.count > 0 {
                     Picker(selection: $selectedTemplate, label: Text("Templates")) {
-                        ForEach(templates) { template in
+                        ForEach(templates, id: \.id) { template in
                             Text(template.name).tag(template as ExerciseTemplateModel?)
                         }
                     }
@@ -37,6 +37,8 @@ struct InputModalViewExercises: View {
                     .padding(.horizontal, 40)
 
                     Button(action: {
+                        print("HELP ME")
+                        print(selectedTemplate as Any)
                         onSubmit()
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
@@ -71,11 +73,7 @@ struct InputModalViewExercises: View {
                     .padding(.top, 20)
                     .frame(maxWidth: .infinity, alignment: .center)
                 }
-
-
-
             }
-            
             
             Text("Or")
                 .padding(.top, 20)

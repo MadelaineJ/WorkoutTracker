@@ -69,9 +69,6 @@ struct InputModalView: View {
                     .padding(.top, 20)
                     .frame(maxWidth: .infinity, alignment: .center)
                 }
-
-
-
             }
             Text("Or")
                 .padding(.top, 20)

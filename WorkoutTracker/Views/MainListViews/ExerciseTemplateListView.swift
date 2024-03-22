@@ -8,6 +8,7 @@
 import SwiftUI
 
 
+
 struct ExerciseTemplateListView: View {
     
     @EnvironmentObject private var viewModel: ExerciseTemplateViewModel
@@ -23,23 +24,33 @@ struct ExerciseTemplateListView: View {
     
     enum SortOption {
         case az, za, newest, oldest
+
+        var displayName: String {
+            switch self {
+            case .az:
+                return "A-Z"
+            case .za:
+                return "Z-A"
+            case .newest:
+                return "Newest"
+            case .oldest:
+                return "Oldest"
+            }
+        }
     }
     
     var sortedExerciseTemplates: [ExerciseTemplateModel] {
         switch sortOption {
         case .az:
-            return viewModel.exerciseTemplates.sorted(by: { ($0.name as String) < ($1.name as String) })
+            return viewModel.exerciseTemplates.sorted(by: { $0.name.lowercased() < $1.name.lowercased() })
         case .za:
-            return viewModel.exerciseTemplates.sorted(by: { ($0.name as String) > ($1.name as String) })
+            return viewModel.exerciseTemplates.sorted(by: { $0.name.lowercased() > $1.name.lowercased() })
         case .newest:
-            // Assuming `creationDate` is of type Date
-            return viewModel.exerciseTemplates.sorted(by: { ($0.creationDate as Date) > ($1.creationDate as Date) })
+            return viewModel.exerciseTemplates.sorted(by: { $0.creationDate > $1.creationDate })
         case .oldest:
-            // Assuming `creationDate` is of type Date
-            return viewModel.exerciseTemplates.sorted(by: { ($0.creationDate as Date) < ($1.creationDate as Date) })
+            return viewModel.exerciseTemplates.sorted(by: { $0.creationDate < $1.creationDate })
         }
     }
-
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -81,14 +92,19 @@ struct ExerciseTemplateListView: View {
                         Button("Newest", action: { sortOption = .newest })
                         Button("Oldest", action: { sortOption = .oldest })
                     } label: {
-                        Label("Sort", systemImage: "arrow.up.arrow.down")
+                        HStack {
+                            Image(systemName: "arrow.up.arrow.down")
+                            Text(sortOption.displayName) // Use sortOption directly
+                        }
                     }
                     .padding(.horizontal, 25)
                     .padding(.vertical, 20)
+
                     Spacer()
                     Text("\(sortedExerciseTemplates.count) templates")
                         .padding(.horizontal, 25)
                 }
+
 
                 List {
                     ForEach(sortedExerciseTemplates, id: \.self) { exercise in
@@ -117,25 +133,33 @@ struct ExerciseTemplateListView: View {
     }
 
     func deleteExerciseTemplate(at offsets: IndexSet) {
-        
-        offsets.forEach { index in
-            let exercise = viewModel.exerciseTemplates[index] // get the set to be deleted
-            // write a viewmodel function that checks to see if it can be deleted.
-            if viewModel.checkDelete(exerciseTemplate: exercise) {
-                viewModel.delete(exercise)
-                viewModel.getAllExerciseTemplates() // Refresh data
-            } else {
-                showingDeleteAlert = true
+        offsets.forEach { offset in
+            // Find the exercise template in the sorted list.
+            let exerciseToDelete = sortedExerciseTemplates[offset]
+            
+            // Now find this exercise template's index in the original viewModel.exerciseTemplates array.
+            if let indexInOriginal = viewModel.exerciseTemplates.firstIndex(where: { $0.id == exerciseToDelete.id }) {
+                let exercise = viewModel.exerciseTemplates[indexInOriginal] // get the item to be deleted from the original array
+                
+                // Check if it can be deleted.
+                if viewModel.checkDelete(exerciseTemplate: exercise) {
+                    viewModel.delete(exercise)
+                    viewModel.getAllExerciseTemplates() // Refresh data
+                } else {
+                    showingDeleteAlert = true
+                }
             }
         }
-
     }
+
     
     func isTemplateNameUnique() -> Bool {
         let isUnique = !viewModel.exerciseTemplates.contains(where: { $0.name.lowercased() == inputText.lowercased() })
         isNameNotUnique = !isUnique  // Set the state variable based on uniqueness
         return isUnique
     }
+    
+    
 }
 
 #Preview {

@@ -81,6 +81,21 @@ class ExerciseTemplateData {
         }
     }
     
+    func removeExerciseTemplate(workoutId: NSManagedObjectID, exerciseTemplate: ExerciseTemplate) {
+
+        guard let workout = workoutController.getWorkoutTemplateById(id: workoutId) else {
+            return
+        }
+        
+        workout.removeFromExercises(exerciseTemplate)
+        
+        do {
+            try dataManager.viewContext.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     func deleteExerciseTemplate(exerciseTemplate: ExerciseTemplate) {
         dataManager.viewContext.delete(exerciseTemplate)
         do {
